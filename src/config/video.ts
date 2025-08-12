@@ -17,7 +17,7 @@ export const video: VideoType.VideoConfig = {
   tagArray: [
     {
       name: ['4K'],
-      icon: 'tag-fourK',
+      icon: 'tag-4k',
     },
     {
       name: ['-c', '-C', '_ch', '-UC'],

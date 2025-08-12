@@ -356,12 +356,17 @@ scrollToElement()
               class="w-auto p-2"
             >
               <!-- 复制按钮 -->
-              <button
+              <!-- <button
                 class="shadow-rgba(6,_24,_44,_0.4)_0px_0px_0px_2px shadow-_rgba(6,_24,_44,_0.65)_0px_4px_6px_-1px shadow-_rgba(255,_255,_255,_0.08)_0px_1px_0px_inset"
                 @click="copyTorrentUrl(torrent)"
               >
                 复制
-              </button>
+              </button> -->
+              <el-button
+                @click="copyTorrentUrl(torrent)"
+              >
+                复制
+              </el-button>
             </div>
           </div>
 
