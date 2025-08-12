@@ -1,166 +1,251 @@
 <!------  2025-08-12---01:24---星期二  ------>
 <!------------------------------------    ------------------------------------------------->
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import {
+  onMounted,
+  ref,
+} from 'vue'
 
 import { useSearchStore } from '@/stores'
 
 import { getClipboardText } from '@/utils'
 
+/**
+ *  搜索引擎类型
+ */
+type SearchEngine = {
+
+  /**
+   *  名称
+   */
+  name: string
+
+  /**
+   *  图标
+   */
+  icon: string
+
+  /**
+   *  主机名
+   */
+  hostname: string
+
+  /**
+   *  输入框ID
+   */
+  textareaId?: string
+
+  /**
+   *  输入框class
+   */
+  textareaClass?: string
+
+  /**
+   *  搜索URL
+   */
+  searchUrl: string
+
+  /**
+   *  子菜单
+   */
+  siteList?: SearchEngine[]
+}
+
 const searchStore = useSearchStore()
 
-const currentSearchEngine = ref<any>(null)
+// 响应式状态
+const currentSearchEngine = ref<SearchEngine | null>(null)
 
 const searchKeyword = ref('')
 
-/**
- *  获取当前域名
- */
-const hostname = window.location.hostname
+const hostname = ref(window.location.hostname)
 
 /**
- *  根据id获取搜索框的值
+ * 根据ID获取搜索框的值
  */
-function getSearchValue(id: string) {
-  const element = document.getElementById(id)
+function getSearchValueById(id: string): string {
+  try {
+    const element = document.getElementById(id)
 
-  if (element) {
-    // 检查是否是输入框元素
     if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-      return element.value
+      return element.value.trim()
     }
+
+    return ''
+  }
+  catch (error) {
+    console.warn(`获取搜索框值失败 (ID: ${id}):`, error)
+    return ''
   }
 }
 
 /**
- *  根据class获取搜索框的值
+ * 根据class获取搜索框的值
  */
-function getSearchValueByClass(className: string) {
-  const element = document.querySelector(className)
+function getSearchValueByClass(className: string): string {
+  try {
+    const element = document.querySelector(className)
 
-  if (element) {
-    // 检查是否是输入框元素
     if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-      return element.value
+      return element.value.trim()
     }
+
+    return ''
   }
+  catch (error) {
+    console.warn(`获取搜索框值失败 (Class: ${className}):`, error)
+    return ''
+  }
+}
+
+/**
+ * 从指定搜索引擎获取关键词
+ */
+function getKeywordFromEngine(engine: SearchEngine): string {
+  if (engine.textareaId) {
+    return getSearchValueById(engine.textareaId)
+  }
+
+  if (engine.textareaClass) {
+    return getSearchValueByClass(engine.textareaClass)
+  }
+
+  return ''
 }
 
 /**
  * 获取搜索关键词
  */
-function getSearchKeyword() {
+function getSearchKeyword(): string {
   let keyword = ''
 
-  // 遍历所有搜索引擎（包括子菜单）
+  let matchedEngine: SearchEngine | null = null
+
+  // 遍历搜索引擎列表
   for (const item of searchStore.searchEngineList) {
     if (item.siteList) {
       // 检查子菜单中的搜索引擎
       for (const subItem of item.siteList) {
-        if (subItem.hostname && hostname.includes(subItem.hostname)) {
-          // const foundKeyword = getSearchValue(subItem.textareaId)
-          let foundKeyword = ''
-
-          if (subItem.textareaId) {
-            foundKeyword = getSearchValue(subItem.textareaId) || ''
-          }
-          else if (subItem.textareaClass) {
-            foundKeyword = getSearchValueByClass(subItem.textareaClass) || ''
-          }
-
-          if (foundKeyword) {
-            keyword = foundKeyword
-            currentSearchEngine.value = subItem
+        if (subItem.hostname && hostname.value.includes(subItem.hostname)) {
+          keyword = getKeywordFromEngine(subItem)
+          if (keyword) {
+            matchedEngine = subItem
             break
           }
         }
       }
+
+      if (keyword) {
+        break
+      }
     }
     else {
       // 检查顶级搜索引擎
-      if (item.hostname && hostname.includes(item.hostname)) {
-        const foundKeyword = getSearchValue(item.textareaId)
-
-        if (foundKeyword) {
-          keyword = foundKeyword
-          currentSearchEngine.value = item
+      if (item.hostname && hostname.value.includes(item.hostname)) {
+        keyword = getKeywordFromEngine(item)
+        if (keyword) {
+          matchedEngine = item
           break
         }
       }
     }
   }
 
-  if (keyword) {
+  // 更新状态
+  if (keyword && matchedEngine) {
     searchKeyword.value = keyword
-    console.log('检测到搜索关键词:', keyword)
+    currentSearchEngine.value = matchedEngine
+    console.log('检测到搜索关键词:', keyword, '来自:', matchedEngine.name)
   }
 
   return keyword
 }
 
-function openLink(url: string) {
+/**
+ * 打开链接
+ */
+function openLink(url: string): void {
   try {
     // 优先使用油猴的 GM_openInTab
     if (typeof GM_openInTab !== 'undefined') {
       GM_openInTab(url, {
-        active: true, // 立即激活，用户看到新页面
-        insert: false, // 插入到所有标签页最后
+        active: false, // 后台打开，不打断用户
+        insert: true, // 插入到当前标签页右侧
       })
       return
     }
 
     // 备用方案：window.open
-    window.open(url, '_blank')
+    const newWindow = window.open(url, '_blank')
+
+    if (!newWindow) {
+      throw new Error('window.open 被阻止')
+    }
   }
   catch (error) {
-    console.warn('GM_openInTab 和 window.open 都失败了:', error)
+    console.warn('链接打开失败，使用备用方案:', error)
 
     // 最后的备用方案：创建隐藏链接
-    const link = document.createElement('a')
+    try {
+      const link = document.createElement('a')
 
-    link.href = url
-    link.target = '_blank'
-    link.style.display = 'none'
-    link.rel = 'noopener noreferrer' // 添加安全属性
+      link.href = url
+      link.target = '_blank'
+      link.style.display = 'none'
+      link.rel = 'noopener noreferrer'
 
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+    catch (fallbackError) {
+      console.error('所有打开链接的方法都失败了:', fallbackError)
+    }
   }
 }
 
 /**
  * 执行搜索
  */
-async function handlePerformSearch(engine: any) {
-  // 设置当前搜索引擎
-  currentSearchEngine.value = engine
+async function handlePerformSearch(engine: SearchEngine): Promise<void> {
+  try {
+    // 设置当前搜索引擎
+    currentSearchEngine.value = engine
 
-  // 获取搜索关键词
-  const keyword = getSearchKeyword()
+    // 检查是否在当前页面
+    if (engine.hostname && hostname.value.includes(engine.hostname)) {
+      console.log('当前页面匹配，不执行搜索')
+      return
+    }
 
-  // 判断 点击的搜索引擎是否是当前的页面
-  if (engine.hostname && hostname.includes(engine.hostname)) {
-    // 如果当前页面匹配，不执行搜索
-    alert('当前页面匹配，不执行搜索')
-  }
-  else {
-    alert('执行搜索')
+    // 获取搜索关键词（优先级：页面关键词 > 剪贴板内容）
+    let searchText = getSearchKeyword()
 
-    // 获取剪切板内容
-    const clipboardText = await getClipboardText()
+    if (!searchText) {
+      try {
+        searchText = await getClipboardText()
+        if (searchText) {
+          console.log('使用剪贴板内容作为搜索关键词:', searchText)
+        }
+      }
+      catch (clipboardError) {
+        console.warn('获取剪贴板内容失败:', clipboardError)
+      }
+    }
+
+    // 构建搜索URL
+    let searchUrl = engine.searchUrl
+
+    if (searchText) {
+      searchUrl += encodeURIComponent(searchText)
+    }
 
     // 执行搜索
-    if (keyword) {
-      openLink(engine.searchUrl + encodeURIComponent(keyword))
-    }
-    else if (clipboardText) {
-      openLink(engine.searchUrl + encodeURIComponent(clipboardText))
-    }
-    else {
-      // 如果没有关键词，直接打开网站
-      openLink(engine.searchUrl)
-    }
+    console.log('执行搜索:', searchUrl)
+    openLink(searchUrl)
+  }
+  catch (error) {
+    console.error('搜索执行失败:', error)
   }
 }
 

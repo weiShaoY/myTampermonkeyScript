@@ -16,6 +16,8 @@ import monkey, { cdn, util } from 'vite-plugin-monkey'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
+import { logoBase64 } from './src/assets/logoBase64'
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()) as any
@@ -89,7 +91,8 @@ export default defineConfig(({ mode }) => {
         },
         entry: 'src/main.ts',
         userscript: {
-          icon: 'https://vitejs.dev/logo.svg',
+          // icon: 'https://vitejs.dev/logo.svg',
+          icon: logoBase64,
           name: '油猴自用脚本',
           author: 'weiShao',
           namespace: 'npm/vite-plugin-monkey',
