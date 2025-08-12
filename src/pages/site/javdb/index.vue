@@ -5,6 +5,8 @@ import DetailsPage from './detailsPage/index.vue'
 
 import ListPage from './listPage/index.vue'
 
+import './index.scss'
+
 /**
  * 判断是列表页还是详情页
  */
@@ -40,5 +42,4 @@ else {
 </template>
 
 <style lang="scss" scoped>
-@import './index.scss';
 </style>

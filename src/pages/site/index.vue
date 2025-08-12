@@ -1,6 +1,10 @@
 <!------  2025-08-12---17:06---星期二  ------>
 <!------------------------------------    ------------------------------------------------->
 <script lang="ts" setup>
+import Emby from './emby/index.vue'
+
+import Javbus from './javbus/index.vue'
+
 import Javdb from './javdb/index.vue'
 
 const hostname = ref(window.location.hostname)
