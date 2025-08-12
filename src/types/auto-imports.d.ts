@@ -51,6 +51,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getCurrentWatcher: typeof import('vue')['getCurrentWatcher']
+  const getTagArray: typeof import('../utils/getTagArray')['getTagArray']
   const h: typeof import('vue')['h']
   const inject: typeof import('vue')['inject']
   const isClipboardSupported: typeof import('../utils/clipboard')['isClipboardSupported']
@@ -109,6 +110,7 @@ declare global {
   const useSearchStore: typeof import('../stores/index')['useSearchStore']
   const useSlots: typeof import('vue')['useSlots']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
+  const useTorrentStore: typeof import('../stores/index')['useTorrentStore']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
@@ -171,6 +173,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
+    readonly getTagArray: UnwrapRef<typeof import('../utils/getTagArray')['getTagArray']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isClipboardSupported: UnwrapRef<typeof import('../utils/clipboard')['isClipboardSupported']>
@@ -229,6 +232,7 @@ declare module 'vue' {
     readonly useSearchStore: UnwrapRef<typeof import('../stores/index')['useSearchStore']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
+    readonly useTorrentStore: UnwrapRef<typeof import('../stores/index')['useTorrentStore']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>
     readonly watchPostEffect: UnwrapRef<typeof import('vue')['watchPostEffect']>

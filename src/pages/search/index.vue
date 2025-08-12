@@ -276,6 +276,12 @@ onMounted(() => {
       关键词: {{ searchKeyword }}
     </div>
 
+    <SvgIcon
+      icon="tag-fourK"
+      size="20"
+      class="mr-2"
+    />
+
     <el-menu
       default-active="1"
       class="el-menu-vertical-demo"

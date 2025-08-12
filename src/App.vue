@@ -9,9 +9,13 @@ import Site from './pages/site/index.vue'
 
 <template>
 
-  <Search />
+  <AppProvider>
 
-  <Site />
+    <Search />
+
+    <Site />
+
+  </AppProvider>
 </template>
 
 <style lang="scss" scoped>
