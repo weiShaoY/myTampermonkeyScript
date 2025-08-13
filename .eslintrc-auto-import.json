@@ -65,7 +65,7 @@
     "getCurrentInstance": true,
     "getCurrentScope": true,
     "getCurrentWatcher": true,
-    "getTagArray": true,
+    "getTagIconArray": true,
     "h": true,
     "inject": true,
     "isClipboardSupported": true,

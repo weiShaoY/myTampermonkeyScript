@@ -5,7 +5,7 @@ import { config } from '@/config'
 
 import { useFolderStore } from '@/stores'
 
-import { getTagArray, parseNfoContent } from '@/utils'
+import { getTagIconArray, parseNfoContent } from '@/utils'
 
 // import FolderQueryDuplicateModal from './folder_query_duplicate_modal/index.vue'
 
@@ -193,7 +193,7 @@ async function mainBtnHandler() {
 
         directoryPath: [...fileData.directoryPath, file.name],
 
-        tagArray: getTagArray(file.name.substring(0, file.name.lastIndexOf('.'))),
+        tagArray: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
 
         resolution: nfoContent.resolution || '',
 

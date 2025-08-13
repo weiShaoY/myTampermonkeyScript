@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { useFolderStore } from '@/stores'
 
-import { addHighlightToElement, getTagArray } from '@/utils'
+import { addHighlightToElement, getTagIconArray } from '@/utils'
 
 const folderStore = useFolderStore()
 
@@ -102,15 +102,23 @@ function getTorrentList() {
 
       // 使用三元运算符简化大小转换
       size = unit === 'MB' ? value / 1024 : value
-    }
 
-    // 保留两位小数
-    size = Math.round(size * 100) / 100
+      // 保留两位小数
+      size = Math.round(size * 100) / 100
+    }
 
     const time = item.querySelector('.time')?.textContent?.trim() || ''
 
     //  获取 tagArray 的方法，需要自己实现
-    const tagArray = getTagArray(name) // 假设 getTagArray 函数已定义
+    const tagArray = getTagIconArray(name)
+
+    // 判断是否存在 中文磁链
+    if (
+      name.toLowerCase().includes('-c')
+      && !isVideoHaveChineseTorrent.value
+    ) {
+      isVideoHaveChineseTorrent.value = true
+    }
 
     const torrentListItem: TorrentType = {
       url,
@@ -121,14 +129,6 @@ function getTorrentList() {
     }
 
     torrentList.value.push(torrentListItem)
-
-    // 判断是否存在 中文磁链
-    if (
-      name.toLowerCase().includes('-c')
-      && !isVideoHaveChineseTorrent.value
-    ) {
-      isVideoHaveChineseTorrent.value = true
-    }
   })
 
   //  添加挂载点

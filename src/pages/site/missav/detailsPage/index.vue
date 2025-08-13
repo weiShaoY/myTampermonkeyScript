@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { useFolderStore } from '@/stores'
 
-import { addHighlightToElement, getTagArray } from '@/utils'
+import { addHighlightToElement, getTagIconArray } from '@/utils'
 
 const folderStore = useFolderStore()
 
@@ -96,13 +96,14 @@ function getTorrentList() {
       const unit = sizeMatch[3]?.toUpperCase() // 获取单位并转换为大写
 
       size = unit === 'MB' ? value / 1024 : value
+
+      // 保留两位小数
+      size = Math.round(size * 100) / 100
     }
 
     const time = cells[2]?.textContent?.trim() || ''
 
-    const tagArray = getTagArray(name)
-
-    console.log('%c Line:104 🍆 tagArray', 'color:#ed9ec7', tagArray)
+    const tagArray = getTagIconArray(name)
 
     //  检查是否存在中文字幕
     const spanElements = cells[0].querySelectorAll('span')
@@ -117,11 +118,8 @@ function getTorrentList() {
         hasChineseSubtitle = true
 
         //  判断 tagArray 中是否存在 字幕
-        if (!tagArray.some(tag => tag.icon === 'tag-ziMu')) {
-          tagArray.push({
-            name: ['中文'],
-            icon: 'tag-ziMu',
-          })
+        if (!tagArray.includes('tag-ziMu')) {
+          tagArray.push('tag-ziMu')
         }
       }
     })
@@ -143,11 +141,12 @@ function getTorrentList() {
   })
 
   //  添加挂载点
+  const targetElement = document.querySelector('.grid.grid-cols-2.md\\:grid-cols-3.xl\\:grid-cols-4.gap-5')
 
-  const targetElement = document.querySelector('.sm\\:mx-0.mb-8.rounded-0.sm\\:rounded-lg')
+  console.log('%c Line:145 🍣 targetElement', 'color:#2eafb0', targetElement)
 
   if (targetElement) {
-    targetElement.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>')
+    targetElement.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>') // 修改为 'afterbegin'
     isShowTorrentList.value = true
   }
 }
