@@ -1,14 +1,14 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif; /* 设置字体族，依次尝试 Inter, Avenir, Helvetica, Arial, 如果都没有则使用默认的 sans-serif 字体 */
+  font-size: 16px; /* 设置字体大小为 16 像素 */
+  line-height: 24px; /* 设置行高为 24 像素 */
+  font-weight: 400; /* 设置字体粗细为 400 (normal) */
 
-  color-scheme: light dark;
+  color-scheme: light dark; /* 声明支持亮色和暗色主题 */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  font-synthesis: none; /* 禁用字体合成，确保字体的原始形状 */
+  text-rendering: optimizeLegibility; /* 优化文本渲染，提高可读性 */
+  -webkit-font-smoothing: antialiased; /* 在 WebKit 浏览器上开启抗锯齿 */
+  -moz-osx-font-smoothing: grayscale; /* 在 Firefox on macOS 上开启灰度抗锯齿 */
+  -webkit-text-size-adjust: 100%; /* 在 iOS Safari 上阻止文本大小自动调整 */
 }

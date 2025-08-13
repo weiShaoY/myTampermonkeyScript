@@ -123,6 +123,17 @@ export default defineConfig(({ mode }) => {
             '*://*.iconfont.cn/*',
             '*://iconfont.cn/*',
 
+            // //////////////////  购物  //////////////////
+
+            '*://*.jd.com/*',
+            '*://jd.com/*',
+
+            '*://*.taobao.com/*',
+            '*://taobao.com/*',
+
+            '*://*.goofish.com/*',
+            '*://goofish.com/*',
+
             // //////////////////  成人  //////////////////
             '*://*.javdb.com/*', // 子域名
             '*://javdb.com/*', // 主域名

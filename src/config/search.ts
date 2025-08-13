@@ -43,6 +43,32 @@ export const searchEngineList = [
       },
     ],
   },
+  {
+    name: '购物',
+    siteList: [
+      {
+        name: '京东',
+        icon: 'shop-jd',
+        hostname: 'jd.com',
+        textareaId: 'key',
+        searchUrl: 'https://search.jd.com/Search?keyword=',
+      },
+      {
+        name: '淘宝',
+        icon: 'shop-taobao',
+        hostname: 'taobao.com',
+        textareaId: 'q',
+        searchUrl: 'https://s.taobao.com/search?q=',
+      },
+      {
+        name: '咸鱼',
+        icon: 'shop-goofish',
+        hostname: 'goofish.com',
+        textareaClass: 'input.search-input--WY2l9QD3',
+        searchUrl: 'https://www.goofish.com/search?q=',
+      },
+    ],
+  },
 
   {
     name: '成人',

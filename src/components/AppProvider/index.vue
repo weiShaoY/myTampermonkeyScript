@@ -54,10 +54,13 @@ const ContextHolder = defineComponent({
 </script>
 
 <template>
-  <div>
+  <div
+    class="myTampermonkeyScript"
+  >
     <ContextHolder />
 
     <slot />
+
   </div>
 </template>
 
