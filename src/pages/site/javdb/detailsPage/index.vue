@@ -42,13 +42,28 @@ function getTorrentList() {
 
     const url = item.querySelector('.copy-to-clipboard').dataset.clipboardText || ''
 
-    const size = Number.parseFloat(
-      item
-        .querySelector('.meta')
-        ?.textContent
-        ?.trim()
-        .match(/(\d+(\.\d+)?)GB/)?.[1] || '0',
-    )
+    const sizeText = item
+      .querySelector('.meta')
+      ?.textContent
+      ?.trim() || ''
+
+    // 兼容 GB 和 MB 格式
+    const gbMatch = sizeText.match(/(\d+(\.\d+)?)GB/)
+
+    const mbMatch = sizeText.match(/(\d+(\.\d+)?)MB/)
+
+    let size = 0
+
+    if (gbMatch) {
+      size = Number.parseFloat(gbMatch[1])
+    }
+    else if (mbMatch) {
+      // MB 转换为 GB (1 GB = 1024 MB)
+      size = Number.parseFloat(mbMatch[1]) / 1024
+    }
+
+    // 保留两位小数
+    size = Math.round(size * 100) / 100
 
     const time = item.querySelector('.time')?.textContent?.trim() || ''
 
