@@ -43,8 +43,8 @@ console.log('%c Line:39 🍢 torrentList', 'color:#fca650', props)
  */
 const chineseCount = computed(() =>
 
-  props.torrentList.filter(item => /-c|-C|_ch/.test(item.name)).length,
-
+  // props.torrentList中每一项 的 tagArray 中 是否存在 中文字幕
+  props.torrentList.filter(item => item.tagArray.some(tag => tag.icon === 'tag-ziMu')).length,
 )
 
 /**

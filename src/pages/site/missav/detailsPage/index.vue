@@ -117,11 +117,9 @@ function getTorrentList() {
         hasChineseSubtitle = true
 
         //  判断 tagArray 中是否存在 字幕
-        const isExistChineseSubtitle = tagArray.some(item => item.name.includes('tag-ziMu'))
-
-        if (!isExistChineseSubtitle) {
+        if (!tagArray.some(tag => tag.icon === 'tag-ziMu')) {
           tagArray.push({
-            name: ['tag-ziMu'],
+            name: ['中文'],
             icon: 'tag-ziMu',
           })
         }
