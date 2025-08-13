@@ -36,7 +36,7 @@ const torrentStore = useTorrentStore()
  */
 const torrentList = ref<TorrentType[]>(props.torrentList)
 
-console.log('%c Line:39 🍢 torrentList', 'color:#fca650', torrentList)
+console.log('%c Line:39 🍢 torrentList', 'color:#fca650', props)
 
 /**
  *  有中文字幕的数量
@@ -196,7 +196,7 @@ scrollToElement()
     :to="props.to"
   >
     <div
-      class="mx-auto w-full border rounded-md bg-white p-6 pb-1"
+      class="mx-auto mb-10 w-full border rounded-md bg-white p-6 pb-1"
     >
       <!-- 标题部分 -->
       <div

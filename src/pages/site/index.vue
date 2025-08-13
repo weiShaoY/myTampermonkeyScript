@@ -9,6 +9,8 @@ import Javbus from './javbus/index.vue'
 
 import Javdb from './javdb/index.vue'
 
+import Missav from './missav/index.vue'
+
 const hostname = ref(window.location.hostname)
 
 const isJavdb = hostname.value.includes('javdb')
@@ -16,6 +18,8 @@ const isJavdb = hostname.value.includes('javdb')
 const isJavbus = hostname.value.includes('javbus')
 
 const isEmby = hostname.value.includes('emby')
+
+const isMissav = hostname.value.includes('missav')
 
 useFolderStore().getFolder()
 </script>
@@ -31,6 +35,10 @@ useFolderStore().getFolder()
 
   <Emby
     v-else-if="isEmby"
+  />
+
+  <Missav
+    v-else-if="isMissav"
   />
 
   <Setting />

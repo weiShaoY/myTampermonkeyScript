@@ -66,45 +66,42 @@ function getPageVideoName(): string {
 /**
  * 获取页面中的磁链列表
  */
+/**
+ * 获取种子列表
+ */
 function getTorrentList() {
-  /**
-   *  列表容器
-   */
   const magnetsContent = document.getElementById('magnets-content')
 
-  if (!magnetsContent || !magnetsContent.children.length) {
+  // 使用 ! 简化非空判断
+  if (!magnetsContent || magnetsContent.children.length === 0) {
+    console.warn('未找到 magnetsContent 元素或其子元素为空')
     return
   }
 
-  /**
-   *  磁链列表
-   */
   const items = Array.from(magnetsContent.querySelectorAll('.columns'))
 
-  //  循环磁链列表
-  items.forEach((item: any) => {
+  items.forEach((itemElement) => {
+    // 类型断言，确保 item 是 HTMLElement 类型
+    const item = itemElement as HTMLElement
+
+    const url = (item.querySelector('.copy-to-clipboard') as HTMLElement)?.dataset?.clipboardText || '' // 类型断言
+
     const name = item.querySelector('.name')?.textContent?.trim() || ''
 
-    const url = item.querySelector('.copy-to-clipboard').dataset.clipboardText || ''
+    const sizeText = item.querySelector('.meta')?.textContent?.trim() || ''
 
-    const sizeText = item
-      .querySelector('.meta')
-      ?.textContent
-      ?.trim() || ''
-
-    // 兼容 GB 和 MB 格式
-    const gbMatch = sizeText.match(/(\d+(\.\d+)?)GB/)
-
-    const mbMatch = sizeText.match(/(\d+(\.\d+)?)MB/)
+    // 使用更简洁的正则表达式匹配，忽略大小写
+    const sizeMatch = sizeText.match(/(\d+(\.\d+)?)\s*(GB|MB)/i)
 
     let size = 0
 
-    if (gbMatch) {
-      size = Number.parseFloat(gbMatch[1])
-    }
-    else if (mbMatch) {
-      // MB 转换为 GB (1 GB = 1024 MB)
-      size = Number.parseFloat(mbMatch[1]) / 1024
+    if (sizeMatch) {
+      const value = Number.parseFloat(sizeMatch[1])
+
+      const unit = sizeMatch[3]?.toUpperCase() // 获取单位并转换为大写
+
+      // 使用三元运算符简化大小转换
+      size = unit === 'MB' ? value / 1024 : value
     }
 
     // 保留两位小数
@@ -112,7 +109,8 @@ function getTorrentList() {
 
     const time = item.querySelector('.time')?.textContent?.trim() || ''
 
-    const tagArray = getTagArray(name)
+    //  获取 tagArray 的方法，需要自己实现
+    const tagArray = getTagArray(name) // 假设 getTagArray 函数已定义
 
     const torrentListItem: TorrentType = {
       url,
@@ -124,17 +122,21 @@ function getTorrentList() {
 
     torrentList.value.push(torrentListItem)
 
-    if (name.includes('-c') || name.includes('-C')) {
+    // 判断是否存在 中文磁链
+    if (
+      name.toLowerCase().includes('-c')
+      && !isVideoHaveChineseTorrent.value
+    ) {
       isVideoHaveChineseTorrent.value = true
     }
   })
-  console.log('%c Line:107 🍅 torrentList.value', 'color:#3f7cff', torrentList.value)
 
-  const noBottom = document.querySelector('.no-bottom')
+  //  添加挂载点
 
-  if (noBottom) {
-    noBottom.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>')
+  const targetElement = document.querySelector('.no-bottom')
 
+  if (targetElement) {
+    targetElement.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>')
     isShowTorrentList.value = true
   }
 }

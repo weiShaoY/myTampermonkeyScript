@@ -36,6 +36,8 @@ declare global {
   const GM_webRequest: typeof import('vite-plugin-monkey/dist/client')['GM_webRequest']
   const GM_xmlhttpRequest: typeof import('vite-plugin-monkey/dist/client')['GM_xmlhttpRequest']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const addClassAndUpdateList: typeof import('../utils/addClassAndUpdateList')['addClassAndUpdateList']
+  const addClassIfNotExists: typeof import('../utils/addClassIfNotExists')['addClassIfNotExists']
   const addHighlightToElement: typeof import('../utils/addHighlightToElement')['addHighlightToElement']
   const computed: typeof import('vue')['computed']
   const copyToClipboard: typeof import('../utils/clipboard')['copyToClipboard']
@@ -107,6 +109,7 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useEmbyStore: typeof import('../stores/index')['useEmbyStore']
   const useFolderStore: typeof import('../stores/index')['useFolderStore']
   const useId: typeof import('vue')['useId']
   const useModel: typeof import('vue')['useModel']
@@ -161,6 +164,8 @@ declare module 'vue' {
     readonly GM_webRequest: UnwrapRef<typeof import('vite-plugin-monkey/dist/client')['GM_webRequest']>
     readonly GM_xmlhttpRequest: UnwrapRef<typeof import('vite-plugin-monkey/dist/client')['GM_xmlhttpRequest']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly addClassAndUpdateList: UnwrapRef<typeof import('../utils/addClassAndUpdateList')['addClassAndUpdateList']>
+    readonly addClassIfNotExists: UnwrapRef<typeof import('../utils/addClassIfNotExists')['addClassIfNotExists']>
     readonly addHighlightToElement: UnwrapRef<typeof import('../utils/addHighlightToElement')['addHighlightToElement']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly copyToClipboard: UnwrapRef<typeof import('../utils/clipboard')['copyToClipboard']>
@@ -232,6 +237,7 @@ declare module 'vue' {
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useEmbyStore: UnwrapRef<typeof import('../stores/index')['useEmbyStore']>
     readonly useFolderStore: UnwrapRef<typeof import('../stores/index')['useFolderStore']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
