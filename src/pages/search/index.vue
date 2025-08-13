@@ -33,12 +33,17 @@ type SearchEngine = {
   /**
    *  输入框ID
    */
-  textareaId?: string
+  inputId?: string
 
   /**
    *  输入框class
    */
-  textareaClass?: string
+  inputClass?: string
+
+  /**
+   *  输入框索引
+   */
+  inputIndex?: number
 
   /**
    *  搜索URL
@@ -96,16 +101,26 @@ function getSearchValueByClass(className: string): string {
   }
 }
 
+function getSearchValueByIndex(index: number): string {
+  const inputs = document.getElementsByTagName('input')
+
+  return inputs[index]?.value.trim() || ''
+}
+
 /**
  * 从指定搜索引擎获取关键词
  */
 function getKeywordFromEngine(engine: SearchEngine): string {
-  if (engine.textareaId) {
-    return getSearchValueById(engine.textareaId)
+  if (engine.inputId) {
+    return getSearchValueById(engine.inputId)
   }
 
-  if (engine.textareaClass) {
-    return getSearchValueByClass(engine.textareaClass)
+  if (engine.inputClass) {
+    return getSearchValueByClass(engine.inputClass)
+  }
+
+  if (engine.inputIndex) {
+    return getSearchValueByIndex(engine.inputIndex)
   }
 
   return ''

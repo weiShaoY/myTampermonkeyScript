@@ -5,6 +5,7 @@
 import Search from './pages/search/index.vue'
 
 import Site from './pages/site/index.vue'
+
 </script>
 
 <template>
