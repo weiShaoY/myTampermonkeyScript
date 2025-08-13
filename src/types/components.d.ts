@@ -19,5 +19,7 @@ declare module 'vue' {
     HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
     TorrentList: typeof import('./../components/TorrentList/index.vue')['default']
+    UpdateChinese: typeof import('./../components/UpdateChinese/index.vue')['default']
+    UpdateChineseButton: typeof import('./../components/Update-Chinese-Button/index.vue')['default']
   }
 }

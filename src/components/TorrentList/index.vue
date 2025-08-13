@@ -1,33 +1,32 @@
 <!------------------------------------  磁链列表  ------------------------------------------------->
 <script lang="ts" setup>
 
+import { defineProps } from 'vue'
+
 import { useTorrentStore } from '@/stores'
 
-const props = defineProps({
+type PropsType = {
 
   /**
    *  挂载点
    */
-  to: {
-    type: String,
-    required: true,
-  },
+  to?: string
 
   /**
    *  种子列表
    */
-  torrentList: {
-    type: Array as PropType<TorrentType[]>,
-    default: (): TorrentType[] => [],
-  },
+  torrentList?: TorrentType[]
 
   /**
    *  滚动的目标元素
    */
-  scrollTarget: {
-    type: String,
-    default: '',
-  },
+  scrollTarget?: string
+}
+
+const props = withDefaults(defineProps<PropsType>(), {
+  to: '',
+  torrentList: (): TorrentType[] => [],
+  scrollTarget: '',
 })
 
 const torrentStore = useTorrentStore()

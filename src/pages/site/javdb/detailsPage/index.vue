@@ -36,6 +36,7 @@ function getTorrentList() {
    */
   const items = Array.from(magnetsContent.querySelectorAll('.columns'))
 
+  //  循环磁链列表
   items.forEach((item: any) => {
     const name = item.querySelector('.name')?.textContent?.trim() || ''
 
