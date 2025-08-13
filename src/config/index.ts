@@ -1,4 +1,4 @@
-import { searchEngineList } from './search'
+import { searchEngineList } from './searchEngineList'
 
 import video from './video'
 

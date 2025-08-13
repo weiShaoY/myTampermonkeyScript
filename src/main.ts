@@ -6,9 +6,9 @@ import App from './App.vue'
 
 import stores from './stores'
 
-import '@unocss/reset/tailwind.css'
+// import '@unocss/reset/tailwind.css'
 
-import 'uno.css'
+// import 'uno.css'
 
 import './styles/index.scss'
 
