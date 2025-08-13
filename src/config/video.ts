@@ -1,13 +1,3 @@
-// import liuChuSvg from '@/assets/svg/tag/liuChu.svg'
-
-// import poJieSvg from '@/assets/svg/tag/poJie.svg'
-
-// import wuMaSvg from '@/assets/svg/tag/wuMa.svg'
-
-// import ziMuSvg from '@/assets/svg/tag/ziMu.svg'
-
-// import fourKSvg from '../assets/svg/tag/fourK.svg'
-
 /**
  * 视频匹配配置
  */

@@ -106,13 +106,30 @@ export default defineConfig(({ mode }) => {
 
             // '*/site/index.html',
             '*://192.168.0.*',
+
             '*://*.google.com/*',
             '*://google.com/*',
+
             '*://*.baidu.com/*',
+            '*://baidu.com/*',
+
+            // //////////////////  开发  //////////////////
+            '*://*.juejin.cn/*',
+            '*://juejin.cn/*',
+
+            '*://*.csdn.net/*',
+            '*://csdn.net/*',
+
+            '*://*.iconfont.cn/*',
+            '*://iconfont.cn/*',
+
+            // //////////////////  成人  //////////////////
             '*://*.javdb.com/*', // 子域名
             '*://javdb.com/*', // 主域名
+
             '*://*.missav.ws/*', // 子域名
             '*://missav.ws/*', // 主域名
+
             '*://*.javbus.com/*',
             '*://javbus.com/*',
           ],

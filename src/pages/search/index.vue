@@ -6,7 +6,7 @@ import {
   ref,
 } from 'vue'
 
-import { useSearchStore } from '@/stores'
+import { config } from '@/config'
 
 import { getClipboardText } from '@/utils'
 
@@ -50,8 +50,6 @@ type SearchEngine = {
    */
   siteList?: SearchEngine[]
 }
-
-const searchStore = useSearchStore()
 
 // 响应式状态
 const currentSearchEngine = ref<SearchEngine | null>(null)
@@ -122,7 +120,7 @@ function getSearchKeyword(): string {
   let matchedEngine: SearchEngine | null = null
 
   // 遍历搜索引擎列表
-  for (const item of searchStore.searchEngineList) {
+  for (const item of config.searchEngineList) {
     if (item.siteList) {
       // 检查子菜单中的搜索引擎
       for (const subItem of item.siteList) {
@@ -169,7 +167,7 @@ function openLink(url: string): void {
     // 优先使用油猴的 GM_openInTab
     if (typeof GM_openInTab !== 'undefined') {
       GM_openInTab(url, {
-        active: false, // 后台打开，不打断用户
+        active: true, // 后台打开，不打断用户
         insert: true, // 插入到当前标签页右侧
       })
       return
@@ -215,6 +213,7 @@ async function handlePerformSearch(engine: SearchEngine): Promise<void> {
     // 检查是否在当前页面
     if (engine.hostname && hostname.value.includes(engine.hostname)) {
       console.log('当前页面匹配，不执行搜索')
+      window.$notification.warning('点击的是当前页面搜索引擎,不执行搜索')
       return
     }
 
@@ -257,7 +256,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="fixed bottom-5 left-5 flex flex-col gap-3 border rounded-xl bg-white p-3 shadow-lg transition-all duration-200 ease-in-out"
+    class="fixed bottom-5 left-5 z-99999 flex flex-col gap-3 overflow-hidden border rounded-xl bg-white shadow-lg transition-all duration-200 ease-in-out"
     style="border-color: rgba(0, 0, 0, 0.1)"
   >
     <!-- 当前搜索引擎显示 -->
@@ -282,7 +281,7 @@ onMounted(() => {
     >
       <!-- 搜索引擎菜单项 -->
       <template
-        v-for="item in searchStore.searchEngineList"
+        v-for="item in config.searchEngineList"
         :key="item.name"
       >
         <!-- 有子菜单的项目 -->

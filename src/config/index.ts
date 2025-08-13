@@ -1,14 +1,18 @@
+import { searchEngineList } from './search'
+
 import video from './video'
 
+/**
+ *  配置
+ */
 export const config = {
-  /**
-   *  quicker 配置
-   */
 
   /**
    *  视频配置
    */
   video,
+
+  searchEngineList,
 
 }
 
