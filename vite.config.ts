@@ -113,6 +113,12 @@ export default defineConfig(({ mode }) => {
             '*://*.baidu.com/*',
             '*://baidu.com/*',
 
+            // BAIDU:
+            'https://*.baidu.com/*',
+            'https://baidu.com/*',
+            'http://*.baidu.com/*', // Added HTTP
+            'http://baidu.com/*', // Added HTTP
+
             // //////////////////  开发  //////////////////
             '*://*.juejin.cn/*',
             '*://juejin.cn/*',
