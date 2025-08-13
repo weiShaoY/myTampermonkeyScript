@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AddedToEmbyButton: typeof import('./../components/AddedToEmbyButton/index.vue')['default']
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -17,6 +18,8 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
+    PendingUpdateChineseButton: typeof import('./../components/PendingUpdateChineseButton/index.vue')['default']
+    Setting: typeof import('./../components/Setting/index.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
     TorrentList: typeof import('./../components/TorrentList/index.vue')['default']
     UpdateChinese: typeof import('./../components/UpdateChinese/index.vue')['default']

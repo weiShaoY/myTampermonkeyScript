@@ -5,14 +5,10 @@ import { config } from '@/config'
  * @param {string} fullName - 视频完整名称（包含扩展名）
  * @returns {Array<{ name: string[], icon: string }>} 标签对象数组，如果未找到匹配的标签，则返回空数组
  */
-export function getTagArray(fullName: string): Array<{ name: string[], url: string }> {
-  console.log('%c Line:9 🌽 fullName', 'color:#3f7cff', fullName)
-
+export function getTagArray(fullName: string): Array<{ name: string[], icon: string }> {
   // 使用正则表达式 config.video.tagRegex 在 fullName 中查找所有匹配项
 
   const foundTags = [...fullName.matchAll(config.video.tagRegex)]
-
-  console.log('%c Line:14 🥤 foundTags', 'color:#33a5ff', foundTags)
 
   if (foundTags.length > 0) {
     // 从 tagArray 中找到匹配的标签对象

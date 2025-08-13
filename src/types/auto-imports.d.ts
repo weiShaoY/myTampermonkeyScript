@@ -36,6 +36,7 @@ declare global {
   const GM_webRequest: typeof import('vite-plugin-monkey/dist/client')['GM_webRequest']
   const GM_xmlhttpRequest: typeof import('vite-plugin-monkey/dist/client')['GM_xmlhttpRequest']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
+  const addHighlightToElement: typeof import('../utils/addHighlightToElement')['addHighlightToElement']
   const computed: typeof import('vue')['computed']
   const copyToClipboard: typeof import('../utils/clipboard')['copyToClipboard']
   const createApp: typeof import('vue')['createApp']
@@ -82,6 +83,7 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const parseNfoContent: typeof import('../utils/parseNfoContent')['parseNfoContent']
   const provide: typeof import('vue')['provide']
   const reactive: typeof import('vue')['reactive']
   const readonly: typeof import('vue')['readonly']
@@ -105,6 +107,7 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useFolderStore: typeof import('../stores/index')['useFolderStore']
   const useId: typeof import('vue')['useId']
   const useModel: typeof import('vue')['useModel']
   const useSearchStore: typeof import('../stores/index')['useSearchStore']
@@ -158,6 +161,7 @@ declare module 'vue' {
     readonly GM_webRequest: UnwrapRef<typeof import('vite-plugin-monkey/dist/client')['GM_webRequest']>
     readonly GM_xmlhttpRequest: UnwrapRef<typeof import('vite-plugin-monkey/dist/client')['GM_xmlhttpRequest']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly addHighlightToElement: UnwrapRef<typeof import('../utils/addHighlightToElement')['addHighlightToElement']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly copyToClipboard: UnwrapRef<typeof import('../utils/clipboard')['copyToClipboard']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
@@ -204,6 +208,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
+    readonly parseNfoContent: UnwrapRef<typeof import('../utils/parseNfoContent')['parseNfoContent']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
@@ -227,6 +232,7 @@ declare module 'vue' {
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useFolderStore: UnwrapRef<typeof import('../stores/index')['useFolderStore']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useSearchStore: UnwrapRef<typeof import('../stores/index')['useSearchStore']>

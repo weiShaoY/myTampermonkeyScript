@@ -1,6 +1,8 @@
 <!------  2025-08-12---17:06---星期二  ------>
 <!------------------------------------    ------------------------------------------------->
 <script lang="ts" setup>
+import { useFolderStore } from '@/stores'
+
 import Emby from './emby/index.vue'
 
 import Javbus from './javbus/index.vue'
@@ -15,6 +17,7 @@ const isJavbus = hostname.value.includes('javbus')
 
 const isEmby = hostname.value.includes('emby')
 
+useFolderStore().getFolder()
 </script>
 
 <template>
@@ -29,6 +32,8 @@ const isEmby = hostname.value.includes('emby')
   <Emby
     v-else-if="isEmby"
   />
+
+  <Setting />
 </template>
 
 <style lang="scss" scoped>

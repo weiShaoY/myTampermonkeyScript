@@ -32,7 +32,7 @@ const useTorrentStore = defineStore(
         },
         {
           name: '破解-c',
-          backgroundColor: '##00BFFF',
+          backgroundColor: '#00BFFF',
         },
         {
           name: 'UC',
@@ -98,7 +98,6 @@ const useTorrentStore = defineStore(
       torrentList.value.SortingRuleArray.push({
         name: '',
         backgroundColor: '#000',
-
       })
     }
 
