@@ -194,24 +194,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- 自定义磁链列表 -->
-  <TorrentList
-    v-if="isShowTorrentList"
-    to="#TorrentList"
-    scroll-target=".video-panel"
-    :torrent-list="torrentList"
-  />
 
-  <!-- //pending -->
-
+  <!-- 挂载到右侧 -->
   <div
     class="sm-50 fixed left-2 top-60 w-30 lg:w-70 md:w-50"
   >
+    <!-- emby按钮 -->
+    <EmbyButton
+      v-if="isShowEmbyButton"
+      :video-name="pageVideoName"
+    />
+
+    <!-- 提示更新中文磁链按钮 -->
     <PendingUpdateChineseButton
       v-if="isShowPendingUpdateChineseButton"
       class="w-full"
     />
 
+    <!-- emby已入库列表 -->
     <div
       v-if="embyCatalogedList.length"
       class="w-full rounded-2 bg-[#FF8400] p-2"
@@ -223,6 +223,14 @@ onMounted(() => {
       />
     </div>
   </div>
+
+  <!-- 自定义磁链列表 -->
+  <TorrentList
+    v-if="isShowTorrentList"
+    to="#TorrentList"
+    scroll-target=".video-panel"
+    :torrent-list="torrentList"
+  />
 
 </template>
 

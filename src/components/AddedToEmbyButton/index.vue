@@ -35,7 +35,7 @@ type PropsType = {
   style?: CSSProperties
 
   /**
-   *   按钮样式
+   *   是否包裹
    */
   isWrap?: boolean
 }
