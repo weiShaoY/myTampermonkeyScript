@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<PropsType>(), {
   >
 
     <button
-      class="w-full cursor-pointer rounded-md bg-violet-500 px-5 py-2 text-white font-semibold transition duration-300 ease-in-out hover:bg-violet-700 focus:shadow-violet-400 hover:shadow-violet-500 hover:shadow-xl hover:ring-2 focus:ring-violet-300 hover:ring-violet-800"
+      class="w-full cursor-pointer border-2 border-yellow-500 rounded-md from-yellow-400 to-yellow-600 bg-gradient-to-r px-5 py-2 text-white font-semibold transition duration-300 ease-in-out hover:border-yellow-600 hover:from-yellow-500 hover:to-yellow-700 focus:shadow-yellow-400 hover:shadow-xl hover:shadow-yellow-500 hover:ring-2 focus:ring-yellow-300 hover:ring-yellow-600"
     >
       可更新中文
     </button>

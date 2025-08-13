@@ -12,7 +12,7 @@ import './index.scss'
  */
 const isListPage = ref(false)
 
-const waterfallElement = document.querySelector('#waterfall')
+const waterfallElement = document.querySelector('.movie-list')
 
 const bodyElement = document.querySelector('body')
 
