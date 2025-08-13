@@ -129,6 +129,14 @@ export default defineConfig(({ mode }) => {
             '*://*.iconfont.cn/*',
             '*://iconfont.cn/*',
 
+            // //////////////////  论坛  //////////////////
+            '*://*.v2ex.com/*',
+            '*://v2ex.com/*',
+
+            // linux.dev
+            '*://*.linux.do/*',
+            '*://linux.do/*',
+
             // //////////////////  购物  //////////////////
 
             '*://*.jd.com/*',

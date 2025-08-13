@@ -44,6 +44,25 @@ export const searchEngineList = [
     ],
   },
   {
+    name: '论坛',
+    siteList: [
+      {
+        name: 'V2EX',
+        icon: 'forum-v2ex',
+        hostname: 'v2ex.com',
+        inputId: 'search',
+        searchUrl: 'https://www.google.com/search?q=site:v2ex.com/t%20',
+      },
+      {
+        name: 'Linux.do',
+        icon: 'forum-linuxDo',
+        hostname: 'linux.do',
+        inputId: 'icon-search-input',
+        searchUrl: 'https://linux.do/search?q=',
+      },
+    ],
+  },
+  {
     name: '购物',
     siteList: [
       {
@@ -66,6 +85,13 @@ export const searchEngineList = [
         hostname: 'goofish.com',
         inputClass: 'input.search-input--WY2l9QD3',
         searchUrl: 'https://www.goofish.com/search?q=',
+      },
+      {
+        name: '慢慢买',
+        icon: 'shop-manmanbuy',
+        hostname: 'manmanbuy.com',
+        inputId: 'search-input',
+        searchUrl: 'https://tool.manmanbuy.com/HistoryLowest.aspx?url=',
       },
     ],
   },
