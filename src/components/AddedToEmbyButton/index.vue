@@ -2,75 +2,51 @@
 <script lang="ts" setup>
 import type { CSSProperties } from 'vue'
 
-import { Message } from '@arco-design/web-vue'
+type PropsType = {
 
-import copySvg from '@/assets/svg/copy.svg'
-
-import finishSvg from '@/assets/svg/finish.svg'
-
-import useFolderStore from '@/store/modules/folder'
-
-import { GM_setClipboard } from '$'
-
-const props = defineProps({
   /**
    *   视频
    */
-  video: {
-    type: Object as () => VideoType.Video,
-    required: true,
-  },
+  video: VideoType.Video
 
   /**
-   *  按钮宽度
+   *   按钮宽度
    */
-  width: {
-    type: [String, Number],
-    default: '',
-  },
+  width?: string | number
 
   /**
-   *  按钮高度
+   *   按钮高度
    */
-  height: {
-    type: [String, Number],
-    default: '',
-  },
+  height?: string | number
 
   /**
-   *  圆角
+   *   圆角
    */
-  radius: {
-    type: [String, Number],
-    default: 0,
-  },
+  radius?: string | number
 
   /**
-   *  按钮类名
+   *   按钮类名
    */
-  class: {
-    type: String,
-    default: '',
-  },
+  class?: string
 
   /**
-   *  按钮样式
+   *   按钮样式
    */
-  style: {
-    type: Object as () => CSSProperties,
-    default: () => ({}),
-  },
+  style?: CSSProperties
 
   /**
-   *  是否换行
+   *   按钮样式
    */
-  isWrap: {
-    type: Boolean,
-    default: false,
-  },
+  isWrap?: boolean
+}
+
+const props = withDefaults(defineProps<PropsType>(), {
+  width: '',
+  height: '',
+  radius: 0,
+  class: '',
+  isWrap: false,
 })
-
-const folderStore = useFolderStore()
 
 const isShowCopy = ref(false)
 
@@ -88,7 +64,8 @@ function videoNameCopyToClipboard(event: any) {
   // 复制到剪切板
   GM_setClipboard(props.video.processedName, 'text')
 
-  Message.success('视频名称 已复制到剪切板')
+  // Message.success('视频名称 已复制到剪切板')
+  window.$notification.success('视频名称 已复制到剪切板')
 
   isShowCopy.value = !isShowCopy.value
 }
@@ -100,12 +77,9 @@ function openFolder(event: any) {
   event.stopPropagation()
   event.preventDefault()
 
-  // GM_setClipboard(videoDirectoryStructure, 'text')
+  GM_setClipboard(directoryPath, 'text')
 
-  // Message.success('视频位置 已复制到剪切板')
-
-  //  通过 Quicker打开文件夹
-  folderStore.openFolder(props.video.directoryPath.slice(0, -1).join('\\'))
+  window.$notification.success(`视频位置已复制到剪切板:  ${directoryPath}`)
 }
 </script>
 
@@ -131,7 +105,7 @@ function openFolder(event: any) {
       />
 
       <span
-        class="absolute left-0 top-0 h-full w-full rounded-[12px] from-[hsl(167deg,65%,13%)] via-[hsl(340deg,100%,32%)] to-[hsl(167deg,65%,13%)] bg-gradient-to-l"
+        class="from-[hsl(167deg,from-from-[65%],from-from-13%)]"
       />
 
       <div
@@ -144,7 +118,7 @@ function openFolder(event: any) {
         </span>
 
         <div
-          class="flex-center"
+          class="flex items-center justify-center"
         >
           <div
             class="m-r-2 flex flex-col text-3"
@@ -156,36 +130,35 @@ function openFolder(event: any) {
             </div>
 
             <div
-              class="text-[#e6683c] font-700"
+              class="text-[#e6683c] font-bold"
             >
               {{ video.size }}
             </div>
           </div>
 
-          <img
+          <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.url"
-            :src="item.url"
+            :key="item.icon"
+            :icon="item.icon"
             class="m-r-1 !h-5 !w-5 !rounded-0"
-          >
+          />
 
           <!-- 复制 已复制 -->
           <div
             class="m-l-1"
           >
-            <img
-              v-if="!isShowCopy"
-              :src="copySvg"
-              class="!h-5 !w-5 !rounded-0"
-              alt="复制"
-            >
 
-            <img
-              v-if="isShowCopy"
-              :src="finishSvg"
+            <SvgIcon
+              v-if="!isShowCopy"
+              icon="copy"
               class="!h-5 !w-5 !rounded-0"
-              alt="已复制"
-            >
+            />
+
+            <SvgIcon
+              v-if="isShowCopy"
+              icon="copy"
+              class="!h-5 !w-5 !rounded-0"
+            />
           </div>
         </div>
       </div>
@@ -193,31 +166,33 @@ function openFolder(event: any) {
 
     <!-- 详情页  悬浮层 -->
     <div
-      class="absolute bottom-[110%] w-full origin-left scale-0 cursor-pointer select-text rounded-lg bg-#fff p-3 transition-all duration-300 ease-in-out group-hover:scale-100"
+      class="absolute bottom-[110%] w-full origin-left scale-0 cursor-pointer select-text rounded-lg bg-[#fff] p-3 transition-all duration-300 ease-in-out group-hover:scale-100"
       :style="{
         boxShadow: 'inset 20px 20px 8px #bebebe, inset -20px -20px 8px #ffffff',
       }"
       @click="openFolder"
     >
       <div
-        class="border border-[#52382f] rounded-3 bg-[#2a2b2f] p-3"
+        class="border border-[#52382f] rounded-3 border-solid bg-[#2a2b2f] p-3"
       >
         <div
           class="m-b-1 flex flex-wrap items-center gap-3"
         >
-          <img
+
+          <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.url"
-            :src="item.url"
-            class="m-r-1 !h-9 !w-9 !rounded-0"
-          >
+            :key="item.icon"
+            :icon="item.icon"
+            class="m-r-1 !h-5 !w-5 !rounded-0"
+          />
+
         </div>
 
         <div
           class="flex items-center justify-between text-white"
         >
           <div
-            class="text-4 text-[#e6683c] font-700"
+            class="text-4 text-[#e6683c] font-bold"
           >
             {{ video.size }}
           </div>
@@ -258,7 +233,7 @@ function openFolder(event: any) {
       />
 
       <span
-        class="absolute left-0 top-0 h-full w-full rounded-[12px] from-[hsl(167deg,65%,13%)] via-[hsl(340deg,100%,32%)] to-[hsl(167deg,65%,13%)] bg-gradient-to-l"
+        class="from-[hsl(167deg,from-from-[65%],from-from-13%)]"
       />
 
       <div
@@ -268,17 +243,17 @@ function openFolder(event: any) {
         <div
           class="m-b-2 flex items-center"
         >
-          <img
+          <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.url"
-            :src="item.url"
-            class="m-r-1 !h-6 !w-6 !rounded-0"
-          >
+            :key="item.icon"
+            :icon="item.icon"
+            class="m-r-1 !h-5 !w-5 !rounded-0"
+          />
 
         </div>
 
         <div
-          class="m-b-1 text-start text-14px"
+          class="m-b-1 text-start text-[14px]"
         >
           {{ video.baseName }}
 
@@ -288,7 +263,7 @@ function openFolder(event: any) {
           class="flex items-center justify-between text-3"
         >
           <div
-            class="text-[#e6683c] font-700"
+            class="text-[#e6683c] font-bold"
           >
             {{ video.size }}
 
@@ -302,19 +277,11 @@ function openFolder(event: any) {
           </div>
 
           <div>
-            <img
-              v-if="!isShowCopy"
-              :src="copySvg"
-              class="!h-5 !w-5 !rounded-0"
-              alt="复制"
-            >
-
-            <img
+            <SvgIcon
               v-if="isShowCopy"
-              :src="finishSvg"
+              icon="copy"
               class="!h-5 !w-5 !rounded-0"
-              alt="已复制"
-            >
+            />
           </div>
         </div>
 
@@ -323,14 +290,14 @@ function openFolder(event: any) {
 
     <!--  Javbus 列表页  悬浮层 -->
     <div
-      class="absolute bottom-[100%] w-full origin-left scale-0 cursor-pointer select-text rounded-lg bg-#fff p-2 transition-all duration-300 ease-in-out group-hover:scale-100"
+      class="absolute bottom-[100%] w-full origin-left scale-0 cursor-pointer select-text rounded-lg bg-[#fff] p-2 transition-all duration-300 ease-in-out group-hover:scale-100"
       :style="{
         boxShadow: 'inset 20px 20px 8px #bebebe, inset -20px -20px 8px #ffffff',
       }"
       @click="openFolder"
     >
       <div
-        class="border border-#52382f rounded-3 bg-#2a2b2f p-2"
+        class="border border-[#52382f] rounded-3 border-solid bg-[#2a2b2f] p-2"
       >
         <div
           class="flex justify-between"
@@ -339,12 +306,12 @@ function openFolder(event: any) {
           <div
             class="flex flex-wrap items-center gap-2"
           >
-            <img
+            <SvgIcon
               v-for="item in video.tagArray"
-              :key="item.url"
-              :src="item.url"
-              class="!h-8 !w-8 !rounded-0"
-            >
+              :key="item.icon"
+              :icon="item.icon"
+              class="m-r-1 !h-5 !w-5 !rounded-0"
+            />
           </div>
 
         </div>
@@ -353,7 +320,7 @@ function openFolder(event: any) {
           class="flex justify-between text-white"
         >
           <div
-            class="text-4 text-#e6683c font-700"
+            class="text-4 text-[#e6683c] font-bold"
           >
             {{ video.size }}
           </div>
@@ -365,7 +332,7 @@ function openFolder(event: any) {
         </div>
 
         <div
-          class="break-all p-t-1 text-3 text-#ccc lh-4"
+          class="break-all p-t-1 text-3 text-[#ccc] leading-4"
         >
           {{ directoryPath }}
         </div>
