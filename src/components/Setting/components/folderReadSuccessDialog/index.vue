@@ -26,16 +26,15 @@ function handleClose() {
   window.location.reload()
 }
 
-watchEffect(() => {
-  console.log('%c Line:31 🍑 visible.value', 'color:#b03734', visible.value)
-})
 </script>
 
 <template>
 
   <el-dialog
     v-model="visible"
-    width="50%"
+    width="30%"
+    :show-close="false"
+    @close="handleClose"
   >
     <template
       #title
@@ -49,30 +48,13 @@ watchEffect(() => {
           文件夹
         </span>
 
-        <!-- <a-tooltip
-          :content="folderStore.folderName"
-          background-color="#52B44B"
+        <el-link
+          class="m-x-2 w-30 truncate text-center font-bold !block !p-3 !text-4"
+          status="success"
+          @click="openFolder"
         >
-          <a-link
-            class="m-x-2 w-30 truncate text-center font-bold !block !p-3 !text-4"
-            status="success"
-            @click="openFolder"
-          >
-            {{ folderStore.folderName }}
-          </a-link>
-        </a-tooltip> -->
-        <el-tooltip
-          :content="folderStore.folderName"
-          background-color="#52B44B"
-        >
-          <el-link
-            class="m-x-2 w-30 truncate text-center font-bold !block !p-3 !text-4"
-            status="success"
-            @click="openFolder"
-          >
-            {{ folderStore.folderName }}
-          </el-link>
-        </el-tooltip>
+          {{ folderStore.folderName }}
+        </el-link>
 
         <span
           class=""

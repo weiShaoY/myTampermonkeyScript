@@ -58,7 +58,7 @@ const useFolderStore = defineStore(
     /**
      *  获取文件夹文件列表
      */
-    function getFolder() {
+    function getFolderFileList() {
       const embyFolder = JSON.parse(GM_getValue('EmbyFolder', '{}'))
 
       if (embyFolder.folderName && embyFolder.folderReadTime && embyFolder.folderFileList) {
@@ -172,9 +172,9 @@ const useFolderStore = defineStore(
       uniqueFolderFileNameList,
 
       /**
-       *  获取文件夹
+       *  获取文件夹文件列表
        */
-      getFolder,
+      getFolderFileList,
 
       /**
        *  保存文件夹文件列表

@@ -249,7 +249,7 @@ function openEmby(event: MouseEvent) {
   />
 
   <div
-    class="group fixed bottom-100 left-5 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
+    class="group fixed left-5 top-30 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
   >
     <!-- 主按钮 -->
 
@@ -268,21 +268,22 @@ function openEmby(event: MouseEvent) {
         <SvgIcon
           v-if="!isLoading"
           icon="emby"
+          :size="30"
         />
 
         <SvgIcon
           v-else
           icon="emby"
+          :size="30"
           class="!animate-spin"
           style="--animate-duration: 3s;"
         />
       </div>
     </button>
 
-    <!-- 提示框内容 -->
-    <!-- -translate-x-1/2 left-1/2 -->
+    <!-- 悬浮层 -->
     <div
-      class="invisible absolute top-[-130%] z-50 scale-90 rounded-lg bg-white p-x-4 p-y-4 opacity-0 shadow-xl duration-1000 ease-in-out group-hover:visible group-hover:scale-100 group-hover:opacity-100"
+      class="invisible absolute top-[-120%] z-1000 scale-90 rounded-lg bg-white p-x-4 p-y-4 opacity-0 shadow-xl duration-1000 ease-in-out group-hover:visible group-hover:scale-100 group-hover:opacity-100"
     >
       <div
         class="flex gap-3"
