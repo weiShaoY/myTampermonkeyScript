@@ -35,19 +35,11 @@ type PropsType = {
    *   按钮样式
    */
   style?: CSSProperties
-
-  /**
-   *   是否列表页使用
-   */
-  isListPage?: boolean
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
-  width: '100%',
-  height: '100%',
   radius: 10,
   class: '',
-  isListPage: false,
 })
 
 const embyStore = useEmbyStore()
@@ -62,19 +54,7 @@ function embyBtnHandler(event: MouseEvent) {
 <template>
 
   <div
-    v-if="isListPage"
-    class="mx-auto mb-5 h-20 w-20 flex cursor-pointer items-center justify-center border-2 border-[#52B54B] rounded-lg border-solid transition-colors hover:bg-[#52B54B] hover:bg-opacity-10"
-    @click="embyBtnHandler"
-  >
-    <SvgIcon
-      icon="emby"
-      :size="50"
-    />
-  </div>
-
-  <div
-    v-else
-    class="group relative z-1 h-25 w-40 flex translate-x-0 cursor-pointer items-center justify-between overflow-hidden border-3 border-[#52B54B] bg-transparent p-x-1 text-lg font-bold before:absolute before:left-0 before:top-0 before:z-[-1] before:h-full before:w-full before:translate-x-[-100%] !bg-white before:bg-[#52B54B] !text-[#52B54B] before:transition-all-600 before:content-[''] hover:before:translate-x-0 !hover:text-white"
+    class="z-1000 m-x-auto m-y-5 w-[95%]"
     :class="props.class"
     :style="{
       borderRadius: `${radius}px`,
@@ -82,29 +62,36 @@ function embyBtnHandler(event: MouseEvent) {
       width: typeof width === 'number' ? `${width}px` : `${width}`,
       ...style,
     }"
-    @click="embyBtnHandler"
   >
-    <span>
-      {{ videoName }}
-    </span>
 
-    <div
-      class="m-x-5"
+    <button
+      class="w-full flex translate-x-0 cursor-pointer cursor-pointer items-center items-center justify-between justify-between overflow-hidden border-3 border-solid bg-transparent p-x-1 text-lg font-bold before:absolute before:left-0 before:top-0 before:z-[-1] before:h-full before:w-full before:translate-x-[-100%] !border-[#52B54B] !bg-white before:bg-[#52B54B] !text-[#52B54B] before:transition-all-600 before:content-[''] hover:before:translate-x-0 !hover:text-white"
+      @click="embyBtnHandler"
     >
-      <SvgIcon
-        icon="emby"
-        :size="30"
-        class="group-hover:hidden"
-      />
+      <span>
+        {{ videoName }}
+      </span>
 
-      <SvgIcon
-        icon="embyHover"
-        :size="30"
-        class="hidden group-hover:block"
-      />
+      <div
+        class="m-x-5"
+      >
+        <SvgIcon
+          icon="emby"
+          :size="30"
+          class="group-hover:hidden"
+        />
 
-    </div>
+        <SvgIcon
+          icon="embyHover"
+          :size="30"
+          class="hidden group-hover:block"
+        />
+
+      </div>
+    </button>
+
   </div>
+
 </template>
 
-<style lang="less" scoped></style>
+<style lang="scss" scoped></style>

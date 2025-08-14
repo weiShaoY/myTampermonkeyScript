@@ -44,7 +44,7 @@ function main() {
 
     const boxElement = item.querySelector('.box')
 
-    const tagsElement = item.querySelector('.tags')
+    // const tagsElement = item.querySelector('.tags')
 
     /**
      * 当前视频名称已入库的视频列表
@@ -56,7 +56,7 @@ function main() {
       boxElement?.classList.add('is-highlight')
 
       // 添加 Emby 按钮的类名并更新列表
-      addClassIfNotExists(tagsElement, `emby_btn_${itemVideoName}`, embyBtnList, itemVideoName)
+      addClassIfNotExists(boxElement, `emby_btn_${itemVideoName}`, embyBtnList, itemVideoName)
 
       /**
        *  页面列表当前视频是否含中文磁链
@@ -94,10 +94,6 @@ onMounted(() => {
     >
       <EmbyButton
         :video-name="videoName"
-        :width="50"
-        :height="24"
-        :radius="0"
-        class="tag"
       />
     </Teleport>
   </template>

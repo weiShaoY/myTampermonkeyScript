@@ -138,8 +138,8 @@ function openFolder(event: any) {
 
           <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.icon"
-            :icon="item.icon"
+            :key="item"
+            :icon="item"
             class="m-r-1 !h-5 !w-5 !rounded-0"
           />
 
@@ -181,8 +181,8 @@ function openFolder(event: any) {
 
           <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.icon"
-            :icon="item.icon"
+            :key="item"
+            :icon="item"
             class="m-r-1 !h-5 !w-5 !rounded-0"
           />
 
@@ -245,8 +245,8 @@ function openFolder(event: any) {
         >
           <SvgIcon
             v-for="item in video.tagArray"
-            :key="item.icon"
-            :icon="item.icon"
+            :key="item"
+            :icon="item"
             class="m-r-1 !h-5 !w-5 !rounded-0"
           />
 
@@ -308,8 +308,8 @@ function openFolder(event: any) {
           >
             <SvgIcon
               v-for="item in video.tagArray"
-              :key="item.icon"
-              :icon="item.icon"
+              :key="item"
+              :icon="item"
               class="m-r-1 !h-5 !w-5 !rounded-0"
             />
           </div>
