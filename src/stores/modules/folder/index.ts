@@ -69,9 +69,9 @@ const useFolderStore = defineStore(
 
         folderFileList.value = embyFolder.folderFileList
 
-        folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'processedFileName')
+        folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'cleanName')
 
-        folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'processedFileName')
+        folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'cleanName')
       }
 
       else {
@@ -90,9 +90,10 @@ const useFolderStore = defineStore(
 
       folderFileList.value = Array.from(videoFileSet)
 
-      folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'processedFileName')
+      folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'cleanName')
 
-      folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'processedFileName')
+      folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'cleanName')
+
       folderReadTime.value = Date.now()
 
       const embyFolder = {
