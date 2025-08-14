@@ -9,6 +9,8 @@ import { getTagIconArray, parseNfoContent } from '@/utils'
 
 // import FolderQueryDuplicateModal from './folder_query_duplicate_modal/index.vue'
 
+import FolderQueryDuplicateModal from './components/FolderQueryDuplicateDialog/index.vue'
+
 import FolderReadSuccessDialog from './components/folderReadSuccessDialog/index.vue'
 
 // import FolderReminderReadModal from './folder_reminder_read_modal/index.vue'
@@ -235,17 +237,17 @@ function openEmby(event: MouseEvent) {
     v-model="isShowSettingModal"
   /> -->
 
-  <!-- 文件夹查询重复弹窗 -->
-  <!-- <FolderQueryDuplicateModal
-    v-if="isShowQueryDuplicateModal"
-    v-model="isShowQueryDuplicateModal"
-  /> -->
-
   <!-- 文件夹读取成功弹窗 -->
   <FolderReadSuccessDialog
     v-if="isShowFolderReadSuccessDialog"
     v-model="isShowFolderReadSuccessDialog"
     :folder-read-time="folderReadTime"
+  />
+
+  <!-- 文件夹查询重复弹窗 -->
+  <FolderQueryDuplicateModal
+    v-if="isShowQueryDuplicateModal"
+    v-model="isShowQueryDuplicateModal"
   />
 
   <div

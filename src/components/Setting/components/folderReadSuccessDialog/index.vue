@@ -18,10 +18,6 @@ const visible = defineModel<boolean>({
 
 const folderStore = useFolderStore()
 
-function openFolder() {
-  // folderStore.openFolder(folderStore.folderName)
-}
-
 function handleClose() {
   window.location.reload()
 }
@@ -51,7 +47,6 @@ function handleClose() {
         <el-link
           class="m-x-2 w-30 truncate text-center font-bold !block !p-3 !text-4"
           status="success"
-          @click="openFolder"
         >
           {{ folderStore.folderName }}
         </el-link>
