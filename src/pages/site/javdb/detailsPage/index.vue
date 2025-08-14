@@ -201,16 +201,16 @@ onMounted(() => {
   <div
     class="sm-50 fixed left-2 top-60 w-30 lg:w-70 md:w-50"
   >
-    <!-- emby按钮 -->
-    <EmbyButton
-      v-if="isShowEmbyButton"
-      :video-name="pageVideoName"
-    />
-
     <!-- 提示更新中文磁链按钮 -->
     <PendingUpdateChineseButton
       v-if="isShowPendingUpdateChineseButton"
       class="w-full"
+    />
+
+    <!-- emby按钮 -->
+    <EmbyButton
+      v-if="isShowEmbyButton"
+      :video-name="pageVideoName"
     />
 
     <!-- emby已入库列表 -->
@@ -218,7 +218,7 @@ onMounted(() => {
       v-if="embyCatalogedList.length"
       class="w-full rounded-2 bg-[#FF8400] p-2"
     >
-      <AddedToEmbyButton
+      <EmbyCatalogedList
         v-for="(item, index) in embyCatalogedList"
         :key="index"
         :video="item"

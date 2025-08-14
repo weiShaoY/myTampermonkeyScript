@@ -224,7 +224,7 @@ onMounted(() => {
       v-if="embyCatalogedList.length"
       class="w-full rounded-2 bg-[#FF8400] p-2"
     >
-      <AddedToEmbyButton
+      <EmbyCatalogedList
         v-for="(item, index) in embyCatalogedList"
         :key="index"
         :video="item"

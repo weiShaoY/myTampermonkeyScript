@@ -23,6 +23,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     EmbyButton: typeof import('./../components/EmbyButton/index.vue')['default']
+    EmbyCatalogedList: typeof import('./../components/EmbyCatalogedList/index.vue')['default']
     FolderQueryDuplicateDialog: typeof import('./../components/Setting/components/folderQueryDuplicateDialog/index.vue')['default']
     FolderReadSuccessDialog: typeof import('./../components/Setting/components/folderReadSuccessDialog/index.vue')['default']
     HelloWorld: typeof import('./../components/HelloWorld.vue')['default']

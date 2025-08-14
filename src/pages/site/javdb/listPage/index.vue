@@ -124,7 +124,7 @@ onMounted(() => {
     <Teleport
       :to="`.added_to_emby_btn_${item.baseName}`"
     >
-      <AddedToEmbyButton
+      <EmbyCatalogedList
         :video="item"
       />
     </Teleport>
