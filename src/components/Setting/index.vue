@@ -76,7 +76,7 @@ type FileData = {
 /**
  * 视频文件集
  */
-const videoFileSet: Set<VideoType.Video> = new Set([])
+const videoFileSet: Set<VideoType.VideoFile> = new Set([])
 
 /**
  * 递归获取目录下的所有文件
@@ -175,29 +175,29 @@ async function mainBtnHandler() {
       const nfoContent = parseNfoContent(fileData.nfoContent)
 
       // 创建一个包含视频信息的对象
-      const item: VideoType.Video = {
+      const item: VideoType.VideoFile = {
 
         // size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
-        size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
+        fileSize: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
-        baseName: file.name.substring(0, file.name.lastIndexOf('.')),
+        fileBaseName: file.name.substring(0, file.name.lastIndexOf('.')),
 
-        fullName: file.name,
+        fileOriginalName: file.name,
 
-        processedVideoName:
+        fileProcessedName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
             .replace(config.video.tagRegex, ''),
 
-        extensionName: file.name.replace(/^.*\./, ''),
+        fileExtension: file.name.replace(/^.*\./, ''),
 
-        directoryPath: [...fileData.directoryPath, file.name],
+        fileDirectoryPath: [...fileData.directoryPath, file.name],
 
-        tagArray: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
+        fileTagArray: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
 
-        resolution: nfoContent.resolution || '',
+        fileResolution: nfoContent.resolution || '',
 
-        isChinese: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
+        isChineseSubtitles: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
       }
 
       console.log('%c Line:202 🍊 item', 'color:#e41a6a', item)

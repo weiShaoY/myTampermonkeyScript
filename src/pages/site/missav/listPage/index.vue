@@ -9,7 +9,7 @@ const folderStore = useFolderStore()
 /**
  *  已入库的视频
  */
-const addedToInventoryBtnList = ref<VideoType.Video[]>([])
+const addedToInventoryBtnList = ref<VideoType.VideoFile[]>([])
 
 /**
  *  在Emby打开按钮
@@ -58,7 +58,7 @@ function main() {
     /**
      * 当前视频名称已入库的视频列表
      */
-    const matchedVideoList = folderStore.folderFileList.filter(sub => sub.processedVideoName.includes(itemVideoName))
+    const matchedVideoList = folderStore.folderFileList.filter(sub => sub.fileProcessedName.includes(itemVideoName))
 
     if (matchedVideoList.length) {
       //  添加高亮
@@ -72,11 +72,11 @@ function main() {
        */
       const isItemHaveChineseTorrent = !!item.querySelector('.is-warning')
 
-      matchedVideoList.forEach((video: VideoType.Video) => {
+      matchedVideoList.forEach((video: VideoType.VideoFile) => {
         // 添加已入库视频按钮的类名并更新列表
-        addClassAndUpdateList(boxElement, `added_to_emby_btn_${video.baseName}`, addedToInventoryBtnList, video)
+        addClassAndUpdateList(boxElement, `added_to_emby_btn_${video.fileBaseName}`, addedToInventoryBtnList, video)
 
-        if (!video.isChinese && isItemHaveChineseTorrent) {
+        if (!video.isChineseSubtitles && isItemHaveChineseTorrent) {
           // 添加更新中文磁链按钮的类名并更新列表
           addClassIfNotExists(boxElement, `update_chinese_btn_${itemVideoName}`, updateChineseBtnList, itemVideoName)
         }
@@ -127,7 +127,7 @@ onMounted(() => {
     :key="item.videoName"
   >
     <Teleport
-      :to="`.added_to_emby_btn_${item.baseName}`"
+      :to="`.added_to_emby_btn_${item.fileBaseName}`"
     >
       <EmbyCatalogedList
         :video="item"

@@ -30,7 +30,7 @@ const isShowEmbyButton = ref(false)
 /**
  *  emby已入库列表
  */
-const embyCatalogedList = ref<VideoType.Video[]>([])
+const embyCatalogedList = ref<VideoType.VideoFile[]>([])
 
 /**
  *  是否显示自定义磁链列表
@@ -154,13 +154,13 @@ function main() {
   // 当前视频名称已入库的视频列表
   const matchedVideoList = folderStore.folderFileList.filter(item =>
 
-    item.processedVideoName.includes(pageVideoName.value),
+    item.fileProcessedName.includes(pageVideoName.value),
   )
 
   /**
    *  emby中是否有中文磁链
    */
-  const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.isChinese)
+  const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.isChineseSubtitles)
 
   const highlightElement = document.querySelector('.video-meta-panel')
 

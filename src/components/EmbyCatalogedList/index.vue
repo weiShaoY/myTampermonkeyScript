@@ -6,7 +6,7 @@ type PropsType = {
   /**
    *   视频
    */
-  video: VideoType.Video
+  video: VideoType.VideoFile
 
   /**
    *   按钮宽度
@@ -48,7 +48,7 @@ const isHovered = ref(false) // 添加悬浮状态
 /**
  *   视频目录结构
  */
-const directoryPath = props.video.directoryPath.join('\\')
+const directoryPath = props.video.fileDirectoryPath.join('\\')
 
 /**
  *   视频名称复制到 剪切板
@@ -57,7 +57,7 @@ function videoNameCopyToClipboard(event: any) {
   event.preventDefault()
 
   // 复制到剪切板
-  GM_setClipboard(props.video.processedVideoName, 'text')
+  GM_setClipboard(props.video.fileProcessedName, 'text')
 
   // Message.success('视频名称 已复制到剪切板')
   window.$notification.success('视频名称 已复制到剪切板')
@@ -120,13 +120,13 @@ function openFolder(event: any) {
             <div
               class="text-[#e6683c] font-bold"
             >
-              {{ video.size }}
+              {{ video.fileSize }}
             </div>
 
             <div
               class=""
             >
-              {{ video.resolution }}
+              {{ video.fileResolution }}
             </div>
           </div>
 
@@ -134,7 +134,7 @@ function openFolder(event: any) {
             class="flex items-center gap-2"
           >
             <SvgIcon
-              v-for="item in video.tagArray"
+              v-for="item in video.fileTagArray"
               :key="item"
               :icon="item"
               :size="30"
@@ -150,7 +150,7 @@ function openFolder(event: any) {
           <span
             class="flex-1 truncate text-start text-4"
           >
-            {{ video.baseName }}
+            {{ video.fileBaseName }}
           </span>
         </div>
       </div>
