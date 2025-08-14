@@ -170,7 +170,7 @@ console.log('%c Line:54 🍌 folderStore.folderDuplicateNameFileList', 'color:#9
         <EmbyPlayButton
           v-for="(item, index) in folderStore.folderDuplicateNameFileList"
           :key="index"
-          :video-name="item.processedName"
+          :video-name="item.processedVideoName"
           class="!h-15"
         />
       </template>

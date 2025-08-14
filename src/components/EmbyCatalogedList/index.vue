@@ -57,7 +57,7 @@ function videoNameCopyToClipboard(event: any) {
   event.preventDefault()
 
   // 复制到剪切板
-  GM_setClipboard(props.video.processedName, 'text')
+  GM_setClipboard(props.video.processedVideoName, 'text')
 
   // Message.success('视频名称 已复制到剪切板')
   window.$notification.success('视频名称 已复制到剪切板')

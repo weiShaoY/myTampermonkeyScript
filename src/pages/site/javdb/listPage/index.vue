@@ -49,7 +49,7 @@ function main() {
     /**
      * 当前视频名称已入库的视频列表
      */
-    const matchedVideoList = folderStore.folderFileList.filter(sub => sub.processedName.includes(itemVideoName))
+    const matchedVideoList = folderStore.folderFileList.filter(sub => sub.processedVideoName.includes(itemVideoName))
 
     if (matchedVideoList.length) {
       //  添加高亮

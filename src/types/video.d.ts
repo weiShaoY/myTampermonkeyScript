@@ -9,19 +9,19 @@ namespace VideoType {
   type Video = {
 
     /**
-     * 视频名称 (去除扩展名)
-     */
-    baseName: string
-
-    /**
-     * 视频完整名称 (包含扩展名)
+     *  原始名称-(包含扩展名和视频标签)
      */
     fullName: string
 
     /**
-     * 视频处理后的名称 (去除扩展名，去除视频标签，转换为小写)
+     *  基础名称-(原始名称去除扩展名)
      */
-    processedName: string
+    baseName: string
+
+    /**
+     *  处理后的名称-(原始名称去除扩展名、去除视频标签、转换为小写)
+     */
+    processedVideoName: string
 
     /**
      * 视频文件标签图标数组

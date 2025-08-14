@@ -166,7 +166,7 @@ function main() {
   // 当前视频名称已入库的视频列表
   const matchedVideoList = folderStore.folderFileList.filter(item =>
 
-    item.processedName.includes(pageVideoName.value),
+    item.processedVideoName.includes(pageVideoName.value),
   )
 
   /**

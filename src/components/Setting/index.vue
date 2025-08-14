@@ -183,7 +183,8 @@ async function mainBtnHandler() {
         baseName: file.name.substring(0, file.name.lastIndexOf('.')),
 
         fullName: file.name,
-        processedName:
+
+        processedVideoName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
             .replace(config.video.tagRegex, ''),
