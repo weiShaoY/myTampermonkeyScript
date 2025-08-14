@@ -123,7 +123,7 @@ function getTorrentList() {
       name,
       size,
       time,
-      tagArray,
+      tags: tagArray,
     }
 
     torrentList.value.push(torrentListItem)

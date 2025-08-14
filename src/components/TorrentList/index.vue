@@ -40,7 +40,7 @@ console.log('%c Line:39 🍢 torrentList', 'color:#fca650', props)
  *  有中文字幕的数量
  */
 const chineseCount = computed(() =>
-  props.torrentList.filter(item => item.tagArray.includes('tag-ziMu')).length,
+  props.torrentList.filter(item => item.tags.includes('tag-ziMu')).length,
 )
 
 /**
@@ -295,7 +295,7 @@ scrollToElement()
                 class="m-l-3 w-30 group-hover:text-[#fff]"
               >
                 <span
-                  v-if="torrent.web"
+                  v-if="torrent.source"
                   class="text-4 font-bold"
                 >
                   {{
@@ -327,8 +327,8 @@ scrollToElement()
 
               <!-- 标签图标 -->
               <div
-                v-for="tag in torrent.tagArray"
-                :key="tag.name"
+                v-for="tag in torrent.tags"
+                :key="tag"
                 class="m-x-3"
               >
 
