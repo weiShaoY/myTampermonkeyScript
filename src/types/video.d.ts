@@ -56,25 +56,40 @@ namespace VideoType {
   }
 
   /**
-   * 完整的视频配置类型
+   * 视频标签配置项
    */
-  type VideoConfig = {
+  type VideoTagConfig = {
 
     /**
-     * 视频扩展名数组（注意：这个数组在 `tagRegex` 的定义中并未直接使用）
+     * 标签名称数组（支持多个同义标签名）
      */
-    extensionArray: string[]
+    names: string[]
 
     /**
-     * 视频标签名数组
+     * 标签对应的图标标识
      */
-    tagArray: string[]
-
-    /**
-     *  视频标签匹配正则（注意：这里使用 `TagArrayType`）
-     */
-    tagRegex: RegExp
-
+    icon: string
   }
 
+  /**
+   * 视频文件识别和标签处理配置
+   */
+  type VideoProcessingConfig = {
+
+    /**
+     * 支持的视频文件扩展名列表
+     */
+    supportedExtensions: string[]
+
+    /**
+     * 视频标签配置列表
+     */
+    tagConfigs: VideoTagConfig[]
+
+    /**
+     * 用于从文件名中提取标签的正则表达式
+     */
+    tagExtractionRegex: RegExp
+
+  }
 }

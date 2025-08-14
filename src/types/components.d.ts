@@ -8,32 +8,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    AddedToEmbyButton: typeof import('./../components/AddedToEmbyButton/index.vue')['default']
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
-    copy: typeof import('./../components/EmbyCatalogedList/index copy.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    ElWatermark: typeof import('element-plus/es')['ElWatermark']
-    EmbyButton: typeof import('./../components/EmbyButton/index.vue')['default']
     EmbyCatalogedList: typeof import('./../components/EmbyCatalogedList/index.vue')['default']
     EmbyPlayButton: typeof import('./../components/EmbyPlayButton/index.vue')['default']
-    EmbyPlayerButton: typeof import('./../components/EmbyPlayerButton/index.vue')['default']
     FolderQueryDuplicateDialog: typeof import('./../components/Setting/components/folderQueryDuplicateDialog/index.vue')['default']
     FolderReadSuccessDialog: typeof import('./../components/Setting/components/folderReadSuccessDialog/index.vue')['default']
-    HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
     PendingUpdateChineseButton: typeof import('./../components/PendingUpdateChineseButton/index.vue')['default']
     Setting: typeof import('./../components/Setting/index.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
     TorrentList: typeof import('./../components/TorrentList/index.vue')['default']
-    UpdateChinese: typeof import('./../components/UpdateChinese/index.vue')['default']
-    UpdateChineseButton: typeof import('./../components/Update-Chinese-Button/index.vue')['default']
   }
 }

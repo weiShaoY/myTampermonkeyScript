@@ -168,7 +168,6 @@ declare module 'vue' {
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly addClassAndUpdateList: UnwrapRef<typeof import('../utils/addClassAndUpdateList')['addClassAndUpdateList']>
     readonly addClassIfNotExists: UnwrapRef<typeof import('../utils/addClassIfNotExists')['addClassIfNotExists']>
-    readonly addHighlightToElement: UnwrapRef<typeof import('../utils/addHighlightToElement')['addHighlightToElement']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly copyToClipboard: UnwrapRef<typeof import('../utils/clipboard')['copyToClipboard']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>

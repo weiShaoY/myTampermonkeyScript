@@ -92,8 +92,8 @@ async function* getFiles(
     const [name, handle] = entry
 
     try {
-      //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.extensionArray 中
-      if (handle.kind === 'file' && config.video.extensionArray.some(ext => name.endsWith(`.${ext}`))) {
+      //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.supportedExtensions 中
+      if (handle.kind === 'file' && config.video.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
         let nfoContent = ''
 
         // 尝试查找同级目录下的同名 .nfo 文件
@@ -187,7 +187,7 @@ async function mainBtnHandler() {
         fileProcessedName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
-            .replace(config.video.tagRegex, ''),
+            .replace(config.video.tagExtractionRegex, ''),
 
         fileExtension: file.name.replace(/^.*\./, ''),
 

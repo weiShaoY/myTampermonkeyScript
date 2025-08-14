@@ -49,7 +49,6 @@
     "acceptHMRUpdate": true,
     "addClassAndUpdateList": true,
     "addClassIfNotExists": true,
-    "addHighlightToElement": true,
     "computed": true,
     "copyToClipboard": true,
     "createApp": true,
