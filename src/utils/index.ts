@@ -8,4 +8,6 @@ export * from './formatTimestampToChineseDate'
 
 export * from './getTagIconArray'
 
+export * from './openLink'
+
 export * from './parseNfoContent'

@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 
 import { ref } from 'vue'
 
+import { openLink } from '@/utils'
+
 const useEmbyStore = defineStore(
   'emby',
   () => {
@@ -9,7 +11,7 @@ const useEmbyStore = defineStore(
       /**
        * Emby 服务器的 URL。
        */
-      url: 'http://192.168.0.4',
+      url: 'http://192.168.0.5',
 
       /**
        * Emby 服务器的端口号。
@@ -19,22 +21,27 @@ const useEmbyStore = defineStore(
       /**
        * Emby 服务器用户 ID。
        */
-      userId: 'bd743a8bac9247fb9f5cad8b08945906',
+      userId: '2409e0a7f21047ba9c74b41be14c6729',
 
       /**
        * 发起请求的设备名称。
        */
-      deviceName: 'Chrome Windows',
+      deviceName: 'Chrome macOS',
 
       /**
        * 发起请求设备的 ID。
        */
-      deviceId: 'aa94db6f-fb2d-48d8-a6e1-6b67b3d90036',
+      deviceId: 'a6f53c21-ff50-4ccd-a6ba-94f5f4830e87',
 
       /**
        * Emby 客户端的版本号。
        */
-      clientVersion: '4.8.8.0',
+      clientVersion: '4.8.11.0',
+
+      /**
+       * 用户的认证令牌。
+       */
+      token: '8713e19e82f64fd3a50207b0321f3538',
 
       /**
        * Emby 服务器使用的语言代码。
@@ -42,25 +49,15 @@ const useEmbyStore = defineStore(
       language: 'zh-cn',
 
       /**
-       * 用户的认证令牌。
-       */
-      token: 'cf925526b6f648b695cc28d2e967e3db',
-
-      /**
        * 发送到 Emby 服务器的查询字符串参数。
        */
       queryParams: {
         SearchTerm: '',
-        Fields:
-          'BasicSyncInfo,CanDelete,PrimaryImageAspectRatio,ProductionYear,Status,EndDate',
-        StartIndex: 0,
-        SortBy: 'SortName',
-        SortOrder: 'Ascending',
-        EnableImageTypes: 'Primary,Backdrop,Thumb',
-        ImageTypeLimit: 1,
         Recursive: true,
+        Fields: 'PrimaryImageAspectRatio,PremiereDate,ProductionYear',
+        EnableUserData: false,
         GroupProgramsBySeries: true,
-        Limit: 50,
+        Limit: 30,
       },
     })
 
@@ -71,8 +68,20 @@ const useEmbyStore = defineStore(
      */
     function buildRequestUrl(videoName: string) {
       const queryParams = {
-        ...emby.value.queryParams,
-        SearchTerm: videoName,
+        'SearchTerm': videoName,
+        'Recursive': true,
+        'Fields': 'PrimaryImageAspectRatio,PremiereDate,ProductionYear',
+        'EnableUserData': false,
+        'GroupProgramsBySeries': true,
+        'Limit': 30,
+
+        // 添加 Emby 特定的查询参数
+        'X-Emby-Client': 'Emby Web',
+        'X-Emby-Device-Name': emby.value.deviceName,
+        'X-Emby-Device-Id': emby.value.deviceId,
+        'X-Emby-Client-Version': emby.value.clientVersion,
+        'X-Emby-Token': emby.value.token,
+        'X-Emby-Language': emby.value.language,
       }
 
       const queryString = Object.entries(queryParams)
@@ -102,51 +111,51 @@ const useEmbyStore = defineStore(
         })
       }, timeoutDuration)
 
-      console.log('%c Line:107 🍷 buildRequestUrl(videoName)', 'color:#e41a6a', buildRequestUrl(videoName))
       GM_xmlhttpRequest({
         method: 'GET',
         url: buildRequestUrl(videoName),
         headers: {
           'Accept': 'application/json',
-          'X-Emby-Client': 'Emby Web',
-          'X-Emby-Device-Name': emby.value.deviceName,
-          'X-Emby-Device-Id': emby.value.deviceId,
-          'X-Emby-Client-Version': emby.value.clientVersion,
-          'X-Emby-Token': emby.value.token,
-          'X-Emby-Language': emby.value.language,
+          'Accept-Language': 'zh,zh-CN;q=0.9,ja;q=0.8',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
         },
         onload: (response: any) => {
-          console.log('%c Line:121 🍬 response', 'color:#ffdd4d', response)
-
           // 请求成功，清除超时计时器
           clearTimeout(timeoutId)
 
           if (response.status >= 200 && response.status < 300) {
+            GM_setValue('EMBY-BTN-VALUE', '')
+
             try {
             // 将 JSON 字符串转换为 JSON 对象
               const result = JSON.parse(response.responseText)
 
-              console.log('%c Line:130 🍡 result', 'color:#465975', result)
-
-              if (result.Items.length === 1) {
+              if (result.Items.length > 0) {
                 const id = result.Items[0].Id
 
                 const serverId = result.Items[0].ServerId
 
-                window.open(
-                  `${emby.value.url}:${emby.value.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`,
-                  '_blank',
-                )
+                const url = `${emby.value.url}:${emby.value.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`
 
-                GM_setValue('EMBY-BTN-VALUE', '')
+                openLink(url)
               }
               else {
-                GM_setValue('EMBY-BTN-VALUE', videoName)
-                window.open(`${emby.value.url}:${emby.value.port}/web/index.html#!/home`, '_blank')
+                window.$messageBox.confirm(`是否打开 Emby 首页?`, 'Emby中没有找到该视频!', {
+                  confirmButtonText: '确认',
+                  cancelButtonText: '取消',
+                  type: 'warning',
+                })
+                  .then(() => {
+                    openLink(`${emby.value.url}:${emby.value.port}/web/index.html#!/home`)
+                  })
+                  .catch(() => {
+                    window.$notification.error('Emby中没有找到该视频!')
+                  })
               }
             }
             catch (e) {
               console.error('请求失败:', e)
+              GM_setValue('EMBY-BTN-VALUE', '')
             }
           }
           else {
