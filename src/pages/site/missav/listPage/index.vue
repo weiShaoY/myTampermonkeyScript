@@ -28,7 +28,6 @@ function main() {
 
   const itemList = document.querySelectorAll('div.thumbnail.group')
 
-  console.log('%c Line:31 🍐', 'color:#fca650 itemList', itemList)
   itemList.forEach((item) => {
     //  去除行首空格
     const linkElement = item.querySelector('a.text-secondary')

@@ -143,8 +143,6 @@ function getTorrentList() {
   //  添加挂载点
   const targetElement = document.querySelector('.grid.grid-cols-2.md\\:grid-cols-3.xl\\:grid-cols-4.gap-5')
 
-  console.log('%c Line:145 🍣 targetElement', 'color:#2eafb0', targetElement)
-
   if (targetElement) {
     targetElement.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>') // 修改为 'afterbegin'
     isShowTorrentList.value = true
@@ -193,10 +191,93 @@ function main() {
   }
 }
 
+/**
+ *  处理女优头像
+ */
+function getActressAvatar() {
+  const links = document.querySelectorAll('.space-y-2 > div:nth-child(4) a')
+
+  console.log('%c Line:198 🍕 links', 'color:#f5ce50', links)
+  links.forEach((link) => {
+    // 获取当前 link 的地址
+    const actressesLink = link.href
+
+    fetch(actressesLink)
+      .then(response => response.text())
+      .then((html) => {
+        const parser = new DOMParser()
+
+        const doc = parser.parseFromString(html, 'text/html')
+
+        const imgElement = doc.querySelector('.bg-norddark img')
+
+        const profile = doc.querySelector('.font-medium.text-lg.leading-6')
+
+        // 收藏按钮
+        const saveBtn = profile.querySelector('div.hero-pattern button')
+
+        // 直接删除按钮,不然会直接保存当前页面的影片
+        saveBtn.remove()
+
+        // 名字转链接.
+        profile.querySelector('h4').innerHTML = `<a href="${actressesLink}">${profile.querySelector('h4').textContent}</a>`
+        const profileDiv = document.createElement('div')
+
+        profileDiv.classList.add('font-medium', 'text-lg', 'leading-6', 'ChinaGodMan')
+        profileDiv.style.display = 'none'
+        profileDiv.style.position = 'absolute'
+        profileDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'
+        profileDiv.style.color = '#fff'
+        profileDiv.style.padding = '10px'
+        profileDiv.style.borderRadius = '5px'
+        profileDiv.style.zIndex = '1000'
+        profileDiv.style.whiteSpace = 'nowrap'
+
+        // 如果女优的图片存在
+        if (imgElement) {
+          // 显示大图片
+          profileDiv.innerHTML = `<img src="${imgElement.src.replace('-t', '')}" alt="I AM YOUR FATHER" class="object-cover object-top w-full h-full">`
+
+          // 显示小图片
+          link.innerHTML = `<img src="${imgElement.src}" width="20" height="20" style="display: inline-block; vertical-align: middle;">${link.innerHTML}`
+        }
+        else {
+          console.log('🔍 ~ 未找到图片,不添加这个女优.')
+        }
+
+        saveBtn.remove()
+        profileDiv.appendChild(profile)
+        link.parentElement.appendChild(profileDiv)
+        link.addEventListener('mouseenter', () => {
+          document.querySelectorAll('.ChinaGodMan').forEach((element) => {
+            element.style.display = 'none'
+          })
+          profileDiv.style.display = 'block'
+          const rect = link.getBoundingClientRect()
+
+          profileDiv.style.top = `${rect.top + window.scrollY + rect.height - 20}px`
+          profileDiv.style.left = `${rect.left + window.scrollX}px`
+        })
+        saveBtn.addEventListener('click', () => {
+          alert('尚未完成添加操作,敬请期待')
+        })
+
+        profileDiv.addEventListener('mouseleave', () => {
+          profileDiv.style.display = 'none'
+        })
+      })
+      .catch((error) => {
+        console.error('🔍 ~ 获取页面失败:', error)
+      })
+  })
+}
+
 onMounted(() => {
   getTorrentList()
 
   main()
+
+  getActressAvatar()
 })
 </script>
 
