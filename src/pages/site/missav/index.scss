@@ -9,14 +9,20 @@
 }
 
 // 列表页
-.javdb-list-page {
-  .tags {
-    .tag {
-      margin-right: 10px !important;
-    }
+.list-page {
+  // 盒子高亮
+  a.text-secondary {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    // 完整换行显示
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
   }
 
-  // 盒子高亮
   .is-highlight {
     padding: 10px;
 
@@ -24,32 +30,44 @@
 
     background-color: #ea1179;
 
-    .cover {
-      border-radius: 10px;
-      overflow: hidden;
+    a.text-secondary {
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      // 完整换行显示
+      white-space: pre-wrap;
+      word-break: break-all;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      text-overflow: ellipsis;
     }
 
-    img {
-      border-radius: 10px;
-    }
+    // .cover {
+    //   border-radius: 10px;
+    //   overflow: hidden;
+    // }
 
-    strong {
-      color: #fff !important;
+    // img {
+    //   border-radius: 10px;
+    // }
 
-      margin-right: 10px;
-    }
+    // strong {
+    //   color: #fff !important;
 
-    .video-title {
-      color: #fff !important;
-    }
+    //   margin-right: 10px;
+    // }
 
-    .score {
-      color: #fff !important;
-    }
+    // .video-title {
+    //   color: #fff !important;
+    // }
 
-    .meta {
-      color: #fff !important;
-    }
+    // .score {
+    //   color: #fff !important;
+    // }
+
+    // .meta {
+    //   color: #fff !important;
+    // }
   }
 }
 

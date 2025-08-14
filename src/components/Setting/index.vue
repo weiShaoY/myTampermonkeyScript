@@ -251,7 +251,7 @@ function openEmby(event: MouseEvent) {
   />
 
   <div
-    class="group fixed left-2 top-30 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
+    class="group fixed left-2 top-30 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-1000000000000"
   >
     <!-- 主按钮 -->
     <button

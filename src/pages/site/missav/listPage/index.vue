@@ -26,25 +26,34 @@ function main() {
     return
   }
 
-  const itemList = document.querySelectorAll('.movie-list .item')
+  const itemList = document.querySelectorAll('div.thumbnail.group')
 
+  console.log('%c Line:31 🍐', 'color:#fca650 itemList', itemList)
   itemList.forEach((item) => {
+    //  去除行首空格
+    const linkElement = item.querySelector('a.text-secondary')
+
+    if (linkElement) {
+      linkElement.textContent = (linkElement.textContent || '').trimStart()
+    }
+
     /**
      *  获取视频名称 (小写，去除空格)
      */
     const itemVideoName = item
-      .querySelector('strong')
+      .querySelector('a.text-secondary') // 找到 class 为 text-secondary 的 <a> 元素
       ?.textContent
-      ?.toLowerCase()
-      .replace(/\s+/g, '') as string
+      ?.trim()
+      .split(' ')[0] // 获取 <a> 元素的文本内容
+      .toLowerCase() || ''
+
+    console.log('%c Line:42 🌭 itemVideoName', 'color:#fca650', itemVideoName)
 
     if (!itemVideoName) {
       return
     }
 
-    const boxElement = item.querySelector('.box')
-
-    // const tagsElement = item.querySelector('.tags')
+    const boxElement = item
 
     /**
      * 当前视频名称已入库的视频列表
