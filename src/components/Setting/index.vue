@@ -167,6 +167,8 @@ async function mainBtnHandler() {
        */
       const file = await fileData.fileHandle.getFile()
 
+      console.log('%c Line:169 🍡 file', 'color:#e41a6a', file)
+
       /**
        *  解析后的Nfo文件内容
        */
@@ -175,12 +177,12 @@ async function mainBtnHandler() {
       // 创建一个包含视频信息的对象
       const item: VideoType.Video = {
 
+        // size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
         size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
         baseName: file.name.substring(0, file.name.lastIndexOf('.')),
 
         fullName: file.name,
-
         processedName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
@@ -196,6 +198,8 @@ async function mainBtnHandler() {
 
         isChinese: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
       }
+
+      console.log('%c Line:202 🍊 item', 'color:#e41a6a', item)
 
       // 将该视频信息对象添加到 Set 中
       videoFileSet.add(item)

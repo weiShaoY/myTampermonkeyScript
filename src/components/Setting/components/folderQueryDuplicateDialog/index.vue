@@ -49,7 +49,9 @@ const getFolderReadTimeoutText = computed(() => {
 watchEffect(() => {
   console.log(isShowFolderUniqueFileNameFileList.value)
 })
+console.log('%c Line:52 🍏 folderStore.folderUniqueFileNameFileList', 'color:#b03734', folderStore.folderUniqueFileNameFileList)
 
+console.log('%c Line:54 🍌 folderStore.folderDuplicateNameFileList', 'color:#93c0a4', folderStore.folderDuplicateNameFileList)
 </script>
 
 <template>
@@ -165,26 +167,22 @@ watchEffect(() => {
       <template
         v-if="!isShowFolderUniqueFileNameFileList"
       >
-        <EmbyButton
+        <EmbyPlayButton
           v-for="(item, index) in folderStore.folderDuplicateNameFileList"
           :key="index"
           :video-name="item.processedName"
-          :is-show-video-name="true"
-          :height="40"
-          class="m-x-auto m-b-5 !w-[80%]"
+          class="!h-15"
         />
       </template>
 
       <template
         v-else
       >
-        <EmbyButton
+        <EmbyPlayButton
           v-for="(item, index) in folderStore.folderUniqueFileNameFileList"
           :key="index"
           :video-name="item"
-          :is-show-video-name="true"
-          :height="40"
-          class="m-x-auto m-b-5 !w-[80%]"
+          class="!h-15"
         />
       </template>
     </el-scrollbar>
@@ -193,7 +191,7 @@ watchEffect(() => {
       #footer
     >
       <div
-        class="w-full flex flex-col items-start font-bold !text-4"
+        class="w-full flex flex-col font-bold !text-4"
       >
 
         <div
@@ -237,24 +235,29 @@ watchEffect(() => {
 
         <div
           v-if="folderStore.folderReadTime"
-          class="flex items-center"
+          class="flex items-center gap-5"
         >
 
           <span>
             {{ formatTimestampToChineseDate(folderStore.folderReadTime) }}
           </span>
 
-          <span
-            class="m-x-3"
+          <div
+            class=""
           >
-            读取文件夹
-          </span>
+            <span
+              class="m-x-3"
+            >
+              读取文件夹
+            </span>
 
-          <span
-            class="m-x-2 w-30 cursor-pointer truncate border-b-2 border-primary pb-1 text-center text-6 color-primary font-bold hover:scale-105"
-          >
-            {{ folderStore.folderName }}
-          </span>
+            <span
+              class="m-x-2 w-30 cursor-pointer truncate border-b-2 border-primary pb-1 text-center text-6 color-primary font-bold hover:scale-105"
+            >
+              {{ folderStore.folderName }}
+            </span>
+
+          </div>
 
         </div>
       </div>
