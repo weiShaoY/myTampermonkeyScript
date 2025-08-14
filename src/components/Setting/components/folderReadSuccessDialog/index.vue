@@ -108,7 +108,7 @@ function handleClose() {
         <span
           class="m-x-2 text-5 color-primary"
         >
-          {{ folderStore.duplicateFolderFileList.length }}
+          {{ folderStore.folderDuplicateNameFileList.length }}
         </span>
 
         <span>
@@ -126,7 +126,7 @@ function handleClose() {
         <span
           class="m-x-2 text-5 color-primary"
         >
-          {{ folderStore.uniqueFolderFileNameList.length }}
+          {{ folderStore.folderUniqueFileNameFileList.length }}
         </span>
 
         <span>

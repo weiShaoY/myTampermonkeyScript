@@ -11,9 +11,9 @@ const visible = defineModel<boolean>({
 })
 
 /**
- *  是否显示全部
+ *  是否显示去重
  */
-const isShowAll = ref(false)
+const isShowQueryDuplicateList = ref(false)
 
 /**
  *  计算超时时间 *时*分*秒未重新读取文件夹
@@ -46,6 +46,10 @@ const getFolderReadTimeoutText = computed(() => {
   return `${hoursElapsed} 时 ${minutesElapsed} 分`
 })
 
+watchEffect(() => {
+  console.log(isShowQueryDuplicateList.value)
+})
+
 </script>
 
 <template>
@@ -63,8 +67,9 @@ const getFolderReadTimeoutText = computed(() => {
         class="w-full flex items-center justify-between"
       >
         <div
-          class="flex cursor-pointer items-center font-bold"
-          @click="isShowAll = true"
+          :class="!isShowQueryDuplicateList ? 'border-b-2 border-primary' : ''"
+          class="flex cursor-pointer items-center pb-1 font-bold"
+          @click="isShowQueryDuplicateList = false"
         >
           <span>
             重复
@@ -73,7 +78,7 @@ const getFolderReadTimeoutText = computed(() => {
           <span
             class="m-x-2 text-5 color-primary"
           >
-            {{ folderStore.duplicateFolderFileList.length }}
+            {{ folderStore.folderDuplicateNameFileList.length }}
           </span>
 
           <span>
@@ -81,47 +86,59 @@ const getFolderReadTimeoutText = computed(() => {
           </span>
         </div>
 
+        <!-- 切换按钮 -->
         <div
-          class="toggle-container m-x-3 w-10"
+          class="aspect-video w-24 border-2 border-[#121331] rounded-xl bg-[#ebe6ef] has-[:checked]:bg-[#3a3347]"
         >
-          <input
-            v-model="isShowAll"
-            class="toggle-input"
-            type="checkbox"
-          >
-
           <div
-            class="toggle-handle-wrapper"
+            class="h-full w-full flex items-center gap-x-1 px-1"
           >
             <div
-              class="toggle-handle"
+              class="h-3 w-3 flex-shrink-0 border-2 border-[#121331] rounded-full"
+            />
+
+            <label
+              for="switch"
+              class="h-6 w-full cursor-pointer border-2 border-[#121331] rounded has-[:checked]:scale-x-[-1]"
             >
-              <div
-                class="toggle-handle-knob"
-              />
+              <input
+                id="switch"
+                v-model="isShowQueryDuplicateList"
+                type="checkbox"
+                class="hidden"
+              >
 
               <div
-                class="toggle-handle-bar-wrapper"
+                class="relative h-full w-full bg-[#f24c00]"
               >
                 <div
-                  class="toggle-handle-bar"
+                  class="relative z-20 h-0 w-0 border-l-[12px] border-r-[12px] border-t-[10px] border-l-transparent border-r-transparent border-t-[#121331]"
+                >
+                  <div
+                    class="absolute h-0 w-0 border-l-[9px] border-r-[9px] border-t-[7.5px] border-l-transparent border-r-transparent border-t-[#e44901] -left-[9px] -top-2.5"
+                  />
+                </div>
+
+                <div
+                  class="absolute left-0 top-[4.5px] z-10 h-4.5 w-[12px] skew-y-[39deg] transform border-b-2 border-r-1 border-[#121331] border-solid bg-[#f24c00]"
+                />
+
+                <div
+                  class="absolute left-[12px] top-[4.5px] z-10 h-4.5 w-[12.5px] skew-y-[-39deg] transform border-b-2 border-l-1 border-r-2 border-[#121331] bg-[#c44002]"
                 />
               </div>
-            </div>
-          </div>
+            </label>
 
-          <div
-            class="toggle-base"
-          >
             <div
-              class="toggle-base-inside"
+              class="h-0.5 w-3 flex-shrink-0 rounded-full bg-[#121331]"
             />
           </div>
         </div>
 
         <div
-          class="flex cursor-pointer items-center font-bold"
-          @click="isShowAll = false"
+          :class="isShowQueryDuplicateList ? 'border-b-2 border-primary' : ''"
+          class="flex cursor-pointer items-center pb-1 font-bold"
+          @click="isShowQueryDuplicateList = true"
         >
           <span>
             去重
@@ -130,7 +147,7 @@ const getFolderReadTimeoutText = computed(() => {
           <span
             class="m-x-2 text-5 color-primary"
           >
-            {{ folderStore.uniqueFolderFileNameList.length }}
+            {{ folderStore.folderUniqueFileNameFileList.length }}
           </span>
 
           <span>
@@ -172,6 +189,36 @@ const getFolderReadTimeoutText = computed(() => {
         />
       </template>
     </el-scrollbar> -->
+
+    <el-scrollbar
+      height="60vh"
+    >
+      <template
+        v-if="isShowQueryDuplicateList"
+      >
+        <EmbyButton
+          v-for="(item, index) in folderStore.folderDuplicateNameFileList"
+          :key="index"
+          :video-name="item.processedName"
+          :is-show-video-name="true"
+          :height="40"
+          class="m-x-auto m-b-5 !w-[80%]"
+        />
+      </template>
+
+      <template
+        v-else
+      >
+        <EmbyButton
+          v-for="(item, index) in folderStore.folderUniqueFileNameFileList"
+          :key="index"
+          :video-name="item"
+          :is-show-video-name="true"
+          :height="40"
+          class="m-x-auto m-b-5 !w-[80%]"
+        />
+      </template>
+    </el-scrollbar>
 
     <template
       #footer
@@ -235,7 +282,8 @@ const getFolderReadTimeoutText = computed(() => {
           </span>
 
           <el-link
-            class="m-x-2 w-30 truncate text-center !block !p-1"
+            class="m-x-2 w-30 truncate text-center !block !p-1 !text-6 !font-bold"
+            underline="always"
           >
             {{ folderStore.folderName }}
           </el-link>
@@ -247,160 +295,3 @@ const getFolderReadTimeoutText = computed(() => {
 
   </el-dialog>
 </template>
-
-<style lang="less" scoped>
-.toggle-container {
-  --knob-size: 1.75em;
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.toggle-input {
-  position: absolute;
-  z-index: 2;
-  bottom: 132.5%;
-  border-radius: 50%;
-  transform: rotate(-25deg);
-  transform-origin: 50% 4.75em;
-  width: var(--knob-size);
-  height: var(--knob-size);
-  opacity: 0;
-  /* fix em sizing */
-  font: inherit;
-  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
-  cursor: pointer;
-}
-
-.toggle-input:checked {
-  transform: rotate(25deg);
-}
-
-.toggle-handle-wrapper {
-  position: absolute;
-  z-index: 1;
-  bottom: -135%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
-  mask-image: linear-gradient(to bottom, #000 62.125%, transparent 50%);
-  width: 200%;
-  overflow: hidden;
-}
-
-.toggle-handle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
-}
-
-.toggle-input:checked + .toggle-handle-wrapper > .toggle-handle {
-  transform: rotate(25deg);
-}
-
-.toggle-handle-knob {
-  position: relative;
-  z-index: 1;
-  border-radius: 50%;
-  width: var(--knob-size);
-  height: var(--knob-size);
-  background-image: radial-gradient(
-    farthest-corner at 70% 30%,
-    #fedee2 4%,
-    #d63534 12% 24%,
-    #a81a1a 50% 65%,
-    #d63534 75%
-  );
-  transition: transform 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
-}
-
-.toggle-input:checked + .toggle-handle-wrapper .toggle-handle-knob {
-  transform: rotate(-90deg);
-}
-
-/* toggle handle knob hover inner shadow */
-.toggle-handle-knob::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  box-shadow: inset 0 0 8px 2px rgb(255 255 255 / 0.4);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-@media (hover: hover) {
-  .toggle-input:hover + .toggle-handle-wrapper .toggle-handle-knob::after,
-  .toggle-input:focus-visible + .toggle-handle-wrapper .toggle-handle-knob::after {
-    opacity: 1;
-  }
-}
-
-.toggle-handle-bar-wrapper {
-  position: relative;
-  width: 0.5em;
-  height: 3em;
-}
-
-.toggle-handle-bar {
-  position: absolute;
-  top: calc(var(--knob-size) / 2 * -1);
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--knob-size) / 2);
-  background-image: linear-gradient(to right, #777475, #a4a4a4, #fff 45% 55%, #a4a4a4, #777475);
-  background-position-x: 0.06125em;
-  transition: background-position-x 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
-  box-shadow: inset 0 1em 0.25em rgb(0 0 0 / 0.4);
-}
-
-.toggle-input:checked + .toggle-handle-wrapper .toggle-handle-bar {
-  background-position-x: -0.06125em;
-}
-
-.toggle-base {
-  position: relative;
-  border-radius: 3.125em;
-  padding: 0.25em;
-  width: 3.5em;
-  height: 1.125em;
-  background-color: #fff;
-  background-image: linear-gradient(to bottom, #fff, #d7d7d7);
-  box-shadow:
-    0 -0.25em 0.5em #fff,
-    0 0.25em 0.5em #d7d7d7;
-}
-
-.toggle-base-inside {
-  position: relative;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to bottom, #a6a6a6, #7d7d7d);
-  box-shadow:
-    inset 0 0.0625em rgb(255 255 255 / 0.2),
-    inset 0 -0.03125em rgb(255 255 255 / 1),
-    inset 0 -0.0625em 0.25em rgb(0 0 0 / 0.1);
-}
-
-/* toggle base inside active */
-.toggle-base-inside::after {
-  content: '';
-  position: absolute;
-  border-radius: inherit;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to bottom, #5ab054, #438c3c);
-  box-shadow: inherit;
-  opacity: 0;
-  transition: opacity 0.24s cubic-bezier(0.65, 1.35, 0.5, 1);
-}
-
-.toggle-input:checked ~ .toggle-base .toggle-base-inside::after {
-  opacity: 1;
-}
-</style>

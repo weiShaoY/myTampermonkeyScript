@@ -21,7 +21,7 @@ const isEmby = hostname.value.includes('emby')
 
 const isMissav = hostname.value.includes('missav')
 
-useFolderStore().getFolderFileList()
+useFolderStore().loadEmbyFolderData()
 </script>
 
 <template>

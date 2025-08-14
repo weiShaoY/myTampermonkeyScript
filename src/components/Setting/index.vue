@@ -202,7 +202,7 @@ async function mainBtnHandler() {
     }
 
     // 将 Set 中的视频文件信息存储到本地
-    folderStore.saveFolderFileList(directoryHandle.name, videoFileSet)
+    folderStore.saveEmbyFolderData(directoryHandle.name, videoFileSet)
 
     console.log('%c Line:211 🥒 folderStore.folderFileList', 'color:#465975', folderStore.folderFileList)
 

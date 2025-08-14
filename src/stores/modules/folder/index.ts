@@ -46,19 +46,20 @@ const useFolderStore = defineStore(
     const folderFileList = ref<VideoType.Video[]>([])
 
     /**
-     *  文件夹 文件名重复的文件列表
+     *  文件夹内文件名重复的文件列表。
      */
-    const duplicateFolderFileList = ref<VideoType.Video[]>([])
+    const folderDuplicateNameFileList = ref<VideoType.Video[]>([])
 
     /**
-     *  文件夹 文件名去重后的文件列表
+     *  文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
      */
-    const uniqueFolderFileNameList = ref<string[]>([])
+    const folderUniqueFileNameFileList = ref<string[]>([])
 
     /**
-     *  获取文件夹文件列表
+     *  加载Emby文件夹数据
+     *  @description 加载 Emby 文件夹数据，并将其存储到 Pinia store 中
      */
-    function getFolderFileList() {
+    function loadEmbyFolderData() {
       const embyFolder = JSON.parse(GM_getValue('EmbyFolder', '{}'))
 
       if (embyFolder.folderName && embyFolder.folderReadTime && embyFolder.folderFileList) {
@@ -68,9 +69,9 @@ const useFolderStore = defineStore(
 
         folderFileList.value = embyFolder.folderFileList
 
-        duplicateFolderFileList.value = getDuplicateFolderFileList(folderFileList.value, 'processedName')
+        folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'processedName')
 
-        uniqueFolderFileNameList.value = getUniqueFolderFileList(folderFileList.value, 'processedName')
+        folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'processedName')
       }
 
       else {
@@ -80,18 +81,18 @@ const useFolderStore = defineStore(
 
     /**
      *  保存文件夹文件列表
-     *  @param {string} folderName_ - 文件夹名
-     *  @param {Set<VideoType.Video>} videoFileSet - 视频文件集合
+     *  @param folderName_ - 文件夹名
+     *  @param videoFileSet - 视频文件集合
+     *  @description 保存 Emby 文件夹数据，并将其存储到 GM_setValue 和 Pinia store 中
      */
-    function saveFolderFileList(folderName_: string, videoFileSet: Set<VideoType.Video>) {
+    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<VideoType.Video>) {
       folderName.value = folderName_
 
       folderFileList.value = Array.from(videoFileSet)
 
-      duplicateFolderFileList.value = getDuplicateFolderFileList(folderFileList.value, 'processedName')
+      folderDuplicateNameFileList.value = getFolderDuplicateNameFileList(folderFileList.value, 'processedName')
 
-      uniqueFolderFileNameList.value = getUniqueFolderFileList(folderFileList.value, 'processedName')
-
+      folderUniqueFileNameFileList.value = getFolderUniqueFileNameFileList(folderFileList.value, 'processedName')
       folderReadTime.value = Date.now()
 
       const embyFolder = {
@@ -104,12 +105,12 @@ const useFolderStore = defineStore(
     }
 
     /**
-     * 获取重复文件列表
-     * @param {T[]} list - 要检查的列表
-     * @param {keyof T} property - 用于比较的属性名
-     * @return {T[]} - 返回重复视频的列表
+     * 获取 文件夹内文件名重复的文件列表。
+     * @param  list - 要检查的列表
+     * @param  property - 用于比较的属性名
+     * @return 返回文件夹文件名重复的文件列表
      */
-    function getDuplicateFolderFileList<T>(list: T[], property: keyof T): T[] {
+    function getFolderDuplicateNameFileList<T>(list: T[], property: keyof T): T[] {
       const propertyMap = list.reduce((acc, item) => {
         const key = item[property] as unknown as string
 
@@ -125,12 +126,12 @@ const useFolderStore = defineStore(
     }
 
     /**
-     * 获取具有重复属性值的项，并返回去重后的属性值数组
-     * @param {T[]} items - 要处理的数组
-     * @param {keyof T} property - 用于比较的属性名
-     * @returns {string[]} - 返回去重后的属性值数组
+     * 获取 文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
+     * @param  items - 要处理的数组
+     * @param  property - 用于比较的属性名
+     * @returns 返回文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
      */
-    function getUniqueFolderFileList<T>(items: T[], property: keyof T): string[] {
+    function getFolderUniqueFileNameFileList<T>(items: T[], property: keyof T): string[] {
       const propertyMap = items.reduce((acc, item) => {
         const key = item[property] as unknown as string
 
@@ -144,42 +145,49 @@ const useFolderStore = defineStore(
     }
 
     return {
+      /**
+       * 文件夹对象。
+       */
       folder,
 
       /**
-       *  文件夹 名称
+       * 文件夹名称。
        */
       folderName,
 
       /**
-       *  文件夹 读取时间
+       * 文件夹读取时间戳 (Unix 时间戳)。
        */
       folderReadTime,
 
       /**
-       *  文件夹 文件列表
+       * 文件列表。
        */
       folderFileList,
 
       /**
-       *  文件夹 文件名重复的文件列表
+       * 文件夹内文件名重复的文件列表。
        */
-      duplicateFolderFileList,
+      folderDuplicateNameFileList,
 
       /**
-       *  文件夹 文件名去重后的文件列表
+       * 文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
        */
-      uniqueFolderFileNameList,
+      folderUniqueFileNameFileList,
 
       /**
-       *  获取文件夹文件列表
+       *  加载Emby文件夹数据
+       *  @description 加载 Emby 文件夹数据，并将其存储到 Pinia store 中
        */
-      getFolderFileList,
+      loadEmbyFolderData,
 
       /**
-       *  保存文件夹文件列表
+       * 保存文件夹文件列表的函数。
+       * @param folderName_ - 文件夹名
+       * @param videoFileSet - 视频文件集合
+       * @description 保存 Emby 文件夹数据，并将其存储到 GM_setValue 和 Pinia store 中
        */
-      saveFolderFileList,
+      saveEmbyFolderData,
 
     }
   },
