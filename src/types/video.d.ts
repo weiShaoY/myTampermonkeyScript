@@ -4,22 +4,6 @@
 namespace VideoType {
 
   /**
-   *  标签列表的每一项
-   */
-  type TagArrayItem = {
-
-    /**
-     * 标签名
-     */
-    name: string[]
-
-    /**
-     * 标签链接
-     */
-    icon: string
-  }
-
-  /**
    *  每个视频的类型
    */
   type Video = {
@@ -40,9 +24,9 @@ namespace VideoType {
     processedName: string
 
     /**
-     * 视频文件标签名
+     * 视频文件标签图标数组
      */
-    tagArray: TagArrayItem []
+    tagArray: string []
 
     /**
      * 视频扩展名
@@ -78,15 +62,13 @@ namespace VideoType {
 
     /**
      * 视频扩展名数组（注意：这个数组在 `tagRegex` 的定义中并未直接使用）
-     * @type {string[]}
      */
     extensionArray: string[]
 
     /**
      * 视频标签名数组
-     * @type {string[]}
      */
-    tagArray: TagArrayItem[]
+    tagArray: string[]
 
     /**
      *  视频标签匹配正则（注意：这里使用 `TagArrayType`）

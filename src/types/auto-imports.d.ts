@@ -183,7 +183,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
-    readonly getTagArray: UnwrapRef<typeof import('../utils/getTagIconArray')['getTagArray']>
+    readonly getTagIconArray: UnwrapRef<typeof import('../utils/getTagIconArray')['getTagIconArray']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isClipboardSupported: UnwrapRef<typeof import('../utils/clipboard')['isClipboardSupported']>

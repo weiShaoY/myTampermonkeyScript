@@ -9,7 +9,7 @@ import { getTagIconArray, parseNfoContent } from '@/utils'
 
 // import FolderQueryDuplicateModal from './folder_query_duplicate_modal/index.vue'
 
-// import FolderReadSuccessModal from './folder_read_success_modal/index.vue'
+import FolderReadSuccessDialog from './components/folderReadSuccessDialog/index.vue'
 
 // import FolderReminderReadModal from './folder_reminder_read_modal/index.vue'
 
@@ -30,7 +30,7 @@ const isShowQueryDuplicateModal = ref(false)
 /**
  *  是否显示文件夹读取成功弹窗
  */
-const isShowFolderReadSuccessModal = ref(false)
+const isShowFolderReadSuccessDialog = ref(false)
 
 /**
  *  读取文件夹耗时
@@ -78,8 +78,8 @@ const videoFileSet: Set<VideoType.Video> = new Set([])
 
 /**
  * 递归获取目录下的所有文件
- * @param {FileSystemDirectoryHandle} directoryHandle - 当前目录句柄
- * @param {string[]} directoryPath - 目录名数组
+ * @param  directoryHandle - 当前目录句柄
+ * @param  directoryPath - 目录名数组
  * @returns {AsyncGenerator<FileData>} 异步生成器，生成每个文件的数据
  */
 async function* getFiles(
@@ -143,14 +143,9 @@ async function mainBtnHandler() {
     // 如果用户没有选择目录，显示错误通知并退出函数
     if (!directoryHandle) {
       window.$notification.error({
-        title: `获取本地信息失败`,
-
-        // content: '请重新尝试',
+        title: `请选择一个文件夹`,
         duration: 300000,
-
-        // closable: true,
       })
-
       return
     }
 
@@ -209,11 +204,11 @@ async function mainBtnHandler() {
 
     console.log('%c Line:211 🥒 folderStore.folderFileList', 'color:#465975', folderStore.folderFileList)
 
-    folderReadTime.value = ((Date.now() - startTime) / 1000).toFixed(2)
+    folderReadTime.value = ((Date.now() - startTime) / 1000).toFixed(2) // 秒
 
     isLoading.value = false
 
-    isShowFolderReadSuccessModal.value = true
+    isShowFolderReadSuccessDialog.value = true
   }
   catch (error) {
     console.error('错误:', error)
@@ -232,76 +227,89 @@ function openEmby(event: MouseEvent) {
 
 <template>
   <!-- 文件夹提醒读取弹窗 -->
-  <FolderReminderReadModal />
+  <!-- <FolderReminderReadModal /> -->
 
   <!-- 设置弹窗 -->
-  <SettingModal
+  <!-- <SettingModal
     v-if="isShowSettingModal"
     v-model="isShowSettingModal"
-  />
+  /> -->
 
   <!-- 文件夹查询重复弹窗 -->
-  <FolderQueryDuplicateModal
+  <!-- <FolderQueryDuplicateModal
     v-if="isShowQueryDuplicateModal"
     v-model="isShowQueryDuplicateModal"
-  />
+  /> -->
 
   <!-- 文件夹读取成功弹窗 -->
-  <FolderReadSuccessModal
-    v-if="isShowFolderReadSuccessModal"
-    v-model="isShowFolderReadSuccessModal"
+  <FolderReadSuccessDialog
+    v-if="isShowFolderReadSuccessDialog"
+    v-model="isShowFolderReadSuccessDialog"
     :folder-read-time="folderReadTime"
   />
 
-  <button
-    class="fixed bottom-5 left-40"
-    @click="mainBtnHandler"
-  >
-
-    logo
-  </button>
-
   <div
-    class="group fixed bottom-5 left-5 h-20 w-20 inline-flex overflow-visible border-2 border-white/90 rounded-full bg-[linear-gradient(#CBCBCB,#e9e9e9_50%,#fff)] p-2 transition-all duration-300 !z-10000"
-    @click="mainBtnHandler"
+    class="group fixed bottom-100 left-5 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
   >
     <!-- 主按钮 -->
+
     <button
-      class="shadow-0_0_1px_rgba(0,0,0,0.07) shadow-0_0_1px_rgba(0,0,0,0.05) shadow-0_3px_3px_rgba(0,0,0,0.25) shadow-0_1px_3px_rgba(0,0,0,0.12)"
+      class="group relative cursor-pointer overflow-hidden border border-green-500/20 rounded-full from-black/60 to-black/40 bg-gradient-to-tr p-5 shadow-lg backdrop-blur-lg transition-all duration-300 ease-out active:rotate-0 hover:rotate-2 active:scale-95 hover:scale-110 hover:border-green-500/50 hover:from-green-500/10 hover:to-black/40 hover:bg-gradient-to-tr hover:shadow-2xl hover:shadow-green-500/30"
+      @click="mainBtnHandler"
     >
       <div
-        class="black h-full w-full inline-flex items-center justify-center gap-4 gap-x-0.5 gap-y-0.5 overflow-hidden rounded-full bg-[linear-gradient(#f4f4f4,#fefefe)] text-[18px] text-xl text-[#101010] font-medium duration-200 group-hover:bg-[linear-gradient(#e2e2e2,#fefefe)]"
+        class="absolute inset-0 from-transparent via-green-400/20 to-transparent bg-gradient-to-r transition-transform duration-700 ease-out -translate-x-full group-hover:translate-x-full"
+      />
+
+      <div
+        class="relative z-10"
       >
 
         <SvgIcon
           v-if="!isLoading"
-          icon="logo"
-          class="h-10 w-10 transform transition-transform duration-800 group-hover:rotate-360"
+          icon="emby"
         />
 
-        <div
+        <SvgIcon
           v-else
-          class="flex flex-row gap-2"
-        >
-          <div
-            style="background-image: conic-gradient(from 0deg, violet, indigo 30%, blue 50%, green 60%, yellow 70%, orange 80%, red 100%);"
-            class="bg-radial [animation-delay:.7s] h-14 w-14 animate-spin rounded-full bg-gradient-to-tr"
-          />
-        </div>
+          icon="emby"
+          class="!animate-spin"
+          style="--animate-duration: 3s;"
+        />
       </div>
     </button>
 
     <!-- 提示框内容 -->
     <!-- -translate-x-1/2 left-1/2 -->
     <div
-      class="invisible absolute top-[-110%] z-50 scale-90 rounded-lg bg-white p-x-4 p-y-4 opacity-0 shadow-xl duration-1000 ease-in-out group-hover:visible group-hover:scale-100 group-hover:opacity-100"
+      class="invisible absolute top-[-130%] z-50 scale-90 rounded-lg bg-white p-x-4 p-y-4 opacity-0 shadow-xl duration-1000 ease-in-out group-hover:visible group-hover:scale-100 group-hover:opacity-100"
     >
-      <!-- 社交图标 -->
       <div
         class="flex gap-3"
       >
+
         <div
-          class="group/a h-12 w-12 flex items-center justify-center rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:w-30 hover:scale-105 hover:cursor-pointer"
+          class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"
+          @click="($event) => {
+            $event.stopPropagation()
+            isShowQueryDuplicateModal = true
+          }"
+        >
+
+          <SvgIcon
+            icon="queryDuplicate"
+            class="h-full w-full"
+          />
+
+          <span
+            class="whitespace-nowrap color-[#FF6A07] font-bold duration-600"
+          >
+            查重
+          </span>
+        </div>
+
+        <div
+          class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"
           @click="($event) => {
             $event.stopPropagation()
             isShowSettingModal = true
@@ -314,35 +322,14 @@ function openEmby(event: MouseEvent) {
           />
 
           <span
-            class="w-0 overflow-hidden whitespace-nowrap color-[#4F6171] font-bold duration-600 group-hover/a:w-40"
+            class="whitespace-nowrap color-[#4F6171] font-bold duration-600"
           >
             设置
           </span>
         </div>
 
         <div
-          class="group/a h-12 w-12 flex items-center justify-center rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:w-30 hover:scale-105 hover:cursor-pointer"
-          @click="($event) => {
-            $event.stopPropagation()
-            isShowQueryDuplicateModal = true
-          }"
-        >
-
-          > -->
-          <SvgIcon
-            icon="queryDuplicate"
-            class="h-full w-full"
-          />
-
-          <span
-            class="w-0 overflow-hidden whitespace-nowrap color-[#FF6A07] font-bold duration-600 group-hover/a:w-40"
-          >
-            查重
-          </span>
-        </div>
-
-        <div
-          class="group/a h-12 w-12 flex items-center justify-center rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:w-30 hover:scale-105 hover:cursor-pointer"
+          class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"
           @click="openEmby"
         >
 
@@ -352,7 +339,7 @@ function openEmby(event: MouseEvent) {
           />
 
           <span
-            class="w-0 overflow-hidden whitespace-nowrap color-[#52B44B] font-bold duration-600 group-hover/a:w-40"
+            class="whitespace-nowrap color-[#52B44B] font-bold duration-600"
           >
             Emby
           </span>
