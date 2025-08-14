@@ -177,7 +177,6 @@ async function mainBtnHandler() {
       // 创建一个包含视频信息的对象
       const item: VideoType.VideoFile = {
 
-        // size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
         size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
         nameWithTags: file.name.substring(0, file.name.lastIndexOf('.')),

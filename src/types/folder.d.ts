@@ -1,15 +1,12 @@
 /**
  *  读取的文件夹 相关类型
  */
-// namespace FolderType {
-
-// }
-type FolderType = {
+type FolderConfigType = {
 
   /**
    * 选择的盘符（如 C、D、E、F）
    */
-  driveLetter: string
+  folderDriveLetter: string
 
   /**
    * 是否启用定时提示读取文件夹

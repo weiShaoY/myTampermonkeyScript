@@ -7,11 +7,11 @@ import { ref } from 'vue'
 const useFolderStore = defineStore(
   'folder',
   () => {
-    const folder = ref<FolderType>({
+    const folderConfig = ref<FolderConfigType>({
       /**
        * 选择的盘符（如 C、D、E、F）
        */
-      driveLetter: 'Z',
+      folderDriveLetter: 'Z',
 
       /**
        * 是否启用定时提示读取文件夹
@@ -149,7 +149,7 @@ const useFolderStore = defineStore(
       /**
        * 文件夹对象。
        */
-      folder,
+      folderConfig,
 
       /**
        * 文件夹名称。
