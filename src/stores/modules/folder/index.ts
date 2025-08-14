@@ -9,24 +9,24 @@ const useFolderStore = defineStore(
   () => {
     const folderConfig = ref<FolderConfigType>({
       /**
-       * 选择的盘符（如 C、D、E、F）
+       * 目标扫描磁盘驱动器盘符
        */
-      folderDriveLetter: 'Z',
+      targetDrive: 'Z',
 
       /**
-       * 是否启用定时提示读取文件夹
+       * 是否启用文件夹扫描定时提醒功能
        */
-      isEnableReminder: true,
+      enableScanReminder: true,
 
       /**
-       * 提示读取文件夹的时间间隔（小时）
+       * 文件夹扫描提醒间隔时间（小时）
        */
-      reminderInterval: 168,
+      scanReminderInterval: 168,
 
       /**
-       * 定时器检查读取提示的时间间隔（小时）
+       * 系统监控检查间隔时间（小时）
        */
-      checkInterval: 1,
+      monitoringCheckInterval: 1,
 
     })
 

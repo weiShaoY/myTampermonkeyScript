@@ -1,26 +1,45 @@
 /**
- *  读取的文件夹 相关类型
+ * 文件夹扫描和监控配置类型
+ * 用于配置 Emby 媒体库文件夹的扫描参数和定时提醒设置
+ */
+
+/**
+ * 文件夹扫描和监控配置
+ * 包含磁盘驱动器选择、定时提醒开关、时间间隔等配置项
  */
 type FolderConfigType = {
 
   /**
-   * 选择的盘符（如 C、D、E、F）
+   * 目标扫描磁盘驱动器盘符
+   * 指定要扫描的磁盘驱动器，用于 Emby 媒体库文件夹扫描
+   * 例如：'C', 'D', 'E', 'F', 'Z'
+   * 默认值：'Z'
    */
-  folderDriveLetter: string
+  targetDrive: string
 
   /**
-   * 是否启用定时提示读取文件夹
+   * 是否启用文件夹扫描定时提醒功能
+   * 当启用时，系统会按照设定的时间间隔提醒用户扫描文件夹
+   * 用于确保 Emby 媒体库与本地文件保持同步
+   * 默认值：true
    */
-  isEnableReminder: boolean
+  enableScanReminder: boolean
 
   /**
-   * 提示读取文件夹的时间间隔（小时）
+   * 文件夹扫描提醒间隔时间（小时）
+   * 系统每隔多长时间提醒用户扫描一次文件夹
+   * 建议值：168（一周）或 24（一天）
+   * 默认值：168（一周）
    */
-  reminderInterval: number
+  scanReminderInterval: number
 
   /**
-   * 定时器检查读取提示的时间间隔（小时）
+   * 系统监控检查间隔时间（小时）
+   * 系统内部检查扫描提醒状态的时间间隔
+   * 用于确保提醒功能正常运行
+   * 建议值：1（每小时检查一次）
+   * 默认值：1
    */
-  checkInterval: number
+  monitoringCheckInterval: number
 
 }
