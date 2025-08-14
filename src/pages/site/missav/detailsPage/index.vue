@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { useFolderStore } from '@/stores'
 
-import { addHighlightToElement, getTagIconArray } from '@/utils'
+import { getTagIconArray } from '@/utils'
 
 const folderStore = useFolderStore()
 
@@ -174,10 +174,10 @@ function main() {
    */
   const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.isChinese)
 
-  const videoMetaPanel = document.querySelector('.movie')
+  const highlightElement = document.querySelector('.relative.-mx-4.sm\\:m-0.-mt-6')?.parentNode as HTMLElement
 
   if (matchedVideoList.length) {
-    addHighlightToElement(videoMetaPanel)
+    highlightElement?.classList.add('is-highlight')
 
     embyCatalogedList.value.push(...matchedVideoList)
 

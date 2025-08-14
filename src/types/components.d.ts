@@ -10,7 +10,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AddedToEmbyButton: typeof import('./../components/AddedToEmbyButton/index.vue')['default']
     AppProvider: typeof import('./../components/AppProvider/index.vue')['default']
-    copy: typeof import('./../components/EmbyButton/index copy.vue')['default']
+    copy: typeof import('./../components/EmbyCatalogedList/index copy.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElIcon: typeof import('element-plus/es')['ElIcon']

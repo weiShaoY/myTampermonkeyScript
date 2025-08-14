@@ -21,11 +21,11 @@ const bodyElement = document.querySelector('body')
 
 if (isHasDetailContent) {
   isListPage.value = false
-  bodyElement?.classList.add('details-page')
+  bodyElement?.classList.add('missav-details-page')
 }
 else {
   isListPage.value = true
-  bodyElement?.classList.add('list-page')
+  bodyElement?.classList.add('missav-list-page')
 }
 
 </script>

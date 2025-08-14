@@ -1,4 +1,3 @@
-<!------------------------------------    ------------------------------------------------->
 <script lang="ts" setup>
 import type { CSSProperties } from 'vue'
 
@@ -33,7 +32,6 @@ type PropsType = {
    *   按钮样式
    */
   style?: CSSProperties
-
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
@@ -44,6 +42,8 @@ const props = withDefaults(defineProps<PropsType>(), {
 })
 
 const isShowCopy = ref(false)
+
+const isHovered = ref(false) // 添加悬浮状态
 
 /**
  *   视频目录结构
@@ -75,12 +75,14 @@ function openFolder(event: any) {
   GM_setClipboard(directoryPath, 'text')
 
   window.$notification.success(`视频位置已复制到剪切板:  ${directoryPath}`)
+
+  isHovered.value = false // 复制完,关闭悬浮层
 }
 </script>
 
 <template>
   <div
-    class="group relative z-1000 m-x-auto m-t-2 w-[95%]"
+    class="relative z-1000 m-x-auto m-t-2 w-[95%]"
     :class="props.class"
     :style="{
       borderRadius: `${radius}px`,
@@ -88,6 +90,8 @@ function openFolder(event: any) {
       width: typeof width === 'number' ? `${width}px` : `${width}`,
       ...style,
     }"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
   >
     <button
       class="relative w-full cursor-pointer touch-manipulation border-none bg-transparent p-0 outline-offset-[4px] transition-filter duration-250 ease-in-out focus-visible:outline-none focus:outline-none hover:brightness-[110%]"
@@ -154,7 +158,8 @@ function openFolder(event: any) {
 
     <!-- 详情页  悬浮层 -->
     <div
-      class="absolute bottom-[110%] w-full origin-left scale-0 cursor-pointer select-text rounded-lg bg-[#fff] p-3 transition-all duration-300 ease-in-out group-hover:scale-100"
+      v-if="isHovered"
+      class="absolute bottom-[110%] w-full origin-left scale-100 cursor-pointer select-text rounded-lg bg-[#fff] p-3 transition-all duration-300 ease-in-out"
       :style="{
         boxShadow: 'inset 20px 20px 8px #bebebe, inset -20px -20px 8px #ffffff',
       }"
@@ -169,10 +174,8 @@ function openFolder(event: any) {
           {{ directoryPath }}
         </div>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <style lang="less" scoped></style>

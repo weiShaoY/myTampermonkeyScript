@@ -55,25 +55,11 @@
 
 // 详情页
 .javdb-details-page {
-  // background-color: red !important ;
-
   // 盒子高亮
   .is-highlight {
-    padding: 10px;
+    // padding: 10px;
     border-radius: 10px;
     background-color: #ea1179;
-
-    .cover {
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .panel-block {
-      strong {
-        color: #363636 !important;
-        margin-right: 10px;
-      }
-    }
   }
 
   //  视频信息
@@ -82,11 +68,17 @@
     .column-video-cover {
       width: 63% !important;
 
-      // 图片
-      .video-cover {
-        border-radius: 10px;
+      .cover-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // 图片
+        .video-cover {
+          border-radius: 10px;
 
-        margin-bottom: 10px;
+          margin-bottom: 10px;
+        }
       }
     }
 
@@ -109,6 +101,10 @@
 
       // 第8个
       .panel-block {
+        strong {
+          color: #363636 !important;
+          margin-right: 10px;
+        }
         &:nth-child(9) {
           .value {
             font-size: 0;

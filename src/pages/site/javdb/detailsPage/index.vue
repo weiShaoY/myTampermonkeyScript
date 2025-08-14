@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { useFolderStore } from '@/stores'
 
-import { addHighlightToElement, getTagIconArray } from '@/utils'
+import { getTagIconArray } from '@/utils'
 
 const folderStore = useFolderStore()
 
@@ -48,8 +48,6 @@ const torrentList = ref<TorrentType[]>([])
  */
 function getPageVideoName(): string {
   const strongElements = document.querySelectorAll('.video-detail strong')
-
-  console.log('%c Line:51 🥒 strongElements', 'color:#ffdd4d', strongElements)
 
   if (strongElements.length > 0) {
     const titleText = strongElements[0].textContent
@@ -143,7 +141,6 @@ function getTorrentList() {
 
 function main() {
   if (!folderStore.folderFileList.length) {
-    console.log('%c Line:146 🥃 folderStore.folderFileList', 'color:#ea7e5c', folderStore.folderFileList)
     return
   }
 
@@ -165,12 +162,10 @@ function main() {
    */
   const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.isChinese)
 
-  console.log('%c Line:161 🍊 isEmbyHaveChineseTorrent', 'color:#465975', isEmbyHaveChineseTorrent)
-
-  const videoMetaPanel = document.querySelector('.movie')
+  const highlightElement = document.querySelector('.video-meta-panel')
 
   if (matchedVideoList.length) {
-    addHighlightToElement(videoMetaPanel)
+    highlightElement?.classList.add('is-highlight')
 
     embyCatalogedList.value.push(...matchedVideoList)
 
@@ -184,7 +179,6 @@ function main() {
     && matchedVideoList.length
   ) {
     isShowPendingUpdateChineseButton.value = true
-    console.log('%c Line:179 🌶 isShowPendingUpdateChineseButton', 'color:#93c0a4', isShowPendingUpdateChineseButton)
   }
 }
 
