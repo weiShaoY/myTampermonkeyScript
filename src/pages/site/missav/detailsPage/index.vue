@@ -207,8 +207,8 @@ onMounted(() => {
   <div
     class="sm-50 fixed left-2 top-60 w-30 lg:w-70 md:w-50"
   >
-    <!-- emby按钮 -->
-    <EmbyButton
+    <!-- emby播放按钮 -->
+    <EmbyPlayButton
       v-if="isShowEmbyButton"
       :video-name="pageVideoName"
     />

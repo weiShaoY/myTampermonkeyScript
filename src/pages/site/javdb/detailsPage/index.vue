@@ -207,8 +207,8 @@ onMounted(() => {
       class="w-full"
     />
 
-    <!-- emby按钮 -->
-    <EmbyButton
+    <!-- emby播放按钮 -->
+    <EmbyPlayButton
       v-if="isShowEmbyButton"
       :video-name="pageVideoName"
     />

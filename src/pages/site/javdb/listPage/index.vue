@@ -92,7 +92,7 @@ onMounted(() => {
     <Teleport
       :to="`.emby_btn_${videoName}`"
     >
-      <EmbyButton
+      <EmbyPlayButton
         :video-name="videoName"
       />
     </Teleport>
