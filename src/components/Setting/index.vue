@@ -9,7 +9,7 @@ import { getTagIconArray, parseNfoContent } from '@/utils'
 
 // import FolderQueryDuplicateModal from './folder_query_duplicate_modal/index.vue'
 
-import FolderQueryDuplicateModal from './components/FolderQueryDuplicateDialog/index.vue'
+import FolderQueryDuplicateModal from './components/folderQueryDuplicateDialog/index.vue'
 
 import FolderReadSuccessDialog from './components/folderReadSuccessDialog/index.vue'
 
@@ -251,13 +251,11 @@ function openEmby(event: MouseEvent) {
   />
 
   <div
-    class="group fixed left-5 top-30 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
+    class="group fixed left-2 top-30 inline-flex overflow-visible border-2 rounded-full transition-all duration-300 !z-10000"
   >
     <!-- 主按钮 -->
-
     <button
       class="group relative cursor-pointer overflow-hidden border border-green-500/20 rounded-full from-black/60 to-black/40 bg-gradient-to-tr p-5 shadow-lg backdrop-blur-lg transition-all duration-300 ease-out active:rotate-0 hover:rotate-2 active:scale-95 hover:scale-110 hover:border-green-500/50 hover:from-green-500/10 hover:to-black/40 hover:bg-gradient-to-tr hover:shadow-2xl hover:shadow-green-500/30"
-      @click="mainBtnHandler"
     >
       <div
         class="absolute inset-0 from-transparent via-green-400/20 to-transparent bg-gradient-to-r transition-transform duration-700 ease-out -translate-x-full group-hover:translate-x-full"
@@ -290,6 +288,26 @@ function openEmby(event: MouseEvent) {
       <div
         class="flex gap-3"
       >
+        <!-- 文件夹 -->
+        <div
+          class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"
+          @click="($event) => {
+            $event.stopPropagation()
+            mainBtnHandler()
+          }"
+        >
+
+          <SvgIcon
+            icon="folder"
+            class="h-full w-full"
+          />
+
+          <span
+            class="whitespace-nowrap color-[#1DB0E7] font-bold duration-600"
+          >
+            文件夹
+          </span>
+        </div>
 
         <div
           class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"

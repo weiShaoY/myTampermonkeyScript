@@ -11,9 +11,9 @@ const visible = defineModel<boolean>({
 })
 
 /**
- *  是否显示去重
+ *  是否显示 文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
  */
-const isShowQueryDuplicateList = ref(false)
+const isShowFolderUniqueFileNameFileList = ref(false)
 
 /**
  *  计算超时时间 *时*分*秒未重新读取文件夹
@@ -47,7 +47,7 @@ const getFolderReadTimeoutText = computed(() => {
 })
 
 watchEffect(() => {
-  console.log(isShowQueryDuplicateList.value)
+  console.log(isShowFolderUniqueFileNameFileList.value)
 })
 
 </script>
@@ -67,9 +67,9 @@ watchEffect(() => {
         class="w-full flex items-center justify-between"
       >
         <div
-          :class="!isShowQueryDuplicateList ? 'border-b-2 border-primary' : ''"
+          :class="!isShowFolderUniqueFileNameFileList ? 'border-b-2 border-primary' : ''"
           class="flex cursor-pointer items-center pb-1 font-bold"
-          @click="isShowQueryDuplicateList = false"
+          @click="isShowFolderUniqueFileNameFileList = false"
         >
           <span>
             重复
@@ -103,7 +103,7 @@ watchEffect(() => {
             >
               <input
                 id="switch"
-                v-model="isShowQueryDuplicateList"
+                v-model="isShowFolderUniqueFileNameFileList"
                 type="checkbox"
                 class="hidden"
               >
@@ -136,9 +136,9 @@ watchEffect(() => {
         </div>
 
         <div
-          :class="isShowQueryDuplicateList ? 'border-b-2 border-primary' : ''"
+          :class="isShowFolderUniqueFileNameFileList ? 'border-b-2 border-primary' : ''"
           class="flex cursor-pointer items-center pb-1 font-bold"
-          @click="isShowQueryDuplicateList = true"
+          @click="isShowFolderUniqueFileNameFileList = true"
         >
           <span>
             去重
@@ -158,43 +158,12 @@ watchEffect(() => {
       </div>
     </template>
 
-    <!-- <el-scrollbar
-      type="track"
-      class="h-[60vh] overflow-y-scroll !min-h-[60vh]"
-    >
-
-      <template
-        v-if="!isShowAll"
-      >
-        <EmbyButton
-          v-for="(item, index) in folderStore.duplicateFolderFileList"
-          :key="index"
-          :video-name="item.processedName"
-          :is-show-video-name="true"
-          :height="40"
-          class="m-x-auto m-b-5 !w-[80%]"
-        />
-      </template>
-
-      <template
-        v-else
-      >
-        <EmbyButton
-          v-for="(item, index) in folderStore.uniqueFolderFileNameList"
-          :key="index"
-          :video-name="item"
-          :is-show-video-name="true"
-          :height="40"
-          class="m-x-auto m-b-5 !w-[80%]"
-        />
-      </template>
-    </el-scrollbar> -->
-
     <el-scrollbar
       height="60vh"
+      always
     >
       <template
-        v-if="isShowQueryDuplicateList"
+        v-if="!isShowFolderUniqueFileNameFileList"
       >
         <EmbyButton
           v-for="(item, index) in folderStore.folderDuplicateNameFileList"
@@ -281,12 +250,11 @@ watchEffect(() => {
             读取文件夹
           </span>
 
-          <el-link
-            class="m-x-2 w-30 truncate text-center !block !p-1 !text-6 !font-bold"
-            underline="always"
+          <span
+            class="m-x-2 w-30 cursor-pointer truncate border-b-2 border-primary pb-1 text-center text-6 color-primary font-bold hover:scale-105"
           >
             {{ folderStore.folderName }}
-          </el-link>
+          </span>
 
         </div>
       </div>

@@ -48,6 +48,7 @@ declare global {
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
   const effectScope: typeof import('vue')['effectScope']
+  const formatTimestampToChineseDate: typeof import('../utils/formatTimestampToChineseDate')['formatTimestampToChineseDate']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getClipboardText: typeof import('../utils/clipboard')['getClipboardText']
   const getClipboardTextSafely: typeof import('../utils/clipboard')['getClipboardTextSafely']
@@ -177,6 +178,7 @@ declare module 'vue' {
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
+    readonly formatTimestampToChineseDate: UnwrapRef<typeof import('../utils/formatTimestampToChineseDate')['formatTimestampToChineseDate']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getClipboardText: UnwrapRef<typeof import('../utils/clipboard')['getClipboardText']>
     readonly getClipboardTextSafely: UnwrapRef<typeof import('../utils/clipboard')['getClipboardTextSafely']>

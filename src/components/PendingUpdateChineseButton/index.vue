@@ -43,7 +43,7 @@ const props = withDefaults(defineProps<PropsType>(), {
 
 <template>
   <div
-    class="z-1000 m-x-auto m-b-5 w-[95%]"
+    class="z-1000 m-x-auto m-y-5 w-[95%]"
     :class="props.class"
     :style="{
       borderRadius: `${radius}px`,

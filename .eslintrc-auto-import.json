@@ -59,6 +59,7 @@
     "defineComponent": true,
     "defineStore": true,
     "effectScope": true,
+    "formatTimestampToChineseDate": true,
     "getActivePinia": true,
     "getClipboardText": true,
     "getClipboardTextSafely": true,
