@@ -178,26 +178,26 @@ async function mainBtnHandler() {
       const item: VideoType.VideoFile = {
 
         // size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
-        fileSize: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
+        size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
-        fileBaseName: file.name.substring(0, file.name.lastIndexOf('.')),
+        nameWithTags: file.name.substring(0, file.name.lastIndexOf('.')),
 
-        fileOriginalName: file.name,
+        originalName: file.name,
 
-        fileProcessedName:
+        cleanName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
             .replace(config.video.tagExtractionRegex, ''),
 
-        fileExtension: file.name.replace(/^.*\./, ''),
+        extension: file.name.replace(/^.*\./, ''),
 
-        fileDirectoryPath: [...fileData.directoryPath, file.name],
+        directoryPath: [...fileData.directoryPath, file.name],
 
-        fileTagArray: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
+        tags: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
 
-        fileResolution: nfoContent.resolution || '',
+        resolution: nfoContent.resolution || '',
 
-        isChineseSubtitles: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
+        hasChineseSubtitles: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
       }
 
       console.log('%c Line:202 🍊 item', 'color:#e41a6a', item)

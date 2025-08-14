@@ -165,14 +165,13 @@ function main() {
 
   // 当前视频名称已入库的视频列表
   const matchedVideoList = folderStore.folderFileList.filter(item =>
-
-    item.fileProcessedName.includes(pageVideoName.value),
+    item.cleanName.includes(pageVideoName.value),
   )
 
   /**
    *  emby中是否有中文磁链
    */
-  const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.isChineseSubtitles)
+  const isEmbyHaveChineseTorrent = matchedVideoList.some(item => item.hasChineseSubtitles)
 
   const highlightElement = document.querySelector('.relative.-mx-4.sm\\:m-0.-mt-6')?.parentNode as HTMLElement
 

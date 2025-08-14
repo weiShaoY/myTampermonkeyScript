@@ -1,8 +1,6 @@
 <!------------------------------------  磁链列表  ------------------------------------------------->
 <script lang="ts" setup>
 
-import { defineProps } from 'vue'
-
 import { useTorrentStore } from '@/stores'
 
 type PropsType = {
