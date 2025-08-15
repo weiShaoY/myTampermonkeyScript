@@ -71,9 +71,9 @@ async function fetchSiteData() {
 }
 
 /**
- * 状态颜色
+ * 背景颜色
  */
-const statusColor = computed(() => {
+const bgColor = computed(() => {
   const colorMap = {
     pending: '',
     fulfilled: '#67c23a',
@@ -109,7 +109,7 @@ onMounted(fetchSiteData)
   >
     <div
       class="h-14 w-auto flex items-center gap-1 border rounded-2 bg-white p-x-1"
-      :style="{ border: `4px solid ${statusColor}` }"
+      :style="{ border: `4px solid ${bgColor}` }"
       @click="goToTarget"
     >
       <!-- 字幕标签 -->
@@ -145,7 +145,7 @@ onMounted(fetchSiteData)
     <!-- 悬浮提示 -->
     <span
       class="absolute left-1/2 z-20 scale-0 transform rounded-lg p-x-4 p-y-2 text-sm text-white font-bold shadow-lg transition-transform duration-300 ease-in-out -top-9 -translate-x-1/2 group-hover:scale-100"
-      :style="{ backgroundColor: statusColor }"
+      :style="{ backgroundColor: bgColor }"
       @click="openSiteHomepage"
     >
       {{ siteItem.name }}
