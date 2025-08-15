@@ -107,4 +107,30 @@ export namespace OnlinePlayType {
     /** 目标链接 */
     targetLink: string
   }
+
+  /**
+   * 正则表达式配置
+   */
+  export type RegExpConfig = {
+
+    /** 字幕匹配正则 */
+    subtitle: RegExp
+
+    /** 泄露资源匹配正则 */
+    leakage: RegExp
+  }
+
+  /**
+   * HTTP响应类型
+   */
+  export type HttpResponse = {
+    readonly responseHeaders: string
+    readonly readyState: 0 | 1 | 2 | 3 | 4
+    readonly response: any
+    readonly responseText: string
+    readonly responseXML: Document | null
+    readonly status: number
+    readonly statusText: string
+    readonly finalUrl: string
+  }
 }

@@ -1,5 +1,7 @@
 import type { LibItem } from './libSites'
 
+import type { OnlinePlayType } from '@/types/onlinePlay'
+
 import { SP_PREFIX } from './siteList'
 
 // 声明 GM_xmlhttpRequest 的全局类型
@@ -27,7 +29,7 @@ export function isErrorCode(resCode: number) {
 /**
  * 定义常用的正则表达式枚举
  */
-export const regEnum = {
+export const regEnum: OnlinePlayType.RegExpConfig = {
   subtitle: /(中文|字幕|subtitle)/,
   leakage: /(无码|無碼|泄漏|Uncensored)/,
 }
@@ -46,10 +48,9 @@ export function getCode(libItem: LibItem): string {
     return ''
   }
 
-  const codeText
-    = libItem.name === 'javdb'
-      ? (codeNode.dataset.clipboardText as string)
-      : codeNode?.textContent?.replace('复制', '')
+  const codeText = libItem.name === 'javdb'
+    ? (codeNode.dataset.clipboardText as string)
+    : codeNode?.textContent?.replace('复制', '')
 
   if (codeText?.includes('FC2')) {
     return codeText.split('-')[1]
@@ -62,30 +63,17 @@ export function getCode(libItem: LibItem): string {
   return codeText || ''
 }
 
-// 定义 GM_xmlhttpRequest 的响应接口类型
-type TResponse = {
-  readonly responseHeaders: string
-  readonly readyState: 0 | 1 | 2 | 3 | 4
-  readonly response: any
-  readonly responseText: string
-  readonly responseXML: Document | null
-  readonly status: number
-  readonly statusText: string
-  readonly finalUrl: string
-}
-
 /**
  * 发送 GET 请求
- * @param params - 请求参数对象
- * @param params.url - 请求的 URL
+ * @param url - 请求的 URL
  * @returns 返回包含响应的 Promise 对象
  */
-export function gmGet({ url }: { url: string }): Promise<TResponse> {
+export function gmGet(url: string): Promise<OnlinePlayType.HttpResponse> {
   return new Promise((resolve, reject) => {
     GM_xmlhttpRequest({
       method: 'GET',
       url,
-      onload: (response: TResponse) => resolve(response),
+      onload: (response: OnlinePlayType.HttpResponse) => resolve(response),
       onerror: (error: any) => reject(error),
     })
   })
@@ -93,27 +81,20 @@ export function gmGet({ url }: { url: string }): Promise<TResponse> {
 
 /**
  * 发送 POST 请求
- * @param params - 请求参数对象
- * @param params.url - 请求的 URL
- * @param params.data - 请求的数据
+ * @param url - 请求的 URL
+ * @param data - 请求的数据
  * @returns 返回包含响应的 Promise 对象
  */
-export function gmPost({
-  url,
-  data,
-}: {
-  url: string
-  data?: Record<string, any>
-}): Promise<TResponse> {
+export function gmPost(url: string, data?: Record<string, any>): Promise<OnlinePlayType.HttpResponse> {
   return new Promise((resolve, reject) => {
     GM_xmlhttpRequest({
       method: 'POST',
-      data: new URLSearchParams(data).toString(),
+      data: data ? new URLSearchParams(data).toString() : '',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       url,
-      onload: (response: TResponse) => resolve(response),
+      onload: (response: OnlinePlayType.HttpResponse) => resolve(response),
       onerror: (error: any) => reject(error),
     })
   })
