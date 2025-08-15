@@ -33,6 +33,11 @@ const isShowEmbyButton = ref(false)
 const embyCatalogedList = ref<VideoType.VideoFile[]>([])
 
 /**
+ *  是否显示在线播放组件
+ */
+const isShowOnlinePlay = ref(false)
+
+/**
  *  是否显示自定义磁链列表
  */
 const isShowTorrentList = ref(false)
@@ -135,6 +140,9 @@ function getTorrentList() {
 
   if (targetElement) {
     targetElement.insertAdjacentHTML('afterend', '<div id="TorrentList"></div>')
+    targetElement.insertAdjacentHTML('afterend', '<div id="OnlinePlay"></div>')
+
+    isShowOnlinePlay.value = true
     isShowTorrentList.value = true
   }
 }
@@ -220,6 +228,12 @@ onMounted(() => {
     </div>
   </div>
 
+  <!-- 在线播放 -->
+  <OnlinePlay
+    v-if="isShowOnlinePlay"
+    to="#OnlinePlay"
+    :video-name="pageVideoName"
+  />
   <!-- 自定义磁链列表 -->
   <TorrentList
     v-if="isShowTorrentList"

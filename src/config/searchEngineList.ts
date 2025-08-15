@@ -115,7 +115,7 @@ export const searchEngineList = [
       },
       {
         name: 'javbus',
-        icon: 'av-javbus',
+        icon: 'av-javBus',
         hostname: 'javbus.com',
         inputClass: 'input.form-control',
         searchUrl: 'https://www.javbus.com/search/',

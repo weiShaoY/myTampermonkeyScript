@@ -21,7 +21,6 @@ type PropsType = {
 
 const props = defineProps<PropsType>()
 
-// 导入 GM_getValue 和 GM_setValue 方法
 const onlinePlayStore = useOnlinePlayStore()
 
 /**
@@ -71,7 +70,6 @@ main()
           />
         </template>
       </div>
-
     </div>
   </Teleport>
 </template>
