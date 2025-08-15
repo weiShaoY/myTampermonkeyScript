@@ -116,6 +116,7 @@ declare global {
   const useFolderStore: typeof import('../stores/index')['useFolderStore']
   const useId: typeof import('vue')['useId']
   const useModel: typeof import('vue')['useModel']
+  const useOnlinePlayStore: typeof import('../stores/index')['useOnlinePlayStore']
   const useSearchStore: typeof import('../stores/index')['useSearchStore']
   const useSlots: typeof import('vue')['useSlots']
   const useTemplateRef: typeof import('vue')['useTemplateRef']
@@ -245,6 +246,7 @@ declare module 'vue' {
     readonly useFolderStore: UnwrapRef<typeof import('../stores/index')['useFolderStore']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
+    readonly useOnlinePlayStore: UnwrapRef<typeof import('../stores/index')['useOnlinePlayStore']>
     readonly useSearchStore: UnwrapRef<typeof import('../stores/index')['useSearchStore']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>

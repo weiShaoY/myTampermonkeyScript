@@ -1,29 +1,24 @@
 <!-- eslint-disable vue/require-prop-comment -->
 <script setup lang="ts">
-import {
-  computed,
-  onMounted,
-  ref,
-} from 'vue' // 导入 Vue 的相关钩子函数
 
-import { handleFetch, handleFetchJavBle } from './utils/xhr' // 导入数据获取的方法
+import { openLink } from '@/utils'
 
-const props = defineProps({
+import { handleFetch, handleFetchJavBle } from './utils/xhr'
+
+type PropsType = {
+
   /**
    *  站点项
    */
-  siteItem: {
-    type: Object as () => OnlinePlayType.SiteItem,
-    required: true,
+  siteItem: OnlinePlayType.SiteItem
 
-  }, /**
-      *   视频 CODE
-      */
-  code: {
-    type: String,
-    required: true,
-  },
-})
+  /**
+   *  视频 CODE
+   */
+  code: string
+}
+
+const props = defineProps<PropsType>()
 
 /**
  *  计算格式化后的 CODE，如果有 codeFormater 函数则使用它格式化
@@ -102,19 +97,23 @@ const bgColor = computed(() => {
 onMounted(fetchData)
 
 function go() {
-  window.open(finalLink.value, '_blank')
+  openLink(finalLink.value)
 }
 
 /**
  *  跳转到站点主页
  */
 function openSiteHomepage(siteItem: OnlinePlayType.SiteItem) {
+  console.log('%c Line:107 🥒 siteItem', 'color:#2eafb0', siteItem)
+
   /**
    *  添加协议
    */
   const fullUrl = `https://${siteItem.hostname}`
 
-  window.open(fullUrl, '_blank')
+  console.log('%c Line:113 🍤 fullUrl', 'color:#2eafb0', fullUrl)
+
+  openLink(fullUrl)
 }
 </script>
 
@@ -144,11 +143,11 @@ function openSiteHomepage(siteItem: OnlinePlayType.SiteItem) {
         class="m-x-2 w-auto text-dark font-semibold"
       >
 
-        <img
+        <SvgIcon
           v-if="siteItem.icon"
-          :src="siteItem.icon"
+          :icon="siteItem.icon"
           class="!h-10 !min-h-10 !min-w-10 !w-10"
-        >
+        />
 
         <span
           v-else

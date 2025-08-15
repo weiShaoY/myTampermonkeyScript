@@ -125,6 +125,7 @@
     "useFolderStore": true,
     "useId": true,
     "useModel": true,
+    "useOnlinePlayStore": true,
     "useSearchStore": true,
     "useSlots": true,
     "useTemplateRef": true,

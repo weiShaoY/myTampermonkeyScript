@@ -6,24 +6,20 @@ import Site from './site.vue'
 
 import { libSites } from './utils/libSites'
 
-const props = defineProps({
+type PropsType = {
+
   /**
    *  挂载点
    */
-  to: {
-    type: String,
-    required: true,
-  },
+  to: string
 
   /**
-   *  @description  视频名称
+   *  视频名称
    */
-  videoName: {
-    type: String,
-    required: true,
-  },
+  videoName: string
+}
 
-})
+const props = defineProps<PropsType>()
 
 // 导入 GM_getValue 和 GM_setValue 方法
 const onlinePlayStore = useOnlinePlayStore()
@@ -37,12 +33,9 @@ const code = ref ('')
 
 function main() {
   if (!libItem) {
-    console.error('||脚本挂载错误') // 如果没有找到匹配的站点，输出错误信息
+    window.$notification.error('脚本挂载错误')
     return // 终止函数执行
   }
-
-  // 获取当前图书馆站点的代码
-  // code.value = getCode(libItem)
 
   code.value = props.videoName
 
