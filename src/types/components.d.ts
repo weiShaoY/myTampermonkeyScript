@@ -20,8 +20,11 @@ declare module 'vue' {
     EmbyPlayButton: typeof import('./../components/EmbyPlayButton/index.vue')['default']
     FolderQueryDuplicateDialog: typeof import('./../components/Setting/components/folderQueryDuplicateDialog/index.vue')['default']
     FolderReadSuccessDialog: typeof import('./../components/Setting/components/folderReadSuccessDialog/index.vue')['default']
+    OnlinePlay: typeof import('./../components/OnlinePlay/index.vue')['default']
     PendingUpdateChineseButton: typeof import('./../components/PendingUpdateChineseButton/index.vue')['default']
     Setting: typeof import('./../components/Setting/index.vue')['default']
+    Site: typeof import('./../components/OnlinePlay/site.vue')['default']
+    Site_btn: typeof import('./../components/OnlinePlay/site_btn.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
     TorrentList: typeof import('./../components/TorrentList/index.vue')['default']
   }
