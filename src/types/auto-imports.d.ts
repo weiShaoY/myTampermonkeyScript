@@ -87,6 +87,7 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
+  const openLink: typeof import('../utils/openLink')['openLink']
   const parseNfoContent: typeof import('../utils/parseNfoContent')['parseNfoContent']
   const provide: typeof import('vue')['provide']
   const reactive: typeof import('vue')['reactive']
@@ -215,6 +216,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
+    readonly openLink: UnwrapRef<typeof import('../utils/openLink')['openLink']>
     readonly parseNfoContent: UnwrapRef<typeof import('../utils/parseNfoContent')['parseNfoContent']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>

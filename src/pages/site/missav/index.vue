@@ -12,21 +12,24 @@ import './index.scss'
  */
 const isListPage = ref(false)
 
+// 延迟1秒后执行
+setTimeout(() => {
 /**
  *  是否有详情内容
  */
-const isHasDetailContent = document.querySelector('#sprite-plyr')
+  const isHasDetailContent = document.querySelector('#sprite-plyr')
 
-const bodyElement = document.querySelector('body')
+  const bodyElement = document.querySelector('body')
 
-if (isHasDetailContent) {
-  isListPage.value = false
-  bodyElement?.classList.add('missav-details-page')
-}
-else {
-  isListPage.value = true
-  bodyElement?.classList.add('missav-list-page')
-}
+  if (isHasDetailContent) {
+    isListPage.value = false
+    bodyElement?.classList.add('missav-details-page')
+  }
+  else {
+    isListPage.value = true
+    bodyElement?.classList.add('missav-list-page')
+  }
+}, 1000)
 
 </script>
 

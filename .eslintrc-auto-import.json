@@ -96,6 +96,7 @@
     "onUnmounted": true,
     "onUpdated": true,
     "onWatcherCleanup": true,
+    "openLink": true,
     "parseNfoContent": true,
     "provide": true,
     "reactive": true,
