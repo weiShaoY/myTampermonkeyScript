@@ -1,6 +1,6 @@
 export const SP_PREFIX = '300' as const
 
-export const siteList: [] = [
+export const siteList = [
   {
     name: '123av',
     icon: 'blog-av-site-jable',
@@ -170,7 +170,8 @@ export const siteList: [] = [
     fetchType: 'get',
     domQuery: {
     },
-    codeFormater: preCode => (preCode.startsWith('MIUM') ? `${SP_PREFIX}${preCode}` : preCode),
+
+    // codeFormater: preCode => (preCode.startsWith('MIUM') ? `${SP_PREFIX}${preCode}` : preCode),
   },
   {
     name: 'JavDB',

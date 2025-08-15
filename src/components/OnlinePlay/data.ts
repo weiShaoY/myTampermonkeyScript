@@ -4,7 +4,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JavDB',
     icon: 'av-javdb',
     hostname: 'javdb.com',
-    searchUrl: 'https://javdb.com/search?q={{code}}',
+    searchUrl: '/search?q={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.movie-list>.item:first-child>a',
@@ -16,7 +16,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'MISSAV',
     icon: 'av-missav',
     hostname: 'missav.ws',
-    searchUrl: 'https://missav.ws/{{code}}/',
+    searchUrl: '/{{code}}/',
     fetchType: 'get',
     domQuery: {
       subQuery: '.space-y-2 a.text-nord13[href="https://missav.ws/chinese-subtitle"]',
@@ -27,7 +27,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JavBus',
     icon: 'av-javBus',
     hostname: 'javbus.com',
-    searchUrl: 'https://javbus.com/{{code}}',
+    searchUrl: '/{{code}}',
     fetchType: 'get',
     domQuery: {
     },
@@ -37,7 +37,19 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'Jable',
     icon: 'av-jable',
     hostname: 'jable.tv',
-    searchUrl: 'https://jable.tv/videos/{{code}}/',
+    searchUrl: '/videos/{{code}}/',
+    fetchType: 'get',
+    domQuery: {
+      subQuery: '.info-header',
+      leakQuery: '.info-header',
+    },
+  },
+  {
+    isVisible: true,
+    name: 'Jable',
+    icon: 'av-jable',
+    hostname: 'jable.tv',
+    searchUrl: '/videos/{{code}}/',
     fetchType: 'get',
     domQuery: {
       subQuery: '.info-header',
@@ -45,12 +57,13 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     },
   },
 
+  // / /////////////  njav 改成了 123av ////////////////
   {
     isVisible: true,
-    name: 'njav',
+    name: '123av',
     icon: 'av-njav',
-    hostname: 'njav.tv',
-    searchUrl: 'https://njav.tv/zh/v/{{code}}',
+    hostname: '123av.com',
+    searchUrl: '/zh/v/{{code}}',
     fetchType: 'get',
     domQuery: {
       videoQuery: '#player',
@@ -61,7 +74,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'Supjav',
     icon: 'av-supjav',
     hostname: 'supjav.com',
-    searchUrl: 'https://supjav.com/zh/?s={{code}}',
+    searchUrl: '/zh/?s={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: `.posts.clearfix>.post>a.img[title]`,
@@ -73,7 +86,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'NETFLAV',
     icon: 'av-netflav',
     hostname: 'netflav5.com',
-    searchUrl: 'https://netflav5.com/search?type=title&keyword={{code}}',
+    searchUrl: '/search?type=title&keyword={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.grid_cell>a',
@@ -85,7 +98,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'BestJP',
     icon: 'av-bestjavporn',
     hostname: 'bestjavporn.com',
-    searchUrl: 'https://www3.bestjavporn.com/search/{{code}}',
+    searchUrl: '/search/{{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: 'article.thumb-block>a',
@@ -97,7 +110,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JAVMENU',
     icon: 'av-javmenu',
     hostname: 'javmenu.com',
-    searchUrl: 'https://javmenu.com/{{code}}',
+    searchUrl: '/{{code}}',
     fetchType: 'get',
     domQuery: {
       videoQuery: 'a.nav-link[aria-controls=\'pills-0\']',
@@ -108,7 +121,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'Jav.Guru',
     icon: 'av-javGuru',
     hostname: 'jav.guru',
-    searchUrl: 'https://jav.guru/?s={{code}}',
+    searchUrl: '/?s={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.imgg>a[href]',
@@ -120,7 +133,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JAVMOST',
     icon: 'av-javmost',
     hostname: 'javmost.cx',
-    searchUrl: 'https://javmost.cx/search/{{code}}/',
+    searchUrl: '/search/{{code}}/',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '#content .card a#MyImage',
@@ -132,7 +145,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'HAYAV',
     icon: 'av-hayav',
     hostname: 'hayav.com',
-    searchUrl: 'https://hayav.com/video/{{code}}/',
+    searchUrl: '/video/{{code}}/',
     fetchType: 'get',
     domQuery: {
     },
@@ -142,7 +155,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'AvJoy',
     icon: 'av-avjoy',
     hostname: 'avjoy.me',
-    searchUrl: 'https://avjoy.me/search/videos/{{code}}',
+    searchUrl: '/search/videos/{{code}}',
     fetchType: 'parser',
     domQuery: {
       titleQuery: `#wrapper .row .content-info span.content-title`,
@@ -154,7 +167,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JAVFC2',
     icon: 'av-javfc2',
     hostname: 'javfc2.net',
-    searchUrl: 'https://javfc2.net/?s={{code}}',
+    searchUrl: '/?s={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: 'article.loop-video>a[href]',
@@ -166,7 +179,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'paipancon',
     icon: 'av-paipancon',
     hostname: 'paipancon.com',
-    searchUrl: 'https://paipancon.com/search/{{code}}',
+    searchUrl: '/search/{{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: 'div.col>div.card>a[href]',
@@ -178,7 +191,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'GGJAV',
     icon: 'av-ggjav',
     hostname: 'ggjav.com',
-    searchUrl: 'https://ggjav.com/main/search?string={{code}}',
+    searchUrl: '/main/search?string={{code}}',
     fetchType: 'parser',
     domQuery: {
       listIndex: 1,
@@ -191,7 +204,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'AV01',
     icon: 'av-av01',
     hostname: 'www.av01.tv',
-    searchUrl: 'https://www.av01.tv/search/videos?search_query={{code}}',
+    searchUrl: '/search/videos?search_query={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: 'div[id].well-sm>a',
@@ -203,7 +216,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'highporn',
     icon: 'av-highporn',
     hostname: 'highporn.net',
-    searchUrl: 'https://highporn.net/search/videos?search_query={{code}}',
+    searchUrl: '/search/videos?search_query={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.well>a[href]',
@@ -215,7 +228,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'evojav',
     icon: 'av-evojav',
     hostname: 'evojav.pro',
-    searchUrl: 'https://evojav.pro/video/{{code}}/',
+    searchUrl: '/video/{{code}}/',
     fetchType: 'get',
     domQuery: {
     },
@@ -225,7 +238,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: '18av',
     icon: 'av-18av',
     hostname: '18av.mm-cg.com',
-    searchUrl: 'https://18av.mm-cg.com/zh/fc_search/all/{{code}}/1.html',
+    searchUrl: '/zh/fc_search/all/{{code}}/1.html',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.posts h3>a[href]',
@@ -237,7 +250,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     name: 'JAVLib',
     icon: 'av-javlib',
     hostname: 'javlibrary.com',
-    searchUrl: 'https://www.javlibrary.com/cn/vl_searchbyid.php?keyword={{code}}',
+    searchUrl: '/cn/vl_searchbyid.php?keyword={{code}}',
     fetchType: 'parser',
     domQuery: {
       linkQuery: '.videothumblist .video[id]:first-child>a',

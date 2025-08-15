@@ -1,12 +1,9 @@
 <!------------------------------------  跳转在线播放   ------------------------------------------------->
 <script setup lang="ts">
-import { useOnlinePlayStore } from '@/stores'
 
 import { siteList } from './data'
 
 import Site from './site.vue'
-
-import { libSites } from './utils/libSites'
 
 type PropsType = {
 
@@ -21,30 +18,8 @@ type PropsType = {
   videoName: string
 }
 
-const props = defineProps<PropsType>()
+defineProps<PropsType>()
 
-const onlinePlayStore = useOnlinePlayStore()
-
-/**
- *   从 libSites 中找到匹配当前 URL 的图书馆站点
- */
-const libItem = libSites.find(item => item.href.test(window.location.href))
-
-const code = ref ('')
-
-function main() {
-  if (!libItem) {
-    window.$notification.error('脚本挂载错误')
-    return // 终止函数执行
-  }
-
-  code.value = props.videoName
-
-  // 执行对于当前图书馆站的特殊适配，如单独的样式改动
-  libItem.method() // 调用 libItem 中定义的适配方法
-}
-
-main()
 </script>
 
 <template>
@@ -63,10 +38,9 @@ main()
       >
         <template
           v-for="siteItem in siteList"
+          :key="siteItem.name"
         >
           <Site
-            v-if="siteItem.isVisible && (libItem?.name !== siteItem.name)"
-            :key="siteItem.name"
             :site-item="siteItem"
             :code="videoName"
           />

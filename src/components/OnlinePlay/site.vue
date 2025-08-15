@@ -27,7 +27,8 @@ const formatCode = computed(() => {
  * 计算站点视频搜索链接
  */
 const siteVideoSearchLink = computed(() => {
-  return props.siteItem.searchUrl.replace('{{code}}', formatCode.value)
+  // return props.siteItem.searchUrl.replace('{{code}}', formatCode.value)
+  return `https://${props.siteItem.hostname}${props.siteItem.searchUrl.replace('{{code}}', formatCode.value)}`
 })
 
 /**
@@ -56,6 +57,8 @@ async function fetchSiteData() {
 
     const response = await fetchMethod(props.siteItem as any, siteVideoSearchLink.value, formatCode.value)
 
+    console.log('%c Line:61 🍅 response', 'color:#e41a6a', response)
+
     status.value = {
       requestStatus: response.requestStatus ? 'fulfilled' : 'rejected',
       hasSubtitle: response.hasSubtitle,
@@ -83,12 +86,6 @@ const statusColor = computed(() => {
 })
 
 function openSite() {
-  // if (status.value.requestStatus === 'fulfilled') {
-  //   openLink(finalLink.value)
-  // }
-  // else {
-  //   openLink(`https://${props.siteItem.hostname}`)
-  // }
   openLink(finalLink.value)
 }
 

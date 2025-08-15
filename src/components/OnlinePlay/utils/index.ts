@@ -1,9 +1,3 @@
-import type { LibItem } from './libSites'
-
-import type { OnlinePlayType } from '@/types/onlinePlay'
-
-import { SP_PREFIX } from './siteList'
-
 // 声明 GM_xmlhttpRequest 的全局类型
 declare const GM_xmlhttpRequest: any
 
@@ -32,35 +26,6 @@ export function isErrorCode(resCode: number) {
 export const regEnum: OnlinePlayType.RegExpConfig = {
   subtitle: /(中文|字幕|subtitle)/,
   leakage: /(无码|無碼|泄漏|Uncensored)/,
-}
-
-/**
- * 获取视频的代码
- * @param libItem - 站点的配置项
- * @returns 返回提取的视频代码
- */
-export function getCode(libItem: LibItem): string {
-  const { codeQueryStr } = libItem.querys
-
-  const codeNode = document.querySelector<HTMLElement>(codeQueryStr)
-
-  if (!codeNode) {
-    return ''
-  }
-
-  const codeText = libItem.name === 'javdb'
-    ? (codeNode.dataset.clipboardText as string)
-    : codeNode?.textContent?.replace('复制', '')
-
-  if (codeText?.includes('FC2')) {
-    return codeText.split('-')[1]
-  }
-
-  if (codeText?.startsWith(SP_PREFIX)) {
-    return codeText.substring(3)
-  }
-
-  return codeText || ''
 }
 
 /**
