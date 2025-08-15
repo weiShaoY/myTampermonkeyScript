@@ -1,6 +1,6 @@
 export const SP_PREFIX = '300' as const
 
-export const siteList: OnlinePlayType.SiteItem[] = [
+export const siteList: [] = [
   {
     name: '123av',
     icon: 'blog-av-site-jable',

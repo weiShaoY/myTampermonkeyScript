@@ -1,9 +1,4 @@
-import { defineStore } from 'pinia'
-
-import { ref } from 'vue'
-
-// 站点配置列表
-const siteList: OnlinePlayType.SiteItem[] = [
+export const siteList: OnlinePlayType.SiteItem[] = [
   {
     isVisible: true,
     name: 'JavDB',
@@ -241,7 +236,6 @@ const siteList: OnlinePlayType.SiteItem[] = [
     isVisible: true,
     name: 'JAVLib',
     icon: 'av-javlib',
-    disableLibItemName: 'javlib',
     hostname: 'javlibrary.com',
     searchUrl: 'https://www.javlibrary.com/cn/vl_searchbyid.php?keyword={{code}}',
     fetchType: 'parser',
@@ -251,30 +245,3 @@ const siteList: OnlinePlayType.SiteItem[] = [
     },
   },
 ]
-
-const useOnlinePlayStore = defineStore('onlinePlay', () => {
-  const onlinePlay = ref({
-    /** 是否显示在线播放组件 */
-    isShowOnlinePlay: true,
-
-    /** 在线播放网站列表 */
-    siteList,
-  })
-
-  /**
-   * 打开网站
-   */
-  const openSite = (event: MouseEvent, siteItem: OnlinePlayType.SiteItem) => {
-    event.preventDefault()
-    const { hostname } = siteItem
-
-    window.open(`https://${hostname}`, '_blank')
-  }
-
-  return {
-    onlinePlay,
-    openSite,
-  }
-})
-
-export default useOnlinePlayStore

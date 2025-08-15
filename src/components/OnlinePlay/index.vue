@@ -2,6 +2,8 @@
 <script setup lang="ts">
 import { useOnlinePlayStore } from '@/stores'
 
+import { siteList } from './data'
+
 import Site from './site.vue'
 
 import { libSites } from './utils/libSites'
@@ -57,10 +59,10 @@ main()
     >
       <!-- 遍历站点列表，根据条件渲染 SiteBtn 组件 -->
       <div
-        class="w-full flex flex-wrap gap-3 rounded-2 bg-[#2a2b2f] p-3"
+        class="w-full flex flex-wrap justify-between gap-3 rounded-2 bg-[#2a2b2f] p-3"
       >
         <template
-          v-for="siteItem in onlinePlayStore.onlinePlay.siteList"
+          v-for="siteItem in siteList"
         >
           <Site
             v-if="siteItem.isVisible && (libItem?.name !== siteItem.name)"

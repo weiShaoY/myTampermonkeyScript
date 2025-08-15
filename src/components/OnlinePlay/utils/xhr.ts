@@ -1,5 +1,3 @@
-import type { OnlinePlayType } from '@/types/onlinePlay'
-
 import {
   gmGet,
   isCaseInsensitiveEqual,
@@ -16,7 +14,7 @@ import {
 function parseVideoPage(
   responseText: string,
   domQuery: OnlinePlayType.DomQuery,
-): OnlinePlayType.SiteResponse {
+): OnlinePlayType.SiteRequestResponse {
   const doc = new DOMParser().parseFromString(responseText, 'text/html')
 
   const subNode = domQuery.subQuery ? doc.querySelector<HTMLElement>(domQuery.subQuery) : null
@@ -30,7 +28,7 @@ function parseVideoPage(
   const videoNode = domQuery.videoQuery ? doc.querySelector<HTMLElement>(domQuery.videoQuery) : true
 
   return {
-    isSuccess: !!videoNode,
+    requestStatus: !!videoNode,
     hasSubtitle: regEnum.subtitle.test(subNodeText),
     hasLeakage: regEnum.leakage.test(leakNodeText),
     targetLink: '',
@@ -50,7 +48,7 @@ function parseSearchPage(
   domQuery: OnlinePlayType.DomQuery,
   siteHostName: string,
   code: string,
-): OnlinePlayType.SiteResponse {
+): OnlinePlayType.SiteRequestResponse {
   const doc = new DOMParser().parseFromString(responseText, 'text/html')
 
   const linkNode = domQuery.linkQuery ? doc.querySelectorAll<HTMLAnchorElement>(domQuery.linkQuery)[domQuery.listIndex ?? 0] : null
@@ -69,7 +67,7 @@ function parseSearchPage(
     const targetLink = linkNode.href.replace(linkNode.host, siteHostName)
 
     return {
-      isSuccess: true,
+      requestStatus: true,
       targetLink,
       hasLeakage: regEnum.leakage.test(titleNodeText),
       hasSubtitle: regEnum.subtitle.test(titleNodeText),
@@ -77,7 +75,7 @@ function parseSearchPage(
   }
 
   return {
-    isSuccess: false,
+    requestStatus: false,
     targetLink: '',
     hasLeakage: false,
     hasSubtitle: false,
@@ -95,13 +93,13 @@ export async function handleFetch(
   siteItem: OnlinePlayType.SiteItem,
   url: string,
   code: string,
-): Promise<OnlinePlayType.SiteResponse> {
+): Promise<OnlinePlayType.SiteRequestResponse> {
   try {
     const response = await gmGet(url)
 
     if (isErrorCode(response.status)) {
       return {
-        isSuccess: false,
+        requestStatus: false,
         targetLink: '',
         hasSubtitle: false,
         hasLeakage: false,
@@ -116,7 +114,7 @@ export async function handleFetch(
     }
 
     return {
-      isSuccess: false,
+      requestStatus: false,
       targetLink: '',
       hasSubtitle: false,
       hasLeakage: false,
@@ -125,7 +123,7 @@ export async function handleFetch(
   catch (error) {
     console.error('请求失败:', error)
     return {
-      isSuccess: false,
+      requestStatus: false,
       targetLink: '',
       hasSubtitle: false,
       hasLeakage: false,
@@ -144,13 +142,13 @@ export async function handleFetchJavBle(
   siteItem: OnlinePlayType.SiteItem,
   url: string,
   _code: string,
-): Promise<OnlinePlayType.SiteResponse> {
+): Promise<OnlinePlayType.SiteRequestResponse> {
   try {
     const response = await gmGet(url)
 
     if (isErrorCode(response.status)) {
       return {
-        isSuccess: false,
+        requestStatus: false,
         targetLink: '',
         hasSubtitle: false,
         hasLeakage: false,
@@ -162,7 +160,7 @@ export async function handleFetchJavBle(
   catch (error) {
     console.error('Jable 请求失败:', error)
     return {
-      isSuccess: false,
+      requestStatus: false,
       targetLink: '',
       hasSubtitle: false,
       hasLeakage: false,

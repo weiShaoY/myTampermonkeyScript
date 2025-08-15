@@ -1,6 +1,5 @@
 <!-- eslint-disable vue/require-prop-comment -->
 <script setup lang="ts">
-import type { OnlinePlayType } from '@/types/onlinePlay'
 
 import { openLink } from '@/utils'
 
@@ -18,24 +17,24 @@ type Props = {
 const props = defineProps<Props>()
 
 /**
- * 计算格式化后的 CODE
+ * 计算格式化后的 番号名
  */
 const formatCode = computed(() => {
   return props.siteItem.codeFormater?.(props.code) ?? props.code
 })
 
 /**
- * 计算替换了占位符后的链接
+ * 计算站点视频搜索链接
  */
-const link = computed(() => {
-  return props.siteItem.url.replace('{{code}}', formatCode.value)
+const siteVideoSearchLink = computed(() => {
+  return props.siteItem.searchUrl.replace('{{code}}', formatCode.value)
 })
 
 /**
  * 站点状态
  */
-const status = ref<OnlinePlayType.SiteStatus>({
-  isSuccess: 'pending',
+const status = ref<OnlinePlayType.SiteRequestStatus>({
+  requestStatus: 'pending',
   hasSubtitle: false,
   hasLeakage: false,
   targetLink: '',
@@ -45,7 +44,7 @@ const status = ref<OnlinePlayType.SiteStatus>({
  * 计算最终的链接
  */
 const finalLink = computed(() => {
-  return status.value.targetLink || link.value
+  return status.value.targetLink || siteVideoSearchLink.value
 })
 
 /**
@@ -55,10 +54,10 @@ async function fetchSiteData() {
   try {
     const fetchMethod = props.siteItem.name === 'Jable' ? handleFetchJavBle : handleFetch
 
-    const response = await fetchMethod(props.siteItem as any, link.value, formatCode.value)
+    const response = await fetchMethod(props.siteItem as any, siteVideoSearchLink.value, formatCode.value)
 
     status.value = {
-      isSuccess: response.isSuccess ? 'fulfilled' : 'rejected',
+      requestStatus: response.requestStatus ? 'fulfilled' : 'rejected',
       hasSubtitle: response.hasSubtitle,
       hasLeakage: response.hasLeakage,
       targetLink: response.targetLink,
@@ -66,7 +65,7 @@ async function fetchSiteData() {
   }
   catch (error) {
     console.error('获取站点数据失败:', error)
-    status.value.isSuccess = 'rejected'
+    status.value.requestStatus = 'rejected'
   }
 }
 
@@ -75,82 +74,69 @@ async function fetchSiteData() {
  */
 const statusColor = computed(() => {
   const colorMap = {
-    pending: '',
+    pending: '#F9A925',
     fulfilled: '#67c23a',
     rejected: '#FF1166',
   }
 
-  return colorMap[status.value.isSuccess]
+  return colorMap[status.value.requestStatus]
 })
 
-/**
- * 跳转到目标链接
- */
-function goToTarget() {
+function openSite() {
+  // if (status.value.requestStatus === 'fulfilled') {
+  //   openLink(finalLink.value)
+  // }
+  // else {
+  //   openLink(`https://${props.siteItem.hostname}`)
+  // }
   openLink(finalLink.value)
 }
 
-/**
- * 跳转到站点主页
- */
-function openSiteHomepage() {
-  const fullUrl = `https://${props.siteItem.hostname}`
-
-  openLink(fullUrl)
-}
-
 // 组件挂载时获取数据
-onMounted(fetchSiteData)
+onMounted(
+  fetchSiteData,
+)
 </script>
 
 <template>
+
   <div
-    class="group relative flex cursor-pointer items-center justify-center rounded-2"
+    class="aspect-square flex flex-col cursor-pointer justify-between rounded-2 bg-white p-1 transition-all duration-300 !w-30 hover:scale-105"
+    :style="{ border: `4px solid ${statusColor}` }"
+    @click="openSite"
   >
     <div
-      class="h-14 w-auto flex items-center gap-1 border rounded-2 bg-white p-x-1"
-      :style="{ border: `4px solid ${statusColor}` }"
-      @click="goToTarget"
+      class="flex flex-1 items-center justify-center gap-3"
     >
-      <!-- 字幕标签 -->
       <SvgIcon
-        icon="tag-ziMu"
-        class="h-6 w-6"
+        v-if="siteItem.icon"
+        :icon="siteItem.icon"
+        :size="55"
       />
 
-      <!-- 无码标签 -->
-      <SvgIcon
-        icon="tag-wuMa"
-        class="h-6 w-6"
-      />
-
-      <!-- 站点信息 -->
       <div
-        class="m-x-2 w-auto text-dark font-semibold"
+        class="flex flex-col gap-2"
       >
         <SvgIcon
-          v-if="siteItem.icon"
-          :icon="siteItem.icon"
-          class="!h-10 !min-h-10 !min-w-10 !w-10"
+          icon="tag-ziMu"
+          :size="30"
         />
 
-        <span
-          v-else
-        >
-          {{ siteItem.name }}
-        </span>
+        <SvgIcon
+          icon="tag-wuMa"
+          :size="30"
+        />
+
       </div>
     </div>
 
-    <!-- 悬浮提示 -->
-    <span
-      class="absolute left-1/2 z-20 scale-0 transform rounded-lg p-x-4 p-y-2 text-sm text-white font-bold shadow-lg transition-transform duration-300 ease-in-out -top-9 -translate-x-1/2 group-hover:scale-100"
-      :style="{ backgroundColor: statusColor }"
-      @click="openSiteHomepage"
+    <div
+      class="w-full flex justify-center text-sm font-bold"
     >
       {{ siteItem.name }}
-    </span>
+    </div>
   </div>
+
 </template>
 
 <style lang="scss" scoped>

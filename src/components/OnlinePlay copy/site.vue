@@ -1,6 +1,5 @@
 <!-- eslint-disable vue/require-prop-comment -->
 <script setup lang="ts">
-import type { OnlinePlayType } from '@/types/onlinePlay'
 
 import { openLink } from '@/utils'
 
@@ -28,14 +27,14 @@ const formatCode = computed(() => {
  * 计算替换了占位符后的链接
  */
 const link = computed(() => {
-  return props.siteItem.url.replace('{{code}}', formatCode.value)
+  return props.siteItem.searchUrl.replace('{{code}}', formatCode.value)
 })
 
 /**
  * 站点状态
  */
-const status = ref<OnlinePlayType.SiteStatus>({
-  isSuccess: 'pending',
+const status = ref<OnlinePlayType.SiteRequestStatus>({
+  requestStatus: 'pending',
   hasSubtitle: false,
   hasLeakage: false,
   targetLink: '',
@@ -58,7 +57,7 @@ async function fetchSiteData() {
     const response = await fetchMethod(props.siteItem as any, link.value, formatCode.value)
 
     status.value = {
-      isSuccess: response.isSuccess ? 'fulfilled' : 'rejected',
+      requestStatus: response.isSuccess ? 'fulfilled' : 'rejected',
       hasSubtitle: response.hasSubtitle,
       hasLeakage: response.hasLeakage,
       targetLink: response.targetLink,
@@ -66,7 +65,7 @@ async function fetchSiteData() {
   }
   catch (error) {
     console.error('获取站点数据失败:', error)
-    status.value.isSuccess = 'rejected'
+    status.value.requestStatus = 'rejected'
   }
 }
 
@@ -80,7 +79,7 @@ const bgColor = computed(() => {
     rejected: '#FF1166',
   }
 
-  return colorMap[status.value.isSuccess]
+  return colorMap[status.value.requestStatus]
 })
 
 /**

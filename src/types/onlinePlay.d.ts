@@ -1,7 +1,7 @@
 /**
  * 在线播放相关类型
  */
-export namespace OnlinePlayType {
+namespace OnlinePlayType {
 
   /**
    * 基础站点信息
@@ -15,16 +15,13 @@ export namespace OnlinePlayType {
     name: string
 
     /** 图标名称 */
-    icon?: string
-
-    /** 在指定库下不显示该站点 */
-    disableLibItemName?: string
+    icon: string
 
     /** 站点主机名 */
     hostname: string
 
     /** 站点URL模板 */
-    url: string
+    searchUrl: string
 
     /** 代码格式化函数 */
     codeFormater?: (code: string) => string
@@ -75,10 +72,10 @@ export namespace OnlinePlayType {
   /**
    * 站点状态
    */
-  export type SiteStatus = {
+  export type SiteRequestStatus = {
 
     /** 请求状态 */
-    isSuccess: 'pending' | 'fulfilled' | 'rejected'
+    requestStatus: 'pending' | 'fulfilled' | 'rejected'
 
     /** 是否有字幕 */
     hasSubtitle: boolean
@@ -93,10 +90,10 @@ export namespace OnlinePlayType {
   /**
    * 站点响应结果
    */
-  export type SiteResponse = {
+  export type SiteRequestResponse = {
 
     /** 是否成功 */
-    isSuccess: boolean
+    requestStatus: boolean
 
     /** 是否有字幕 */
     hasSubtitle: boolean
