@@ -22,8 +22,6 @@ type PropsType = {
   videoName: string
 }
 
-// style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))"
-
 </script>
 
 <template>

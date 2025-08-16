@@ -57,6 +57,8 @@ declare global {
   const getCurrentWatcher: typeof import('vue')['getCurrentWatcher']
   const getTagArray: typeof import('../utils/getTagIconArray')['getTagArray']
   const getTagIconArray: typeof import('../utils/getTagIconArray')['getTagIconArray']
+  const gmGet: typeof import('../utils/gmRequest')['gmGet']
+  const gmPost: typeof import('../utils/gmRequest')['gmPost']
   const h: typeof import('vue')['h']
   const inject: typeof import('vue')['inject']
   const isClipboardSupported: typeof import('../utils/clipboard')['isClipboardSupported']
@@ -187,6 +189,8 @@ declare module 'vue' {
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
     readonly getTagIconArray: UnwrapRef<typeof import('../utils/getTagIconArray')['getTagIconArray']>
+    readonly gmGet: UnwrapRef<typeof import('../utils/gmRequest')['gmGet']>
+    readonly gmPost: UnwrapRef<typeof import('../utils/gmRequest')['gmPost']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isClipboardSupported: UnwrapRef<typeof import('../utils/clipboard')['isClipboardSupported']>

@@ -66,6 +66,8 @@
     "getCurrentScope": true,
     "getCurrentWatcher": true,
     "getTagIconArray": true,
+    "gmGet": true,
+    "gmPost": true,
     "h": true,
     "inject": true,
     "isClipboardSupported": true,

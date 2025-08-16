@@ -2,8 +2,6 @@ import { defineStore } from 'pinia'
 
 import { ref } from 'vue'
 
-// import { config } from '@/config'
-
 const useFolderStore = defineStore(
   'folder',
   () => {
@@ -43,12 +41,12 @@ const useFolderStore = defineStore(
     /**
      *  文件夹 文件列表
      */
-    const folderFileList = ref<VideoType.VideoFile[]>([])
+    const folderFileList = ref<VideoConfigType.VideoFile[]>([])
 
     /**
      *  文件夹内文件名重复的文件列表。
      */
-    const folderDuplicateNameFileList = ref<VideoType.VideoFile[]>([])
+    const folderDuplicateNameFileList = ref<VideoConfigType.VideoFile[]>([])
 
     /**
      *  文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
@@ -85,7 +83,7 @@ const useFolderStore = defineStore(
      *  @param videoFileSet - 视频文件集合
      *  @description 保存 Emby 文件夹数据，并将其存储到 GM_setValue 和 Pinia store 中
      */
-    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<VideoType.VideoFile>) {
+    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<VideoConfigType.VideoFile>) {
       folderName.value = folderName_
 
       folderFileList.value = Array.from(videoFileSet)

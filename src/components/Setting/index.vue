@@ -1,7 +1,7 @@
 <!------------------------------------  设置按钮  ------------------------------------------------->
 <script lang="ts" setup>
 
-import { config } from '@/config'
+import { videoConfig } from '@/config'
 
 import { useFolderStore } from '@/stores'
 
@@ -76,7 +76,7 @@ type FileData = {
 /**
  * 视频文件集
  */
-const videoFileSet: Set<VideoType.VideoFile> = new Set([])
+const videoFileSet: Set<VideoConfigType.VideoFile> = new Set([])
 
 /**
  * 递归获取目录下的所有文件
@@ -93,7 +93,7 @@ async function* getFiles(
 
     try {
       //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.supportedExtensions 中
-      if (handle.kind === 'file' && config.video.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
+      if (handle.kind === 'file' && videoConfig.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
         let nfoContent = ''
 
         // 尝试查找同级目录下的同名 .nfo 文件
@@ -167,15 +167,13 @@ async function mainBtnHandler() {
        */
       const file = await fileData.fileHandle.getFile()
 
-      console.log('%c Line:169 🍡 file', 'color:#e41a6a', file)
-
       /**
        *  解析后的Nfo文件内容
        */
       const nfoContent = parseNfoContent(fileData.nfoContent)
 
       // 创建一个包含视频信息的对象
-      const item: VideoType.VideoFile = {
+      const item: VideoConfigType.VideoFile = {
 
         size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
@@ -186,7 +184,7 @@ async function mainBtnHandler() {
         cleanName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
-            .replace(config.video.tagExtractionRegex, ''),
+            .replace(videoConfig.tagExtractionRegex, ''),
 
         extension: file.name.replace(/^.*\./, ''),
 
@@ -198,8 +196,6 @@ async function mainBtnHandler() {
 
         hasChineseSubtitles: file.name.includes('-c') || file.name.includes('-C') || file.name.includes('_ch'),
       }
-
-      console.log('%c Line:202 🍊 item', 'color:#e41a6a', item)
 
       // 将该视频信息对象添加到 Set 中
       videoFileSet.add(item)

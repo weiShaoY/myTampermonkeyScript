@@ -1,7 +1,7 @@
 /**
  * 视频匹配配置
  */
-export const video: VideoType.VideoProcessingConfig = {
+export const videoConfig: VideoConfigType.VideoProcessingConfig = {
   supportedExtensions: ['mp4', 'mkv', 'avi', 'flv', 'wmv', 'mov', 'rmvb'],
 
   tagConfigs: [
@@ -32,8 +32,8 @@ export const video: VideoType.VideoProcessingConfig = {
 }
 
 // 在对象定义后设置 tagExtractionRegex
-video.tagExtractionRegex = new RegExp(
-  video.tagConfigs
+videoConfig.tagExtractionRegex = new RegExp(
+  videoConfig.tagConfigs
     .flatMap(tag => tag.names)
     .map(name => name.includes('-')
       ? name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
@@ -43,4 +43,4 @@ video.tagExtractionRegex = new RegExp(
   'gi',
 )
 
-export default video
+export default videoConfig

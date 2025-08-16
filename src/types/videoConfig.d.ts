@@ -1,7 +1,7 @@
 /**
  *  视频相关类型
  */
-namespace VideoType {
+namespace VideoConfigType {
 
   /**
    * 视频文件元数据信息

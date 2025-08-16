@@ -8,7 +8,7 @@ type PropsType = {
   /**
    *   视频
    */
-  video: VideoType.VideoFile
+  video: VideoConfigType.VideoFile
 
   /**
    *   按钮宽度
