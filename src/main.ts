@@ -4,9 +4,11 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 
-import stores from './stores'
+import { setupLoading } from './plugins'
 
 // import '@unocss/reset/tailwind.css'
+
+import stores from './stores'
 
 import 'uno.css'
 
@@ -19,15 +21,8 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 // 导入 SVG 图标
 import 'virtual:svg-icons-register'
 
-// createApp(App).mount(
-//   (() => {
-//     // App.use(ElementPlus)
-//     const app = document.createElement('div')
+setupLoading()
 
-//     document.body.append(app)
-//     return app
-//   })(),
-// )
 const app = createApp(App)
 
 app.use(ElementPlus)

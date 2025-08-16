@@ -13,8 +13,12 @@ type Props = {
   /** 视频 CODE */
   code: string
 }
-
 const props = defineProps<Props>()
+
+/**
+ *  是否显示加载状态
+ */
+const isLoading = ref(false)
 
 /**
  * 计算格式化后的 番号名
@@ -52,11 +56,11 @@ const finalLink = computed(() => {
  */
 async function fetchSiteData() {
   try {
+    isLoading.value = true
+
     const fetchMethod = props.siteItem.name === 'Jable' ? handleFetchJavBle : handleFetch
 
     const response = await fetchMethod(props.siteItem as any, siteVideoSearchLink.value, formatCode.value)
-
-    // console.log('%c Line:61 🍅 response', 'color:#e41a6a', response)
 
     status.value = {
       requestStatus: response.requestStatus ? 'fulfilled' : 'rejected',
@@ -68,6 +72,9 @@ async function fetchSiteData() {
   catch (error) {
     console.error('获取站点数据失败:', error)
     status.value.requestStatus = 'rejected'
+  }
+  finally {
+    isLoading.value = false
   }
 }
 
@@ -97,6 +104,7 @@ onMounted(
 <template>
 
   <div
+    v-loading="isLoading"
     class="aspect-square flex flex-col cursor-pointer justify-between rounded-2 bg-white p-1 transition-all duration-300 !w-30 hover:scale-105"
     :style="{ border: `4px solid ${statusColor}` }"
     @click="openSite"

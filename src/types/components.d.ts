@@ -31,4 +31,7 @@ declare module 'vue' {
     VideoThumbnail: typeof import('./../components/OnlinePlay/components/videoThumbnail/index.vue')['default']
     VideoThumbnailDialog: typeof import('./../components/OnlinePlay/components/videoThumbnailDialog/index.vue')['default']
   }
+  export interface GlobalDirectives {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
