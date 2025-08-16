@@ -32,18 +32,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     domQuery: {
     },
   },
-  {
-    isVisible: true,
-    name: 'Jable',
-    icon: 'av-jable',
-    hostname: 'jable.tv',
-    searchUrl: '/videos/{{code}}/',
-    fetchType: 'get',
-    domQuery: {
-      subQuery: '.info-header',
-      leakQuery: '.info-header',
-    },
-  },
+
   {
     isVisible: true,
     name: 'Jable',
@@ -58,17 +47,17 @@ export const siteList: OnlinePlayType.SiteItem[] = [
   },
 
   // / /////////////  njav 改成了 123av ////////////////
-  {
-    isVisible: true,
-    name: '123av',
-    icon: 'av-njav',
-    hostname: '123av.com',
-    searchUrl: '/zh/v/{{code}}',
-    fetchType: 'get',
-    domQuery: {
-      videoQuery: '#player',
-    },
-  },
+  // {
+  //   isVisible: true,
+  //   name: '123av',
+  //   icon: 'av-njav',
+  //   hostname: '123av.com',
+  //   searchUrl: '/zh/v/{{code}}',
+  //   fetchType: 'get',
+  //   domQuery: {
+  //     videoQuery: '#player',
+  //   },
+  // },
   {
     isVisible: true,
     name: 'Supjav',
@@ -162,18 +151,19 @@ export const siteList: OnlinePlayType.SiteItem[] = [
       linkQuery: `#wrapper .row a[href^="/video/"]`,
     },
   },
-  {
-    isVisible: true,
-    name: 'JAVFC2',
-    icon: 'av-javfc2',
-    hostname: 'javfc2.net',
-    searchUrl: '/?s={{code}}',
-    fetchType: 'parser',
-    domQuery: {
-      linkQuery: 'article.loop-video>a[href]',
-      titleQuery: 'article.loop-video .entry-header',
-    },
-  },
+
+  // {
+  //   isVisible: true,
+  //   name: 'JAVFC2',
+  //   icon: 'av-javfc2',
+  //   hostname: 'javfc2.net',
+  //   searchUrl: '/?s={{code}}',
+  //   fetchType: 'parser',
+  //   domQuery: {
+  //     linkQuery: 'article.loop-video>a[href]',
+  //     titleQuery: 'article.loop-video .entry-header',
+  //   },
+  // },
   {
     isVisible: true,
     name: 'paipancon',

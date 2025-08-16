@@ -57,7 +57,7 @@ async function fetchSiteData() {
 
     const response = await fetchMethod(props.siteItem as any, siteVideoSearchLink.value, formatCode.value)
 
-    console.log('%c Line:61 🍅 response', 'color:#e41a6a', response)
+    // console.log('%c Line:61 🍅 response', 'color:#e41a6a', response)
 
     status.value = {
       requestStatus: response.requestStatus ? 'fulfilled' : 'rejected',

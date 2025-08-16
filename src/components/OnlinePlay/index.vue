@@ -1,9 +1,18 @@
 <!------------------------------------  跳转在线播放   ------------------------------------------------->
 <script setup lang="ts">
 
+import VideoThumbnailDialog from './components/videoThumbnailDialog/index.vue'
+
 import { siteList } from './data'
 
 import Site from './site.vue'
+
+defineProps<PropsType>()
+
+/**
+ *  是否显示视频缩略图弹窗
+ */
+const isShowVideoThumbnailDialog = ref(false)
 
 type PropsType = {
 
@@ -18,11 +27,14 @@ type PropsType = {
   videoName: string
 }
 
-defineProps<PropsType>()
-
 </script>
 
 <template>
+  <VideoThumbnailDialog
+    v-model="isShowVideoThumbnailDialog"
+    :video-name="videoName"
+  />
+
   <Teleport
     :to="to"
   >
@@ -36,6 +48,14 @@ defineProps<PropsType>()
       <div
         class="w-full flex flex-wrap justify-between gap-3 rounded-2 bg-[#2a2b2f] p-3"
       >
+        <div
+          class="aspect-square flex flex-col cursor-pointer justify-between rounded-2 bg-white p-1 transition-all duration-300 !w-30 hover:scale-105"
+          :style="{ border: `4px solid  #EA1279` }"
+          @click="isShowVideoThumbnailDialog = true"
+        >
+          视频缩略图
+        </div>
+
         <template
           v-for="siteItem in siteList"
           :key="siteItem.name"
@@ -45,9 +65,13 @@ defineProps<PropsType>()
             :code="videoName"
           />
         </template>
+
       </div>
     </div>
   </Teleport>
+
+  <!-- // thumbnail -->
+  <!-- https://image.memojav.com/image/screenshot/${this.fanHao}.jpg -->
 </template>
 
 <style lang="less" scoped>

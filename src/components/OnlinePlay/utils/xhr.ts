@@ -97,7 +97,27 @@ export async function handleFetch(
   try {
     const response = await gmGet(url)
 
+    if (
+      siteItem.name === '18av'
+      || siteItem.name === 'NETFLAV'
+      || siteItem.name === 'paipancon'
+      || siteItem.name === 'GGJAV'
+      || siteItem.name === 'AV01'
+      || siteItem.name === 'highporn'
+    ) {
+      console.log(`%c Line:111 🍅 ${siteItem.name}  ${siteItem.fetchType}`, 'color:#e41a6a', response)
+    }
+
     if (isErrorCode(response.status)) {
+      window.$notification.error(
+        {
+          title: `${siteItem.name} 暂无资源`,
+          duration: 0,
+        },
+      )
+
+      console.log(`%c Line:111 🍅  ${siteItem.name}  ${siteItem.fetchType}`, 'color:#e41a6a', response)
+
       return {
         requestStatus: false,
         targetLink: '',

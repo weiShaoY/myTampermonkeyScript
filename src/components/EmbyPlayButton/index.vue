@@ -7,7 +7,7 @@ import { useEmbyStore } from '@/stores'
 type PropsType = {
 
   /**
-   *   视频
+   *   视频名称
    */
   videoName: string
 
