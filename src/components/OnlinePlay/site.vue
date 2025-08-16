@@ -68,10 +68,12 @@ async function fetchSiteData() {
       hasLeakage: response.hasLeakage,
       targetLink: response.targetLink,
     }
+    isLoading.value = false
   }
   catch (error) {
     console.error('获取站点数据失败:', error)
     status.value.requestStatus = 'rejected'
+    isLoading.value = false
   }
   finally {
     isLoading.value = false
