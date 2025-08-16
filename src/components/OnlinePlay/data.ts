@@ -20,6 +20,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     fetchType: 'get',
     domQuery: {
       subQuery: '.space-y-2 a.text-nord13[href="https://missav.ws/chinese-subtitle"]',
+      leakQuery: '.order-first div.rounded-md a[href]:last-child',
     },
   },
   {
@@ -47,17 +48,20 @@ export const siteList: OnlinePlayType.SiteItem[] = [
   },
 
   // / /////////////  njav 改成了 123av ////////////////
-  // {
-  //   isVisible: true,
-  //   name: '123av',
-  //   icon: 'av-njav',
-  //   hostname: '123av.com',
-  //   searchUrl: '/zh/v/{{code}}',
-  //   fetchType: 'get',
-  //   domQuery: {
-  //     videoQuery: '#player',
-  //   },
-  // },
+  {
+    isVisible: true,
+    name: '123av',
+    icon: 'av-njav',
+    hostname: '123av.com',
+    searchUrl: '/zh/search?keyword={{code}}',
+    fetchType: 'parser',
+
+    // strictParser: true,
+    domQuery: {
+      linkQuery: `.detail>a[href*='v/']`,
+      titleQuery: `.detail>a[href*='v/']`,
+    },
+  },
   {
     isVisible: true,
     name: 'Supjav',
@@ -78,8 +82,8 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     searchUrl: '/search?type=title&keyword={{code}}',
     fetchType: 'parser',
     domQuery: {
-      linkQuery: '.grid_cell>a',
-      titleQuery: '.grid_cell>a>.grid_title',
+      linkQuery: '.grid_0_cell>a[href^=\'/video?\']',
+      titleQuery: '.grid_0_cell>a[href^=\'/video?\'] .grid_0_title',
     },
   },
   {
@@ -166,7 +170,7 @@ export const siteList: OnlinePlayType.SiteItem[] = [
   // },
   {
     isVisible: true,
-    name: 'paipancon',
+    name: 'paipancon-(FC2)',
     icon: 'av-paipancon',
     hostname: 'paipancon.com',
     searchUrl: '/search/{{code}}',
@@ -193,12 +197,12 @@ export const siteList: OnlinePlayType.SiteItem[] = [
     isVisible: true,
     name: 'AV01',
     icon: 'av-av01',
-    hostname: 'www.av01.tv',
-    searchUrl: '/search/videos?search_query={{code}}',
+    hostname: 'av01.tv',
+    searchUrl: '/cn/search?q={{code}}',
     fetchType: 'parser',
     domQuery: {
-      linkQuery: 'div[id].well-sm>a',
-      titleQuery: '.video-views>.pull-left',
+      linkQuery: 'div.well>a[href^=\'/video/\']',
+      titleQuery: 'div.well>a[href^=\'/video/\']',
     },
   },
   {
@@ -235,16 +239,17 @@ export const siteList: OnlinePlayType.SiteItem[] = [
       titleQuery: '.posts h3>a[href]',
     },
   },
-  {
-    isVisible: true,
-    name: 'JAVLib',
-    icon: 'av-javlib',
-    hostname: 'javlibrary.com',
-    searchUrl: '/cn/vl_searchbyid.php?keyword={{code}}',
-    fetchType: 'parser',
-    domQuery: {
-      linkQuery: '.videothumblist .video[id]:first-child>a',
-      titleQuery: '.videothumblist .video[id]:first-child>a>div.id',
-    },
-  },
+
+  // {
+  //   isVisible: true,
+  //   name: 'JAVLib',
+  //   icon: 'av-javlib',
+  //   hostname: 'javlibrary.com',
+  //   searchUrl: '/cn/vl_searchbyid.php?keyword={{code}}',
+  //   fetchType: 'false',
+  //   domQuery: {
+  //     linkQuery: '.videothumblist .video[id]:first-child>a',
+  //     titleQuery: '.videothumblist .video[id]:first-child>a>div.id',
+  //   },
+  // },
 ]

@@ -44,18 +44,33 @@ type PropsType = {
         boxShadow: 'inset 20px 20px 8px #bebebe, inset -20px -20px 8px #EBEBEB',
       }"
     >
-      <!-- 遍历站点列表，根据条件渲染 SiteBtn 组件 -->
       <div
         class="w-full flex flex-wrap justify-between gap-3 rounded-2 bg-[#2a2b2f] p-3"
       >
+
         <div
           class="aspect-square flex flex-col cursor-pointer justify-between rounded-2 bg-white p-1 transition-all duration-300 !w-30 hover:scale-105"
-          :style="{ border: `4px solid  #EA1279` }"
+          :style="{ border: `4px solid #67c23a` }"
           @click="isShowVideoThumbnailDialog = true"
         >
-          视频缩略图
+
+          <div
+            class="flex flex-1 items-center justify-center gap-3"
+          >
+            <SvgIcon
+              icon="thumbnail"
+              :size="40"
+            />
+          </div>
+
+          <div
+            class="w-full flex justify-center text-sm font-bold"
+          >
+            视频缩略图
+          </div>
         </div>
 
+        <!-- 遍历站点列表，根据条件渲染 SiteBtn 组件 -->
         <template
           v-for="siteItem in siteList"
           :key="siteItem.name"

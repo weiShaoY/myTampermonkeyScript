@@ -15,16 +15,34 @@ function parseVideoPage(
   responseText: string,
   domQuery: OnlinePlayType.DomQuery,
 ): OnlinePlayType.SiteRequestResponse {
+  /**
+   * 将响应文本解析为DOM文档
+   */
   const doc = new DOMParser().parseFromString(responseText, 'text/html')
 
+  /**
+   *  查找字幕信息节点
+   */
   const subNode = domQuery.subQuery ? doc.querySelector<HTMLElement>(domQuery.subQuery) : null
 
+  /**
+   *  获取字幕节点的HTML内容
+   */
   const subNodeText = subNode?.innerHTML || ''
 
+  /**
+   *  查找泄露资源信息节点
+   */
   const leakNode = domQuery.leakQuery ? doc.querySelector<HTMLElement>(domQuery.leakQuery) : null
 
+  /**
+   *  获取泄露资源节点的HTML内容
+   */
   const leakNodeText = leakNode?.innerHTML || ''
 
+  /**
+   *  查找视频资源信息节点
+   */
   const videoNode = domQuery.videoQuery ? doc.querySelector<HTMLElement>(domQuery.videoQuery) : true
 
   return {

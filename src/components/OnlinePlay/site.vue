@@ -27,7 +27,6 @@ const formatCode = computed(() => {
  * 计算站点视频搜索链接
  */
 const siteVideoSearchLink = computed(() => {
-  // return props.siteItem.searchUrl.replace('{{code}}', formatCode.value)
   return `https://${props.siteItem.hostname}${props.siteItem.searchUrl.replace('{{code}}', formatCode.value)}`
 })
 
@@ -115,11 +114,13 @@ onMounted(
         class="flex flex-col gap-2"
       >
         <SvgIcon
+          v-if="status.hasSubtitle"
           icon="tag-ziMu"
           :size="30"
         />
 
         <SvgIcon
+          v-if="status.hasLeakage"
           icon="tag-wuMa"
           :size="30"
         />

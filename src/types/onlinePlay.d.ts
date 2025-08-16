@@ -60,7 +60,7 @@ namespace OnlinePlayType {
   export type SiteItem = {
 
     /** 获取类型 */
-    fetchType: 'get' | 'parser' | 'post'
+    fetchType: 'get' | 'parser' | 'post' | 'false'
 
     /** DOM查询配置 */
     domQuery: DomQuery
