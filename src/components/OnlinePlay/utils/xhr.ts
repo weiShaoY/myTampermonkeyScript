@@ -1,5 +1,6 @@
+import { gmGet } from '@/utils'
+
 import {
-  gmGet,
   isCaseInsensitiveEqual,
   isErrorCode,
   regEnum,

@@ -1,5 +1,5 @@
 // 声明 GM_xmlhttpRequest 的全局类型
-declare const GM_xmlhttpRequest: any
+// declare const GM_xmlhttpRequest: any
 
 /**
  * 比较两个字符串是否相等，不区分大小写
@@ -26,41 +26,4 @@ export function isErrorCode(resCode: number) {
 export const regEnum: OnlinePlayType.RegExpConfig = {
   subtitle: /(中文|字幕|subtitle)/,
   leakage: /(无码|無碼|泄漏|Uncensored)/,
-}
-
-/**
- * 发送 GET 请求
- * @param url - 请求的 URL
- * @returns 返回包含响应的 Promise 对象
- */
-export function gmGet(url: string): Promise<OnlinePlayType.HttpResponse> {
-  return new Promise((resolve, reject) => {
-    GM_xmlhttpRequest({
-      method: 'GET',
-      url,
-      onload: (response: OnlinePlayType.HttpResponse) => resolve(response),
-      onerror: (error: any) => reject(error),
-    })
-  })
-}
-
-/**
- * 发送 POST 请求
- * @param url - 请求的 URL
- * @param data - 请求的数据
- * @returns 返回包含响应的 Promise 对象
- */
-export function gmPost(url: string, data?: Record<string, any>): Promise<OnlinePlayType.HttpResponse> {
-  return new Promise((resolve, reject) => {
-    GM_xmlhttpRequest({
-      method: 'POST',
-      data: data ? new URLSearchParams(data).toString() : '',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      url,
-      onload: (response: OnlinePlayType.HttpResponse) => resolve(response),
-      onerror: (error: any) => reject(error),
-    })
-  })
 }

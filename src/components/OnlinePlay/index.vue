@@ -1,18 +1,13 @@
 <!------------------------------------  跳转在线播放   ------------------------------------------------->
 <script setup lang="ts">
 
-import VideoThumbnailDialog from './components/videoThumbnailDialog/index.vue'
+import VideoThumbnail from './components/videoThumbnail/index.vue'
 
 import { siteList } from './data'
 
 import Site from './site.vue'
 
 defineProps<PropsType>()
-
-/**
- *  是否显示视频缩略图弹窗
- */
-const isShowVideoThumbnailDialog = ref(false)
 
 type PropsType = {
 
@@ -30,10 +25,6 @@ type PropsType = {
 </script>
 
 <template>
-  <VideoThumbnailDialog
-    v-model="isShowVideoThumbnailDialog"
-    :video-name="videoName"
-  />
 
   <Teleport
     :to="to"
@@ -47,28 +38,9 @@ type PropsType = {
       <div
         class="w-full flex flex-wrap justify-between gap-3 rounded-2 bg-[#2a2b2f] p-3"
       >
-
-        <div
-          class="aspect-square flex flex-col cursor-pointer justify-between rounded-2 bg-white p-1 transition-all duration-300 !w-30 hover:scale-105"
-          :style="{ border: `4px solid #67c23a` }"
-          @click="isShowVideoThumbnailDialog = true"
-        >
-
-          <div
-            class="flex flex-1 items-center justify-center gap-3"
-          >
-            <SvgIcon
-              icon="thumbnail"
-              :size="40"
-            />
-          </div>
-
-          <div
-            class="w-full flex justify-center text-sm font-bold"
-          >
-            视频缩略图
-          </div>
-        </div>
+        <VideoThumbnail
+          :video-name="videoName"
+        />
 
         <!-- 遍历站点列表，根据条件渲染 SiteBtn 组件 -->
         <template

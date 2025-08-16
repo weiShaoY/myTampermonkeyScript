@@ -29,7 +29,7 @@ declare module 'vue' {
     Site_btn: typeof import('./../components/OnlinePlay/site_btn.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
     TorrentList: typeof import('./../components/TorrentList/index.vue')['default']
-    VideoThumbnail: typeof import('./../components/OnlinePlay/videoThumbnail.vue')['default']
+    VideoThumbnail: typeof import('./../components/OnlinePlay/components/videoThumbnail/index.vue')['default']
     VideoThumbnailDialog: typeof import('./../components/OnlinePlay/components/videoThumbnailDialog/index.vue')['default']
   }
 }
