@@ -125,7 +125,7 @@ export const searchEngineList = [
         icon: 'av-btsow',
         hostname: 'btsow.com',
         inputId: 'search-input',
-        searchUrl: 'https://btsow.com',
+        searchUrl: 'https://btsow.lol/#/search/',
       },
     ],
   },

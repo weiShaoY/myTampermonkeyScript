@@ -22,7 +22,6 @@ declare module 'vue' {
     FolderQueryDuplicateDialog: typeof import('./../components/Setting/components/folderQueryDuplicateDialog/index.vue')['default']
     FolderReadSuccessDialog: typeof import('./../components/Setting/components/folderReadSuccessDialog/index.vue')['default']
     OnlinePlay: typeof import('./../components/OnlinePlay/index.vue')['default']
-    'OnlinePlay copy': typeof import('./../components/OnlinePlay copy/index.vue')['default']
     PendingUpdateChineseButton: typeof import('./../components/PendingUpdateChineseButton/index.vue')['default']
     Setting: typeof import('./../components/Setting/index.vue')['default']
     Site: typeof import('./../components/OnlinePlay/site.vue')['default']

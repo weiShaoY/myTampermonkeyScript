@@ -22,6 +22,8 @@ type PropsType = {
   videoName: string
 }
 
+// style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr))"
+
 </script>
 
 <template>
@@ -36,7 +38,10 @@ type PropsType = {
       }"
     >
       <div
-        class="w-full flex flex-wrap justify-between gap-3 rounded-2 bg-[#2a2b2f] p-3"
+        class="grid w-full gap-6 rounded-2 bg-[#2a2b2f] p-3"
+        :style="{
+          gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
+        }"
       >
         <VideoThumbnail
           :video-name="videoName"
