@@ -23,7 +23,7 @@ export function isErrorCode(resCode: number) {
 /**
  * 定义常用的正则表达式枚举
  */
-export const regEnum: OnlinePlayType.RegExpConfig = {
+export const regEnum: OnlinePlayConfigType.RegExpConfig = {
   subtitle: /(中文|字幕|subtitle)/,
   leakage: /(无码|無碼|泄漏|Uncensored)/,
 }

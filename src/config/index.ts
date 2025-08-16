@@ -2,6 +2,10 @@ import { searchEngineList } from './searchEngineList'
 
 import video from './video'
 
+export * from './onlinePlay'
+
+export * from './search'
+
 /**
  *  配置
  */

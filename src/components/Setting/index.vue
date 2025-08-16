@@ -22,7 +22,7 @@ const folderStore = useFolderStore()
 /**
  *  是否显示设置弹窗
  */
-const isShowSettingModal = ref(false)
+// const isShowSettingModal = ref(false)
 
 /**
  *  是否显示查重弹窗
@@ -224,11 +224,11 @@ async function mainBtnHandler() {
   }
 }
 
-function openEmby(event: MouseEvent) {
-  event.stopPropagation()
+// function openEmby(event: MouseEvent) {
+//   event.stopPropagation()
 
-  // siteStore.openEmby()
-}
+//   // siteStore.openEmby()
+// }
 </script>
 
 <template>
@@ -333,7 +333,7 @@ function openEmby(event: MouseEvent) {
           </span>
         </div>
 
-        <div
+        <!-- <div
           class="h-12 flex items-center justify-center gap-2 rounded-full bg-gray-200 p-3 shadow-lg duration-600 hover:scale-120 hover:cursor-pointer"
           @click="($event) => {
             $event.stopPropagation()
@@ -368,7 +368,7 @@ function openEmby(event: MouseEvent) {
           >
             Emby
           </span>
-        </div>
+        </div> -->
 
       </div>
     </div>

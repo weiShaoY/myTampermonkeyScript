@@ -1,7 +1,7 @@
 /**
  * 在线播放相关类型
  */
-namespace OnlinePlayType {
+namespace OnlinePlayConfigType {
 
   /**
    * 基础站点信息

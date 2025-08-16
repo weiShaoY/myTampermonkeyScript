@@ -14,8 +14,8 @@ import {
  */
 function parseVideoPage(
   responseText: string,
-  domQuery: OnlinePlayType.DomQuery,
-): OnlinePlayType.SiteRequestResponse {
+  domQuery: OnlinePlayConfigType.DomQuery,
+): OnlinePlayConfigType.SiteRequestResponse {
   /**
    * 将响应文本解析为DOM文档
    */
@@ -64,10 +64,10 @@ function parseVideoPage(
  */
 function parseSearchPage(
   responseText: string,
-  domQuery: OnlinePlayType.DomQuery,
+  domQuery: OnlinePlayConfigType.DomQuery,
   siteHostName: string,
   code: string,
-): OnlinePlayType.SiteRequestResponse {
+): OnlinePlayConfigType.SiteRequestResponse {
   const doc = new DOMParser().parseFromString(responseText, 'text/html')
 
   const linkNode = domQuery.linkQuery ? doc.querySelectorAll<HTMLAnchorElement>(domQuery.linkQuery)[domQuery.listIndex ?? 0] : null
@@ -109,10 +109,10 @@ function parseSearchPage(
  * @returns 站点响应结果
  */
 export async function handleFetch(
-  siteItem: OnlinePlayType.SiteItem,
+  siteItem: OnlinePlayConfigType.SiteItem,
   url: string,
   code: string,
-): Promise<OnlinePlayType.SiteRequestResponse> {
+): Promise<OnlinePlayConfigType.SiteRequestResponse> {
   try {
     const response = await gmGet(url)
 
@@ -178,10 +178,10 @@ export async function handleFetch(
  * @returns 站点响应结果
  */
 export async function handleFetchJavBle(
-  siteItem: OnlinePlayType.SiteItem,
+  siteItem: OnlinePlayConfigType.SiteItem,
   url: string,
   _code: string,
-): Promise<OnlinePlayType.SiteRequestResponse> {
+): Promise<OnlinePlayConfigType.SiteRequestResponse> {
   try {
     const response = await gmGet(url)
 

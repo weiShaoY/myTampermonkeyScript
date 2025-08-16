@@ -1,9 +1,9 @@
 <!------------------------------------  跳转在线播放   ------------------------------------------------->
 <script setup lang="ts">
 
-import VideoThumbnail from './components/videoThumbnail/index.vue'
+import { onlinePlayConfig } from '@/config'
 
-import { siteList } from './data'
+import VideoThumbnail from './components/videoThumbnail/index.vue'
 
 import Site from './site.vue'
 
@@ -49,7 +49,7 @@ type PropsType = {
 
         <!-- 遍历站点列表，根据条件渲染 SiteBtn 组件 -->
         <template
-          v-for="siteItem in siteList"
+          v-for="siteItem in onlinePlayConfig.siteList"
           :key="siteItem.name"
         >
           <Site

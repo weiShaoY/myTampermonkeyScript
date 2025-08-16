@@ -8,7 +8,7 @@ import { handleFetch, handleFetchJavBle } from './utils/xhr'
 type Props = {
 
   /** 站点项 */
-  siteItem: OnlinePlayType.SiteItem
+  siteItem: OnlinePlayConfigType.SiteItem
 
   /** 视频 CODE */
   code: string
@@ -37,7 +37,7 @@ const siteVideoSearchLink = computed(() => {
 /**
  * 站点状态
  */
-const status = ref<OnlinePlayType.SiteRequestStatus>({
+const status = ref<OnlinePlayConfigType.SiteRequestStatus>({
   requestStatus: 'pending',
   hasSubtitle: false,
   hasLeakage: false,

@@ -6,58 +6,12 @@ import {
   ref,
 } from 'vue'
 
-import { config } from '@/config'
+import { searchConfig } from '@/config'
 
 import { getClipboardText, openLink } from '@/utils'
 
-/**
- *  搜索引擎类型
- */
-type SearchEngine = {
-
-  /**
-   *  名称
-   */
-  name: string
-
-  /**
-   *  图标
-   */
-  icon: string
-
-  /**
-   *  主机名
-   */
-  hostname: string
-
-  /**
-   *  输入框ID
-   */
-  inputId?: string
-
-  /**
-   *  输入框class
-   */
-  inputClass?: string
-
-  /**
-   *  输入框索引
-   */
-  inputIndex?: number
-
-  /**
-   *  搜索URL
-   */
-  searchUrl: string
-
-  /**
-   *  子菜单
-   */
-  siteList?: SearchEngine[]
-}
-
 // 响应式状态
-const currentSearchEngine = ref<SearchEngine | null>(null)
+const currentSearchEngine = ref<SearchConfigType.SiteItem | null>(null)
 
 const searchKeyword = ref('')
 
@@ -110,7 +64,7 @@ function getSearchValueByIndex(index: number): string {
 /**
  * 从指定搜索引擎获取关键词
  */
-function getKeywordFromEngine(engine: SearchEngine): string {
+function getKeywordFromEngine(engine: SearchConfigType.SiteItem): string {
   if (engine.inputId) {
     return getSearchValueById(engine.inputId)
   }
@@ -132,10 +86,10 @@ function getKeywordFromEngine(engine: SearchEngine): string {
 function getSearchKeyword(): string {
   let keyword = ''
 
-  let matchedEngine: SearchEngine | null = null
+  let matchedEngine: SearchConfigType.SiteItem | null = null
 
   // 遍历搜索引擎列表
-  for (const item of config.searchEngineList) {
+  for (const item of searchConfig.siteList) {
     if (item.siteList) {
       // 检查子菜单中的搜索引擎
       for (const subItem of item.siteList) {
@@ -177,7 +131,7 @@ function getSearchKeyword(): string {
 /**
  * 执行搜索
  */
-async function handlePerformSearch(engine: SearchEngine): Promise<void> {
+async function handlePerformSearch(engine: SearchConfigType.SiteItem): Promise<void> {
   try {
     // 设置当前搜索引擎
     currentSearchEngine.value = engine
@@ -213,7 +167,10 @@ async function handlePerformSearch(engine: SearchEngine): Promise<void> {
 
     // 执行搜索
     console.log('执行搜索:', searchUrl)
-    openLink(searchUrl)
+
+    if (searchUrl) {
+      openLink(searchUrl)
+    }
   }
   catch (error) {
     console.error('搜索执行失败:', error)
@@ -253,7 +210,7 @@ onMounted(() => {
     >
       <!-- 搜索引擎菜单项 -->
       <template
-        v-for="item in config.searchEngineList"
+        v-for="item in searchConfig.siteList"
         :key="item.name"
       >
         <!-- 有子菜单的项目 -->

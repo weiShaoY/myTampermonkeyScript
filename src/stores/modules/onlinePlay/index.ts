@@ -12,7 +12,7 @@ const useOnlinePlayStore = defineStore('onlinePlay', () => {
   /**
    * 打开网站
    */
-  const openSite = (event: MouseEvent, siteItem: OnlinePlayType.SiteItem) => {
+  const openSite = (event: MouseEvent, siteItem: OnlinePlayConfigType.SiteItem) => {
     event.preventDefault()
     const { hostname } = siteItem
 
