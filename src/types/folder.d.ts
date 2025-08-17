@@ -111,22 +111,6 @@ namespace FolderConfigType {
   }
 
   /**
-   * 视频标签配置项
-   */
-  // type VideoTagConfig = {
-
-  //   /**
-  //    * 标签名称数组（支持多个同义标签名）
-  //    */
-  //   names: string[]
-
-  //   /**
-  //    * 标签对应的图标标识
-  //    */
-  //   icon: string
-  // }
-
-  /**
    * 视频文件识别和标签处理配置
    */
   type VideoProcessing = {
@@ -134,12 +118,12 @@ namespace FolderConfigType {
     /**
      * 支持的视频文件扩展名列表
      */
-    supportedExtensions: string[]
+    scannableVideoExtensions: string[]
 
     /**
      * 视频标签配置列表
      */
-    tagConfigs: {
+    videoTagConfigs: {
       names: string[]
       icon: string
     }[]

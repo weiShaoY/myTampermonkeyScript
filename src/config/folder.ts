@@ -1,46 +1,45 @@
 /**
- * 视频匹配配置
+ *  标签配置
+ */
+const tagConfigs = [
+  {
+    names: ['4K'],
+    icon: 'tag-4k',
+  },
+  {
+    names: ['-c', '-C', '_ch', '-UC'],
+    icon: 'tag-ziMu',
+  },
+  {
+    names: ['无码'],
+    icon: 'tag-wuMa',
+  },
+  {
+    names: ['破解'],
+    icon: 'tag-poJie',
+  },
+  {
+    names: ['流出'],
+    icon: 'tag-liuChu',
+  },
+]
+
+/**
+ *  文件夹配置
  */
 export const folderConfig: FolderConfigType.VideoProcessing = {
-  supportedExtensions: ['mp4', 'mkv', 'avi', 'flv', 'wmv', 'mov', 'rmvb'],
+  scannableVideoExtensions: ['mp4', 'mkv', 'avi', 'flv', 'wmv', 'mov', 'rmvb'],
 
-  tagConfigs: [
-    {
-      names: ['4K'],
-      icon: 'tag-4k',
-    },
-    {
-      names: ['-c', '-C', '_ch', '-UC'],
-      icon: 'tag-ziMu',
-    },
-    {
-      names: ['无码'],
-      icon: 'tag-wuMa',
-    },
-    {
-      names: ['破解'],
-      icon: 'tag-poJie',
-    },
-    {
-      names: ['流出'],
-      icon: 'tag-liuChu',
-    },
-  ],
+  videoTagConfigs: tagConfigs,
 
-  tagExtractionRegex: undefined as any, // 初始化为 undefined，稍后在对象定义后设置
-
+  tagExtractionRegex: new RegExp(
+    tagConfigs
+      .flatMap(tag => tag.names)
+      .map(name => name.includes('-')
+        ? name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+        : `-?${name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}`,
+      )
+      .join('|'),
+    'gi',
+  ),
 }
-
-// 在对象定义后设置 tagExtractionRegex
-folderConfig.tagExtractionRegex = new RegExp(
-  folderConfig.tagConfigs
-    .flatMap(tag => tag.names)
-    .map(name => name.includes('-')
-      ? name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-      : `-?${name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}`, // 对于不包含 `-` 的情况，添加可选的 `-`
-    )
-    .join('|'),
-  'gi',
-)
-
-export default folderConfig

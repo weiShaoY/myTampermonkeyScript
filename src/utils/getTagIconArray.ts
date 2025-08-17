@@ -12,7 +12,7 @@ export function getTagIconArray(fullName: string): string[] {
 
   if (foundTags.length > 0) {
     // 从 tagConfigs 中找到匹配的标签对象，并提取 icon 值
-    const matchingIcons = folderConfig.tagConfigs
+    const matchingIcons = folderConfig.videoTagConfigs
       .filter(tag =>
 
         // 检查 tag.names 数组中的任何一个项是否存在于 foundTags 中

@@ -93,7 +93,7 @@ async function* getFiles(
 
     try {
       //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.supportedExtensions 中
-      if (handle.kind === 'file' && folderConfig.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
+      if (handle.kind === 'file' && folderConfig.scannableVideoExtensions.some(ext => name.endsWith(`.${ext}`))) {
         let nfoContent = ''
 
         // 尝试查找同级目录下的同名 .nfo 文件
