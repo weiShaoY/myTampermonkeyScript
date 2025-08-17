@@ -12,6 +12,11 @@ type PropsType = {
   videoName: string
 
   /**
+   *  emby搜索名称
+   */
+  embySearchName: string
+
+  /**
    *   按钮宽度
    */
   width?: string | number
@@ -47,7 +52,7 @@ const embyStore = useEmbyStore()
 function embyBtnHandler(event: MouseEvent) {
   event.preventDefault()
 
-  embyStore.embySearch(props.videoName)
+  embyStore.embySearch(props.embySearchName)
 }
 </script>
 

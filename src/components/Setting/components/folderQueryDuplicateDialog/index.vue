@@ -45,13 +45,6 @@ const getFolderReadTimeoutText = computed(() => {
 
   return `${hoursElapsed} 时 ${minutesElapsed} 分`
 })
-
-watchEffect(() => {
-  console.log(isShowFolderUniqueFileNameFileList.value)
-})
-console.log('%c Line:52 🍏 folderStore.folderUniqueFileNameFileList', 'color:#b03734', folderStore.folderUniqueFileNameFileList)
-
-console.log('%c Line:54 🍌 folderStore.folderDuplicateNameFileList', 'color:#93c0a4', folderStore.folderDuplicateNameFileList)
 </script>
 
 <template>
@@ -170,7 +163,8 @@ console.log('%c Line:54 🍌 folderStore.folderDuplicateNameFileList', 'color:#9
         <EmbyPlayButton
           v-for="(item, index) in folderStore.folderDuplicateNameFileList"
           :key="index"
-          :video-name="item.cleanName"
+          :video-name="item.nameWithTags"
+          :emby-search-name="item.cleanName"
           class="!h-15"
         />
       </template>
@@ -182,6 +176,7 @@ console.log('%c Line:54 🍌 folderStore.folderDuplicateNameFileList', 'color:#9
           v-for="(item, index) in folderStore.folderUniqueFileNameFileList"
           :key="index"
           :video-name="item"
+          :emby-search-name="item"
           class="!h-15"
         />
       </template>

@@ -55,6 +55,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getCurrentWatcher: typeof import('vue')['getCurrentWatcher']
+  const getFileTagIconArray: typeof import('../utils/getTagIconArray')['getFileTagIconArray']
   const getTagArray: typeof import('../utils/getTagIconArray')['getTagArray']
   const getTagIconArray: typeof import('../utils/getTagIconArray')['getTagIconArray']
   const gmGet: typeof import('../utils/gmRequest')['gmGet']
@@ -188,7 +189,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
-    readonly getTagIconArray: UnwrapRef<typeof import('../utils/getTagIconArray')['getTagIconArray']>
+    readonly getFileTagIconArray: UnwrapRef<typeof import('../utils/getTagIconArray')['getFileTagIconArray']>
     readonly gmGet: UnwrapRef<typeof import('../utils/gmRequest')['gmGet']>
     readonly gmPost: UnwrapRef<typeof import('../utils/gmRequest')['gmPost']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
@@ -250,8 +251,6 @@ declare module 'vue' {
     readonly useFolderStore: UnwrapRef<typeof import('../stores/index')['useFolderStore']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
-    readonly useOnlinePlayStore: UnwrapRef<typeof import('../stores/index')['useOnlinePlayStore']>
-    readonly useSearchStore: UnwrapRef<typeof import('../stores/index')['useSearchStore']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useTemplateRef: UnwrapRef<typeof import('vue')['useTemplateRef']>
     readonly useTorrentStore: UnwrapRef<typeof import('../stores/index')['useTorrentStore']>

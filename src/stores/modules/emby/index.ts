@@ -48,7 +48,7 @@ const useEmbyStore = defineStore(
     /**
      *  设置超时时间为 2 秒
      */
-      const timeoutDuration = 2000
+      const timeoutDuration = 10000
 
       const timeoutId = setTimeout(() => {
         window.$notification.error({
@@ -76,16 +76,8 @@ const useEmbyStore = defineStore(
             // 将 JSON 字符串转换为 JSON 对象
               const result = JSON.parse(response.responseText)
 
-              if (result.Items.length > 0) {
-                const id = result.Items[0].Id
-
-                const serverId = result.Items[0].ServerId
-
-                const url = `${embyConfig.request.url}:${embyConfig.request.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`
-
-                openLink(url)
-              }
-              else {
+              //  如果结果为空，则提示没有找到
+              if (result.Items.length === 0) {
                 window.$messageBox.confirm(`是否打开 Emby 首页?`, 'Emby中没有找到该视频!', {
                   confirmButtonText: '确认',
                   cancelButtonText: '取消',
@@ -97,6 +89,24 @@ const useEmbyStore = defineStore(
                   .catch(() => {
                     window.$notification.error('Emby中没有找到该视频!')
                   })
+              }
+
+              //  如果只有一个结果，则直接打开
+              else if (result.Items.length === 1) {
+                const id = result.Items[0].Id
+
+                const serverId = result.Items[0].ServerId
+
+                const url = `${embyConfig.request.url}:${embyConfig.request.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`
+
+                openLink(url)
+              }
+              else {
+                window.$notification.error('Emby中找到多个结果!')
+
+                GM_setValue('EMBY-SEARCH-VALUE', videoName)
+
+                openLink(`${embyConfig.request.url}:${embyConfig.request.port}/web/index.html#!/home`)
               }
             }
             catch (e) {

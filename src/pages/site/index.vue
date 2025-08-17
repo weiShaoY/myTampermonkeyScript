@@ -17,9 +17,9 @@ const isJavdb = hostname.value.includes('javdb')
 
 const isJavbus = hostname.value.includes('javbus')
 
-const isEmby = hostname.value.includes('emby')
-
 const isMissav = hostname.value.includes('missav')
+
+const isEmby = window.location.port === '8096'
 
 useFolderStore().loadEmbyFolderData()
 </script>

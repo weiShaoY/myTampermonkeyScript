@@ -213,6 +213,7 @@ onMounted(() => {
     <EmbyPlayButton
       v-if="isShowEmbyButton"
       :video-name="pageVideoName"
+      :emby-search-name="pageVideoName"
     />
 
     <!-- emby已入库列表 -->
