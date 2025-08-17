@@ -41,7 +41,9 @@ useFolderStore().loadEmbyFolderData()
     v-else-if="isMissav"
   />
 
-  <Setting />
+  <Setting
+    v-if="isJavdb || isJavbus || isMissav || isEmby"
+  />
 </template>
 
 <style lang="scss" scoped>
