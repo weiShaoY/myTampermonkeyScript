@@ -1,4 +1,4 @@
-import { videoConfig } from '@/config'
+import { folderConfig } from '@/config'
 
 /**
  * 获取视频标签图标数组
@@ -8,11 +8,11 @@ import { videoConfig } from '@/config'
 export function getTagIconArray(fullName: string): string[] {
   // 使用正则表达式 config.video.tagExtractionRegex 在 fullName 中查找所有匹配项
 
-  const foundTags = [...fullName.matchAll(videoConfig.tagExtractionRegex)]
+  const foundTags = [...fullName.matchAll(folderConfig.tagExtractionRegex)]
 
   if (foundTags.length > 0) {
     // 从 tagConfigs 中找到匹配的标签对象，并提取 icon 值
-    const matchingIcons = videoConfig.tagConfigs
+    const matchingIcons = folderConfig.tagConfigs
       .filter(tag =>
 
         // 检查 tag.names 数组中的任何一个项是否存在于 foundTags 中

@@ -5,7 +5,7 @@ import { ref } from 'vue'
 const useFolderStore = defineStore(
   'folder',
   () => {
-    const folderConfig = ref<FolderConfigType>({
+    const embyScanConfig = ref<FolderConfigType.EmbyScanConfig>({
       /**
        * 目标扫描磁盘驱动器盘符
        */
@@ -41,12 +41,12 @@ const useFolderStore = defineStore(
     /**
      *  文件夹 文件列表
      */
-    const folderFileList = ref<VideoConfigType.VideoFile[]>([])
+    const folderFileList = ref<FolderConfigType.VideoFile[]>([])
 
     /**
      *  文件夹内文件名重复的文件列表。
      */
-    const folderDuplicateNameFileList = ref<VideoConfigType.VideoFile[]>([])
+    const folderDuplicateNameFileList = ref<FolderConfigType.VideoFile[]>([])
 
     /**
      *  文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
@@ -83,7 +83,7 @@ const useFolderStore = defineStore(
      *  @param videoFileSet - 视频文件集合
      *  @description 保存 Emby 文件夹数据，并将其存储到 GM_setValue 和 Pinia store 中
      */
-    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<VideoConfigType.VideoFile>) {
+    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<FolderConfigType.VideoFile>) {
       folderName.value = folderName_
 
       folderFileList.value = Array.from(videoFileSet)
@@ -145,9 +145,9 @@ const useFolderStore = defineStore(
 
     return {
       /**
-       * 文件夹对象。
+       * Emby 文件夹扫描配置。
        */
-      folderConfig,
+      embyScanConfig,
 
       /**
        * 文件夹名称。

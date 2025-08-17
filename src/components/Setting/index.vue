@@ -1,7 +1,7 @@
 <!------------------------------------  设置按钮  ------------------------------------------------->
 <script lang="ts" setup>
 
-import { videoConfig } from '@/config'
+import { folderConfig } from '@/config'
 
 import { useFolderStore } from '@/stores'
 
@@ -76,7 +76,7 @@ type FileData = {
 /**
  * 视频文件集
  */
-const videoFileSet: Set<VideoConfigType.VideoFile> = new Set([])
+const videoFileSet: Set<FolderConfigType.VideoFile> = new Set([])
 
 /**
  * 递归获取目录下的所有文件
@@ -93,7 +93,7 @@ async function* getFiles(
 
     try {
       //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.supportedExtensions 中
-      if (handle.kind === 'file' && videoConfig.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
+      if (handle.kind === 'file' && folderConfig.supportedExtensions.some(ext => name.endsWith(`.${ext}`))) {
         let nfoContent = ''
 
         // 尝试查找同级目录下的同名 .nfo 文件
@@ -173,7 +173,7 @@ async function mainBtnHandler() {
       const nfoContent = parseNfoContent(fileData.nfoContent)
 
       // 创建一个包含视频信息的对象
-      const item: VideoConfigType.VideoFile = {
+      const item: FolderConfigType.VideoFile = {
 
         size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
@@ -184,7 +184,7 @@ async function mainBtnHandler() {
         cleanName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
-            .replace(videoConfig.tagExtractionRegex, ''),
+            .replace(folderConfig.tagExtractionRegex, ''),
 
         extension: file.name.replace(/^.*\./, ''),
 
