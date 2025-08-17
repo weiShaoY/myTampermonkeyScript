@@ -44,10 +44,10 @@ namespace FolderConfigType {
   }
 
   /**
-   * 视频文件元数据信息
+   * 文件元数据信息
    * 用于存储视频文件的完整信息，包括文件名、标签、路径等
    */
-  type VideoFile = {
+  type File = {
 
     /**
      * 视频文件原始完整名称（包含扩展名和所有标签信息）
@@ -111,19 +111,19 @@ namespace FolderConfigType {
   }
 
   /**
-   * 视频文件识别和标签处理配置
+   * 文件识别和标签处理配置
    */
-  type VideoProcessing = {
+  type FileProcessing = {
 
     /**
      * 支持的视频文件扩展名列表
      */
-    scannableVideoExtensions: string[]
+    fileExtensions: string[]
 
     /**
      * 视频标签配置列表
      */
-    videoTagConfigs: {
+    fileTagConfigs: {
       names: string[]
       icon: string
     }[]
@@ -131,7 +131,7 @@ namespace FolderConfigType {
     /**
      * 用于从文件名中提取标签的正则表达式
      */
-    tagExtractionRegex: RegExp
+    fileTagExtractionRegex: RegExp
 
   }
 }

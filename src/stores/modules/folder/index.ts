@@ -41,12 +41,12 @@ const useFolderStore = defineStore(
     /**
      *  文件夹 文件列表
      */
-    const folderFileList = ref<FolderConfigType.VideoFile[]>([])
+    const folderFileList = ref<FolderConfigType.File[]>([])
 
     /**
      *  文件夹内文件名重复的文件列表。
      */
-    const folderDuplicateNameFileList = ref<FolderConfigType.VideoFile[]>([])
+    const folderDuplicateNameFileList = ref<FolderConfigType.File[]>([])
 
     /**
      *  文件夹内文件名已去重的文件列表 (每个文件名仅出现一次)。
@@ -83,7 +83,7 @@ const useFolderStore = defineStore(
      *  @param videoFileSet - 视频文件集合
      *  @description 保存 Emby 文件夹数据，并将其存储到 GM_setValue 和 Pinia store 中
      */
-    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<FolderConfigType.VideoFile>) {
+    function saveEmbyFolderData(folderName_: string, videoFileSet: Set<FolderConfigType.File>) {
       folderName.value = folderName_
 
       folderFileList.value = Array.from(videoFileSet)

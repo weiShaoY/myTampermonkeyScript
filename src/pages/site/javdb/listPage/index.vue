@@ -9,7 +9,7 @@ const folderStore = useFolderStore()
 /**
  *  已入库的视频
  */
-const addedToInventoryBtnList = ref<FolderConfigType.VideoFile[]>([])
+const addedToInventoryBtnList = ref<FolderConfigType.File[]>([])
 
 /**
  *  在Emby打开按钮
@@ -61,7 +61,7 @@ function main() {
        */
       const isItemHaveChineseTorrent = !!item.querySelector('.is-warning')
 
-      matchedVideoList.forEach((video: FolderConfigType.VideoFile) => {
+      matchedVideoList.forEach((video: FolderConfigType.File) => {
         // 添加已入库视频按钮的类名并更新列表
         addClassAndUpdateList(boxElement, `added_to_emby_btn_${video.nameWithTags}`, addedToInventoryBtnList, video)
 

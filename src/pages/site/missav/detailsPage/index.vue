@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { useFolderStore } from '@/stores'
 
-import { getTagIconArray } from '@/utils'
+import { getFileTagIconArray } from '@/utils'
 
 const folderStore = useFolderStore()
 
@@ -30,7 +30,7 @@ const isShowEmbyButton = ref(false)
 /**
  *  emby已入库列表
  */
-const embyCatalogedList = ref<FolderConfigType.VideoFile[]>([])
+const embyCatalogedList = ref<FolderConfigType.File[]>([])
 
 /**
  *  是否显示在线播放组件
@@ -108,7 +108,7 @@ function getTorrentList() {
 
     const time = cells[2]?.textContent?.trim() || ''
 
-    const tagArray = getTagIconArray(name)
+    const tagArray = getFileTagIconArray(name)
 
     //  检查是否存在中文字幕
     const spanElements = cells[0].querySelectorAll('span')

@@ -2,17 +2,17 @@ import { folderConfig } from '@/config'
 
 /**
  * 获取视频标签图标数组
- * @param {string} fullName - 视频完整名称（包含扩展名）
- * @returns {string[]} 标签图标数组，如果未找到匹配的标签，则返回空数组
+ * @param  fullName - 视频完整名称（包含扩展名）
+ * @returns  标签图标数组，如果未找到匹配的标签，则返回空数组
  */
-export function getTagIconArray(fullName: string): string[] {
+export function getFileTagIconArray(fullName: string): string[] {
   // 使用正则表达式 config.video.tagExtractionRegex 在 fullName 中查找所有匹配项
 
-  const foundTags = [...fullName.matchAll(folderConfig.tagExtractionRegex)]
+  const foundTags = [...fullName.matchAll(folderConfig.fileTagExtractionRegex)]
 
   if (foundTags.length > 0) {
     // 从 tagConfigs 中找到匹配的标签对象，并提取 icon 值
-    const matchingIcons = folderConfig.videoTagConfigs
+    const matchingIcons = folderConfig.fileTagConfigs
       .filter(tag =>
 
         // 检查 tag.names 数组中的任何一个项是否存在于 foundTags 中

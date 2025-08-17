@@ -1,7 +1,7 @@
 /**
  *  标签配置
  */
-const tagConfigs = [
+const fileTagConfigs = [
   {
     names: ['4K'],
     icon: 'tag-4k',
@@ -27,13 +27,13 @@ const tagConfigs = [
 /**
  *  文件夹配置
  */
-export const folderConfig: FolderConfigType.VideoProcessing = {
-  scannableVideoExtensions: ['mp4', 'mkv', 'avi', 'flv', 'wmv', 'mov', 'rmvb'],
+export const folderConfig: FolderConfigType.FileProcessing = {
+  fileExtensions: ['mp4', 'mkv', 'avi', 'flv', 'wmv', 'mov', 'rmvb'],
 
-  videoTagConfigs: tagConfigs,
+  fileTagConfigs,
 
-  tagExtractionRegex: new RegExp(
-    tagConfigs
+  fileTagExtractionRegex: new RegExp(
+    fileTagConfigs
       .flatMap(tag => tag.names)
       .map(name => name.includes('-')
         ? name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')

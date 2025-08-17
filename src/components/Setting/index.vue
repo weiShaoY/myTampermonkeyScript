@@ -5,7 +5,7 @@ import { folderConfig } from '@/config'
 
 import { useFolderStore } from '@/stores'
 
-import { getTagIconArray, parseNfoContent } from '@/utils'
+import { getFileTagIconArray, parseNfoContent } from '@/utils'
 
 // import FolderQueryDuplicateModal from './folder_query_duplicate_modal/index.vue'
 
@@ -76,7 +76,7 @@ type FileData = {
 /**
  * 视频文件集
  */
-const videoFileSet: Set<FolderConfigType.VideoFile> = new Set([])
+const videoFileSet: Set<FolderConfigType.File> = new Set([])
 
 /**
  * 递归获取目录下的所有文件
@@ -93,7 +93,7 @@ async function* getFiles(
 
     try {
       //   判断当前条目是否为文件，并且文件扩展名是否在 config.video.supportedExtensions 中
-      if (handle.kind === 'file' && folderConfig.scannableVideoExtensions.some(ext => name.endsWith(`.${ext}`))) {
+      if (handle.kind === 'file' && folderConfig.fileExtensions.some(ext => name.endsWith(`.${ext}`))) {
         let nfoContent = ''
 
         // 尝试查找同级目录下的同名 .nfo 文件
@@ -173,7 +173,7 @@ async function mainBtnHandler() {
       const nfoContent = parseNfoContent(fileData.nfoContent)
 
       // 创建一个包含视频信息的对象
-      const item: FolderConfigType.VideoFile = {
+      const item: FolderConfigType.File = {
 
         size: `${(file.size / (1024 ** 3)).toFixed(2)} GB`,
 
@@ -184,13 +184,13 @@ async function mainBtnHandler() {
         cleanName:
           file.name.substring(0, file.name.lastIndexOf('.'))
             .toLowerCase()
-            .replace(folderConfig.tagExtractionRegex, ''),
+            .replace(folderConfig.fileTagExtractionRegex, ''),
 
         extension: file.name.replace(/^.*\./, ''),
 
         directoryPath: [...fileData.directoryPath, file.name],
 
-        tags: getTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
+        tags: getFileTagIconArray(file.name.substring(0, file.name.lastIndexOf('.'))),
 
         resolution: nfoContent.resolution || '',
 
