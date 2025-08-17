@@ -1,66 +1,12 @@
 import { defineStore } from 'pinia'
 
-import { ref } from 'vue'
+import { embyConfig } from '@/config'
 
 import { openLink } from '@/utils'
 
 const useEmbyStore = defineStore(
   'emby',
   () => {
-    const emby = ref({
-      /**
-       * Emby 服务器的 URL。
-       */
-      url: 'http://192.168.0.5',
-
-      /**
-       * Emby 服务器的端口号。
-       */
-      port: '8096',
-
-      /**
-       * Emby 服务器用户 ID。
-       */
-      userId: '2409e0a7f21047ba9c74b41be14c6729',
-
-      /**
-       * 发起请求的设备名称。
-       */
-      deviceName: 'Chrome macOS',
-
-      /**
-       * 发起请求设备的 ID。
-       */
-      deviceId: 'a6f53c21-ff50-4ccd-a6ba-94f5f4830e87',
-
-      /**
-       * Emby 客户端的版本号。
-       */
-      clientVersion: '4.8.11.0',
-
-      /**
-       * 用户的认证令牌。
-       */
-      token: '8713e19e82f64fd3a50207b0321f3538',
-
-      /**
-       * Emby 服务器使用的语言代码。
-       */
-      language: 'zh-cn',
-
-      /**
-       * 发送到 Emby 服务器的查询字符串参数。
-       */
-      queryParams: {
-        SearchTerm: '',
-        Recursive: true,
-        Fields: 'PrimaryImageAspectRatio,PremiereDate,ProductionYear',
-        EnableUserData: false,
-        GroupProgramsBySeries: true,
-        Limit: 30,
-      },
-    })
-
     /**
      * 构建 Emby 请求 URL
      * @param  videoName - 视频名称
@@ -77,11 +23,11 @@ const useEmbyStore = defineStore(
 
         // 添加 Emby 特定的查询参数
         'X-Emby-Client': 'Emby Web',
-        'X-Emby-Device-Name': emby.value.deviceName,
-        'X-Emby-Device-Id': emby.value.deviceId,
-        'X-Emby-Client-Version': emby.value.clientVersion,
-        'X-Emby-Token': emby.value.token,
-        'X-Emby-Language': emby.value.language,
+        'X-Emby-Device-Name': embyConfig.request.deviceName,
+        'X-Emby-Device-Id': embyConfig.request.deviceId,
+        'X-Emby-Client-Version': embyConfig.request.clientVersion,
+        'X-Emby-Token': embyConfig.request.token,
+        'X-Emby-Language': embyConfig.request.language,
       }
 
       const queryString = Object.entries(queryParams)
@@ -91,7 +37,7 @@ const useEmbyStore = defineStore(
         )
         .join('&')
 
-      return `${emby.value.url}:${emby.value.port}/emby/Users/${emby.value.userId}/Items?${queryString}`
+      return `${embyConfig.request.url}:${embyConfig.request.port}/emby/Users/${embyConfig.request.userId}/Items?${queryString}`
     }
 
     /**
@@ -135,7 +81,7 @@ const useEmbyStore = defineStore(
 
                 const serverId = result.Items[0].ServerId
 
-                const url = `${emby.value.url}:${emby.value.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`
+                const url = `${embyConfig.request.url}:${embyConfig.request.port}/web/index.html#!/item?id=${id}&serverId=${serverId}`
 
                 openLink(url)
               }
@@ -146,7 +92,7 @@ const useEmbyStore = defineStore(
                   type: 'warning',
                 })
                   .then(() => {
-                    openLink(`${emby.value.url}:${emby.value.port}/web/index.html#!/home`)
+                    openLink(`${embyConfig.request.url}:${embyConfig.request.port}/web/index.html#!/home`)
                   })
                   .catch(() => {
                     window.$notification.error('Emby中没有找到该视频!')
@@ -172,7 +118,6 @@ const useEmbyStore = defineStore(
     }
 
     return {
-      emby,
       embySearch,
     }
   },
