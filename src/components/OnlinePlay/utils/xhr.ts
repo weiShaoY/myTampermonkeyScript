@@ -128,13 +128,6 @@ export async function handleFetch(
     }
 
     if (isErrorCode(response.status)) {
-      window.$notification.error(
-        {
-          title: `${siteItem.name} 暂无资源`,
-          duration: 0,
-        },
-      )
-
       console.log(`%c Line:111 🍅  ${siteItem.name}  ${siteItem.fetchType}`, 'color:#e41a6a', response)
 
       return {
