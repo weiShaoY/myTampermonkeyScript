@@ -91,6 +91,7 @@ onMounted(() => {
       :to="`.emby_btn_${videoName}`"
     >
       <EmbyPlayButton
+        :emby-search-name="videoName"
         :video-name="videoName"
       />
     </Teleport>

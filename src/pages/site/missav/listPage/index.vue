@@ -100,6 +100,7 @@ onMounted(() => {
     >
       <EmbyPlayButton
         :video-name="videoName"
+        :emby-search-name="videoName"
       />
     </Teleport>
   </template>

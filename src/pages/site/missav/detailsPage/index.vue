@@ -216,6 +216,7 @@ onMounted(() => {
     <EmbyPlayButton
       v-if="isShowEmbyButton"
       :video-name="pageVideoName"
+      :emby-search-name="pageVideoName"
     />
 
     <!-- 提示更新中文磁链按钮 -->
